@@ -1,1 +1,35 @@
+{
+  "exam": "upsc-csat",
+  "questions": [
+    {
+      "id": "csat-q1",
+      "section": "quant",
+      "question": "If a train travels 60 km in 1 hour, how far will it travel in 30 minutes?",
+      "options": ["15 km", "20 km", "25 km", "30 km"],
+      "answer": 3,
+      "solution": "30 minutes = 0.5 hours → Distance = 60 × 0.5 = 30 km"
+    },
+    {
+      "id": "csat-q2",
+      "section": "reasoning",
+      "question": "Statement: All roses are flowers. Some flowers are red. Conclusion: Some roses are red.",
+      "options": ["True", "False", "Cannot be determined", "Both true and false"],
+      "answer": 2,
+      "solution": "There is no direct link between roses and red flowers."
+    },
+    {
+      "id": "csat-q3",
+      "section": "english",
+      "question": "Choose the correct meaning of the idiom: 'Hit the nail on the head'",
+      "options": [
+        "To hit something hard",
+        "To say something exactly right",
+        "To make a mistake",
+        "To avoid the issue"
+      ],
+      "answer": 1,
+      "solution": "It means to be exactly correct."
+    }
+  ]
+}
 
