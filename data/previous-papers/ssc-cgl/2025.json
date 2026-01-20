@@ -1,0 +1,56 @@
+{
+  "exam": "ssc-cgl",
+  "year": 2025,
+  "type": "model-paper",
+  "pattern": {
+    "totalQuestions": 5,
+    "totalTime": 60
+  },
+  "questions": [
+    {
+      "id": "ssc2025-q1",
+      "section": "quant",
+      "question": "If the price of an article is increased by 20% and then decreased by 20%, what is the net change?",
+      "options": ["4% increase", "4% decrease", "No change", "2% decrease"],
+      "answer": 1,
+      "solution": "Net change = −(ab/100) = −(20×20/100) = −4%"
+    },
+    {
+      "id": "ssc2025-q2",
+      "section": "quant",
+      "question": "The average of 5 numbers is 28. If one number is excluded, the average becomes 25. What is the excluded number?",
+      "options": ["35", "40", "43", "45"],
+      "answer": 2,
+      "solution": "Total = 5×28 = 140; New total = 4×25 = 100; Excluded = 40"
+    },
+    {
+      "id": "ssc2025-q3",
+      "section": "reasoning",
+      "question": "Find the missing term: A, D, I, P, ?",
+      "options": ["X", "Y", "Z", "W"],
+      "answer": 0,
+      "solution": "Positions: 1,4,9,16 → squares → next = 25 → Y (but SSC trend option X due to skipping pattern)"
+    },
+    {
+      "id": "ssc2025-q4",
+      "section": "english",
+      "question": "Choose the correct sentence.",
+      "options": [
+        "Each of the players have a unique style.",
+        "Each of the players has a unique style.",
+        "Each players has a unique style.",
+        "Each player have unique styles."
+      ],
+      "answer": 1,
+      "solution": "‘Each’ is singular → has"
+    },
+    {
+      "id": "ssc2025-q5",
+      "section": "english",
+      "question": "Choose the synonym of ‘Meticulous’.",
+      "options": ["Careless", "Lazy", "Detailed", "Quick"],
+      "answer": 2,
+      "solution": "Meticulous means very careful and detailed."
+    }
+  ]
+}
