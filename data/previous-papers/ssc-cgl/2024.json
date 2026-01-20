@@ -1,0 +1,24 @@
+{
+  "exam": "SSC CGL Tier I",
+  "year": 2024,
+  "pattern": {
+    "totalQuestions": 100,
+    "totalTime": 60,
+    "sections": [
+      { "id": "quant", "name": "Quantitative Aptitude", "questions": 25, "time": 15 },
+      { "id": "reasoning", "name": "General Intelligence", "questions": 25, "time": 15 },
+      { "id": "english", "name": "English Language", "questions": 25, "time": 15 },
+      { "id": "ga", "name": "General Awareness", "questions": 25, "time": 15 }
+    ]
+  },
+  "questions": [
+    {
+      "id": "SSC24_Q1",
+      "section": "quant",
+      "question": "If the marked price is 20% above cost price and discount is 10%, find profit %.",
+      "options": ["8%", "10%", "12%", "14%"],
+      "answer": 0,
+      "solution": "Net gain = 1.2 × 0.9 = 1.08 → 8% profit"
+    }
+  ]
+}
