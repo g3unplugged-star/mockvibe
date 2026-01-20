@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MockVibe Test Engine</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>MockVibe Test | Real Exam Interface</title>
+
 <!-- Fonts & Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <!-- GA4 -->
@@ -19,163 +20,214 @@ gtag('config', 'G-KNC6D3BBXX');
 </script>
 
 <style>
-body{margin:0;font-family:Inter;background:#f8fafc}
-.header{background:#2563eb;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
-.timer{font-weight:700;font-size:1.1rem}
-.container{display:flex;max-width:1300px;margin:auto;padding:20px;gap:20px}
-.question-box{flex:3;background:#fff;border-radius:12px;padding:25px}
-.palette{flex:1;background:#fff;border-radius:12px;padding:15px;max-height:80vh;overflow:auto}
-.qno{font-weight:700;margin-bottom:10px}
-.option{border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:10px;cursor:pointer}
-.option.selected{background:#dbeafe;border-color:#2563eb}
-.controls{display:flex;justify-content:space-between;margin-top:20px}
-.btn{padding:12px 20px;border:none;border-radius:8px;font-weight:600;cursor:pointer}
-.btn-primary{background:#2563eb;color:#fff}
-.btn-outline{background:#fff;border:2px solid #2563eb;color:#2563eb}
-.palette button{width:40px;height:40px;margin:5px;border-radius:6px;border:none;cursor:pointer}
-.answered{background:#10b981;color:#fff}
-.review{background:#f59e0b;color:#fff}
+:root{
+--blue:#2563eb;
+--dark:#1e40af;
+--bg:#f1f5f9;
+--card:#ffffff;
+--text:#1e293b;
+--muted:#64748b;
+--green:#16a34a;
+--radius:10px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Inter;
+background:var(--bg);
+color:var(--text);
+}
+
+/* Header */
+.header{
+background:var(--blue);
+color:#fff;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.header h1{
+font-size:1.2rem;
+font-weight:600;
+}
+
+.timer{
+font-weight:700;
+font-size:1.1rem;
+}
+
+/* Layout */
+.container{
+max-width:1300px;
+margin:auto;
+padding:20px;
+display:flex;
+gap:20px;
+}
+
+/* Question box */
+.question-box{
+flex:3;
+background:var(--card);
+border-radius:var(--radius);
+padding:25px;
+}
+
+.qno{
+font-weight:600;
+margin-bottom:10px;
+color:var(--muted);
+}
+
+.question{
+font-size:1.1rem;
+margin-bottom:20px;
+}
+
+/* Options */
+.option{
+border:1px solid #e5e7eb;
+border-radius:8px;
+padding:12px;
+margin-bottom:12px;
+cursor:pointer;
+transition:.2s;
+}
+
+.option:hover{
+background:#eff6ff;
+}
+
+.option.selected{
+background:#dbeafe;
+border-color:var(--blue);
+font-weight:600;
+}
+
+/* Controls */
+.controls{
+display:flex;
+justify-content:space-between;
+margin-top:25px;
+}
+
+.btn{
+padding:12px 20px;
+border-radius:8px;
+border:none;
+font-weight:600;
+cursor:pointer;
+}
+
+.btn-primary{
+background:var(--blue);
+color:#fff;
+}
+
+.btn-outline{
+border:2px solid var(--blue);
+background:#fff;
+color:var(--blue);
+}
+
+/* Palette */
+.palette{
+flex:1;
+background:var(--card);
+border-radius:var(--radius);
+padding:15px;
+max-height:80vh;
+overflow:auto;
+}
+
+.palette h3{
+font-size:1rem;
+margin-bottom:10px;
+}
+
+.palette-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,40px);
+gap:8px;
+}
+
+.palette button{
+height:40px;
+border-radius:6px;
+border:1px solid #cbd5f5;
+background:#fff;
+cursor:pointer;
+font-weight:600;
+}
+
+.palette button.answered{
+background:var(--green);
+color:#fff;
+border:none;
+}
+
+/* Submit */
+.submit-btn{
+margin-top:20px;
+width:100%;
+}
+
+/* Responsive */
+@media(max-width:900px){
+.container{
+flex-direction:column;
+}
+.palette{
+max-height:none;
+}
+}
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  <div><strong id="examTitle">MockVibe Test</strong></div>
-  <div class="timer">⏱ <span id="time">60:00</span></div>
+  <h1 id="testTitle">MockVibe Test</h1>
+  <div class="timer">⏱ <span id="time">00:00</span></div>
 </div>
 
+<!-- MAIN -->
 <div class="container">
-  
-  <!-- Question Area -->
+
+  <!-- QUESTION AREA -->
   <div class="question-box">
-    <div class="qno" id="qno"></div>
-    <div id="question"></div>
+    <div class="qno" id="qno">Question</div>
+    <div class="question" id="question">Loading question...</div>
     <div id="options"></div>
 
     <div class="controls">
-      <button class="btn btn-outline" onclick="markReview()">Mark for Review</button>
-      <button class="btn btn-primary" onclick="nextQuestion()">Next</button>
+      <button class="btn btn-outline" onclick="nextQuestion()">
+        Next
+      </button>
+      <button class="btn btn-primary" onclick="submitTest()">
+        Submit Test
+      </button>
     </div>
   </div>
 
-  <!-- Palette -->
+  <!-- PALETTE -->
   <div class="palette">
-    <h4>Questions</h4>
-    <div id="palette"></div>
-    <hr>
-    <button class="btn btn-primary" style="width:100%" onclick="submitTest()">Submit Test</button>
+    <h3>Question Palette</h3>
+    <div class="palette-grid" id="palette"></div>
+    <button class="btn btn-primary submit-btn" onclick="submitTest()">
+      Finish & Submit
+    </button>
   </div>
 
 </div>
 
-<script>
-/* ================= CONFIG ================= */
-const params = new URLSearchParams(window.location.search);
-const exam = params.get('exam') || 'ssc-cgl';
-const section = params.get('section') || 'quant';
-const TOTAL_TIME = 60 * 60; // seconds
-
-let questions = [];
-let current = 0;
-let answers = {};
-let review = {};
-let timeLeft = TOTAL_TIME;
-
-/* ================= FETCH QUESTIONS ================= */
-fetch(`data/questions/${exam}.json`)
-.then(res => res.json())
-.then(data => {
-  document.getElementById('examTitle').innerText = data.exam + ' - ' + section.toUpperCase();
-  questions = data.questions.filter(q => q.section === section).slice(0,25);
-  buildPalette();
-  loadQuestion();
-  startTimer();
-  gtag('event','test_start',{exam,section});
-});
-
-/* ================= LOAD QUESTION ================= */
-function loadQuestion(){
-  const q = questions[current];
-  document.getElementById('qno').innerText = `Question ${current+1} of ${questions.length}`;
-  document.getElementById('question').innerText = q.question;
-
-  const optDiv = document.getElementById('options');
-  optDiv.innerHTML = '';
-  q.options.forEach((opt,i)=>{
-    const d = document.createElement('div');
-    d.className = 'option' + (answers[q.id]==i?' selected':'');
-    d.innerText = opt;
-    d.onclick=()=>selectOption(q.id,i);
-    optDiv.appendChild(d);
-  });
-}
-
-/* ================= SELECT OPTION ================= */
-function selectOption(id,i){
-  answers[id]=i;
-  updatePalette();
-  loadQuestion();
-  gtag('event','question_attempt',{exam,section,question_id:id});
-}
-
-/* ================= NAVIGATION ================= */
-function nextQuestion(){
-  if(current < questions.length-1){current++;loadQuestion();}
-}
-
-function markReview(){
-  review[questions[current].id]=true;
-  updatePalette();
-}
-
-/* ================= PALETTE ================= */
-function buildPalette(){
-  const p=document.getElementById('palette');
-  p.innerHTML='';
-  questions.forEach((q,i)=>{
-    const b=document.createElement('button');
-    b.innerText=i+1;
-    b.onclick=()=>{current=i;loadQuestion();}
-    p.appendChild(b);
-  });
-}
-
-function updatePalette(){
-  document.querySelectorAll('#palette button').forEach((b,i)=>{
-    const q=questions[i];
-    b.className='';
-    if(answers[q.id]!=null) b.classList.add('answered');
-    if(review[q.id]) b.classList.add('review');
-  });
-}
-
-/* ================= TIMER ================= */
-function startTimer(){
-  setInterval(()=>{
-    timeLeft--;
-    const m=Math.floor(timeLeft/60);
-    const s=timeLeft%60;
-    document.getElementById('time').innerText=`${m}:${s.toString().padStart(2,'0')}`;
-    if(timeLeft<=0) submitTest();
-  },1000);
-}
-
-/* ================= SUBMIT ================= */
-function submitTest(){
-  let score=0;
-  questions.forEach(q=>{
-    if(answers[q.id]===q.answer) score++;
-  });
-
-  localStorage.setItem('mockvibe_result',JSON.stringify({
-    exam,section,score,total:questions.length,answers
-  }));
-
-  gtag('event','mock_completed',{exam,section,score});
-  window.location.href='result.html';
-}
-</script>
+<!-- LOGIC FILES -->
+<script src="logic/analytics.js"></script>
+<script src="logic/test-engine.js"></script>
 
 </body>
 </html>
