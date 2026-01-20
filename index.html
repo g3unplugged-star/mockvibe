@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockVibe | Free Mock Tests for Competitive Exams</title>
+    <style>
+        /* MockVibe Brand Colors */
+        :root {
+            --primary: #8E2DE2;
+            --secondary: #4A00E0;
+            --accent: #00DBDE;
+            --pink: #FC00FF;
+            --gradient: linear-gradient(45deg, #00DBDE, #FC00FF);
+            --bg-gradient: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 3rem;
+            animation: vibe 2s infinite alternate;
+        }
+        
+        @keyframes vibe {
+            0% { transform: scale(1) rotate(-5deg); }
+            100% { transform: scale(1.1) rotate(5deg); }
+        }
+        
+        .logo-text {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Tests Grid */
+        .tests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .test-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .test-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        .test-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .test-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        
+        .test-card p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .exam-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .tag {
+            background: rgba(0, 219, 222, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .start-btn {
+            display: block;
+            width: 100%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Features */
+        .features {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin: 50px 0;
+        }
+        
+        .features h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .cta h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .social-icon {
+            background: rgba(255, 255, 255, 0.1);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: var(--gradient);
+            transform: translateY(-5px) rotate(10deg);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-text { font-size: 2rem; }
+            .tagline { font-size: 1.1rem; padding: 0 10px; }
+            .tests-grid, .features-grid { grid-template-columns: 1fr; }
+            .features { padding: 25px 20px; }
+            .container { padding: 15px; }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text { font-size: 1.8rem; }
+            .logo { flex-direction: column; gap: 5px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">📱✨</div>
+                <div class="logo-text">MockVibe</div>
+            </div>
+            <p class="tagline">Feel the Vibe! Free mock tests for SSC, Banking, UPSC, Railway & all competitive exams</p>
+            
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div>Mock Tests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10K+</div>
+                    <div>Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div>Free</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">⚡</div>
+                    <div>Fast</div>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <!-- Tests Grid -->
+            <div class="tests-grid">
+                <!-- Math Test -->
+                <div class="test-card">
+                    <h3><i class="fas fa-calculator"></i> Quantitative Aptitude</h3>
+                    <p>Master Percentage, Profit Loss, Time Speed Distance, Algebra & more</p>
+                    <div class="exam-tags">
+                        <span class="tag">SSC CGL</span>
+                        <span class="tag">Banking PO</span>
+                        <span class="tag">UPSC CSAT</span>
+                        <span class="tag">Railway</span>
+                    </div>
+                    <p><strong>25 Questions | 35 Minutes</strong></p>
+                    <button class="start-btn" onclick="startTest('math')">
+                        <i class="fas fa-play"></i> Start Math Test
+                    </button>
+                </div>
+                
+                <!-- Reasoning Test -->
+                <div class="test-card">
+                    <h3><i class="fas fa-brain"></i> Logical Reasoning</h3>
+                    <p>Puzzles, Coding-Decoding, Blood Relations, Series, Directions</p>
+                    <div class="exam-tags">
+                        <span class="tag">SSC</span>
+                        <span class="tag">CAT</span>
+                        <span class="tag">Banking</span>
+                        <span class="tag">Defence</span>
+                    </div>
+                    <p><strong>20 Questions | 30 Minutes</strong></p>
+                    <button class="start-btn" onclick="startTest('reasoning')">
+                        <i class="fas fa-play"></i> Start Reasoning Test
+                    </button>
+                </div>
+                
+                <!-- English Test -->
+                <div class="test-card">
+                    <h3><i class="fas fa-language"></i> English Language</h3>
+                    <p>Grammar, Vocabulary, Comprehension, Error Spotting, Fill in blanks</p>
+                    <div class="exam-tags">
+                        <span class="tag">All Exams</span>
+                        <span class="tag">SSC CHSL</span>
+                        <span class="tag">IBPS</span>
+                        <span class="tag">CDS</span>
+                    </div>
+                    <p><strong>30 Questions | 40 Minutes</strong></p>
+                    <button class="start-btn" onclick="startTest('english')">
+                        <i class="fas fa-play"></i> Start English Test
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <section class="features">
+                <h2>Why MockVibe? 🤘</h2>
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Lightning Fast</h3>
+                        <p>Loads instantly, even on 2G networks. No waiting!</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile First</h3>
+                        <p>Designed for phones. Study anytime, anywhere!</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Smart Practice</h3>
+                        <p>Focus on weak areas. Get personalized suggestions!</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💰</div>
+                        <h3>Forever Free</h3>
+                        <p>No ads, no registration, no hidden charges!</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- CTA -->
+            <div class="cta">
+                <h2>🎮 Daily Vibe Challenge</h2>
+                <p>Test your skills with today's special challenge! New questions every day.</p>
+                <button class="start-btn" onclick="startDailyChallenge()" style="width: auto; padding: 15px 40px; margin: 20px auto;">
+                    <i class="fas fa-gamepad"></i> Take Today's Challenge
+                </button>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">Updated daily at 8:00 AM</p>
+            </div>
+            
+            <!-- Exam Categories -->
+            <div class="test-card" style="text-align: center;">
+                <h2><i class="fas fa-graduation-cap"></i> All Exam Categories</h2>
+                <div class="exam-tags" style="justify-content: center; margin: 20px 0;">
+                    <span class="tag" style="background: rgba(142, 45, 226, 0.3);">SSC CGL</span>
+                    <span class="tag" style="background: rgba(74, 0, 224, 0.3);">Banking PO</span>
+                    <span class="tag" style="background: rgba(0, 219, 222, 0.3);">UPSC CSAT</span>
+                    <span class="tag" style="background: rgba(252, 0, 255, 0.3);">Railway</span>
+                    <span class="tag" style="background: rgba(142, 45, 226, 0.3);">Defence</span>
+                    <span class="tag" style="background: rgba(74, 0, 224, 0.3);">CAT/MBA</span>
+                    <span class="tag" style="background: rgba(0, 219, 222, 0.3);">State PSC</span>
+                </div>
+                <p style="opacity: 0.8;">More exams coming soon!</p>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="social-links">
+                <a href="https://t.me/" target="_blank" class="social-icon" title="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://wa.me/" target="_blank" class="social-icon" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://youtube.com/" target="_blank" class="social-icon" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://instagram.com/" target="_blank" class="social-icon" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            
+            <p>© 2024 MockVibe | Built with ❤️ for Indian Students</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Feel the vibe, ace the test! 🚀</p>
+            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.6;">
+                <i class="fas fa-globe"></i> Currently hosted on: <span id="current-url"></span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // MockVibe Functions
+        function startTest(subject) {
+            // Add vibration effect if supported
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 30, 50]);
+            }
+            
+            // Save test info
+            localStorage.setItem('mockvibe_test', subject);
+            localStorage.setItem('mockvibe_test_name', getTestName(subject));
+            
+            // Button animation
+            const btn = event.target.closest('button');
+            btn.style.transform = 'scale(0.95)';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            
+            // Redirect after animation
+            setTimeout(() => {
+                window.location.href = 'test.html';
+            }, 300);
+        }
+        
+        function startDailyChallenge() {
+            const subjects = ['math', 'reasoning', 'english'];
+            const today = new Date().getDate();
+            const challenge = subjects[today % subjects.length];
+            startTest(challenge);
+        }
+        
+        function getTestName(subject) {
+            const names = {
+                'math': 'Quantitative Aptitude',
+                'reasoning': 'Logical Reasoning',
+                'english': 'English Language'
+            };
+            return names[subject] || 'Mock Test';
+        }
+        
+        // Update stats randomly (for demo effect)
+        function updateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                if (!stat.textContent.includes('%') && !stat.textContent.includes('⚡')) {
+                    const current = parseInt(stat.textContent) || 0;
+                    const increase = Math.floor(Math.random() * 5) + 1;
+                    const newValue = current + increase;
+                    
+                    // Animate number change
+                    let count = current;
+                    const interval = setInterval(() => {
+                        count++;
+                        stat.textContent = count + (stat.textContent.includes('+') ? '+' : '');
+                        if (count >= newValue) {
+                            clearInterval(interval);
+                        }
+                    }, 50);
+                }
+            });
+        }
+        
+        // Show current URL
+        document.getElementById('current-url').textContent = window.location.hostname;
+        
+        // Initialize
+        window.onload = function() {
+            console.log('🎵 MockVibe loaded! Ready to vibe! 🎵');
+            
+            // Update stats every 30 seconds
+            setInterval(updateStats, 30000);
+            
+            // First update after 3 seconds
+            setTimeout(updateStats, 3000);
+        };
+    </script>
+</body>
+</html>
