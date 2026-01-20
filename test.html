@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Test - MockVibe</title>
+    <style>
+        :root {
+            --primary: #8E2DE2;
+            --secondary: #4A00E0;
+            --accent: #00DBDE;
+            --pink: #FC00FF;
+            --gradient: linear-gradient(45deg, #00DBDE, #FC00FF);
+            --bg-gradient: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .test-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .test-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .test-info h2 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .timer-container {
+            background: rgba(255, 0, 0, 0.15);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 140px;
+        }
+        
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: monospace;
+        }
+        
+        /* Question */
+        .question-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        /* Options */
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 18px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background: rgba(0, 219, 222, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .option-label {
+            background: rgba(255, 255, 255, 0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-label {
+            background: var(--accent);
+            color: #000;
+        }
+        
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        #prevBtn {
+            background: rgba(108, 117, 125, 0.8);
+            color: white;
+        }
+        
+        #nextBtn {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        #submitBtn {
+            background: rgba(220, 53, 69, 0.8);
+            color: white;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Navigation */
+        .nav-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: var(--gradient);
+            transform: translateY(-3px);
+        }
+        
+        /* Question Palette */
+        .question-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 10px;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+        
+        .palette-item {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .palette-item:hover {
+            transform: scale(1.1);
+        }
+        
+        .palette-item.answered {
+            background: var(--accent);
+            color: #000;
+        }
+        
+        .palette-item.current {
+            border: 3px solid var(--pink);
+        }
+        
+        @media (max-width: 768px) {
+            .test-header { flex-direction: column; text-align: center; }
+            .controls { flex-direction: column; }
+            .control-btn { width: 100%; min-width: auto; }
+            .question-text { font-size: 1.1rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .test-container { padding: 15px; }
+            .question-container { padding: 20px; }
+            .option { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <!-- Test Header -->
+        <div class="test-header">
+            <div class="test-info">
+                <h2 id="testTitle">Mock Test</h2>
+                <p id="questionCounter">Question 1 of 10</p>
+            </div>
+            <div class="timer-container">
+                <div style="font-size: 0.9rem; opacity: 0.9;">Time Remaining</div>
+                <div id="timer">30:00</div>
+            </div>
+        </div>
+        
+        <!-- Question -->
+        <div class="question-container">
+            <div class="question-number" id="qNumber">Q.1</div>
+            <div class="question-text" id="questionText">
+                Loading question...
+            </div>
+            
+            <div class="options-grid" id="optionsContainer">
+                <!-- Options will be added by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Question Palette -->
+        <div class="question-palette" id="questionPalette">
+            <!-- Palette items will be added by JavaScript -->
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn" id="prevBtn" onclick="prevQuestion()">
+                ← Previous
+            </button>
+            <button class="control-btn" id="nextBtn" onclick="nextQuestion()">
+                Next →
+            </button>
+            <button class="control-btn" id="submitBtn" onclick="submitTest()">
+                Submit Test
+            </button>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-btn">← Back to Home</a>
+            <a href="#" onclick="clearResponse()" class="nav-btn">Clear Response</a>
+            <a href="#" onclick="markForReview()" class="nav-btn">Mark for Review</a>
+        </div>
+    </div>
+
+    <script>
+        // MockVibe Test Engine
+        class MockVibeTest {
+            constructor() {
+                this.questions = this.getQuestions();
+                this.currentQuestion = 0;
+                this.userAnswers = {};
+                this.markedForReview = new Set();
+                this.timeLeft = 30 * 60; // 30 minutes
+                this.timerInterval = null;
+                this.startTime = new Date();
+            }
+            
+            getQuestions() {
+                // Sample questions - you can expand this
+                return [
+                    {
+                        id: 1,
+                        question: "What is 25% of 200?",
+                        options: ["40", "50", "60", "70"],
+                        correct: 1,
+                        explanation: "25% of 200 = (25/100) × 200 = 50",
+                        subject: "math",
+                        difficulty: "easy"
+                    },
+                    {
+                        id: 2,
+                        question: "If a train travels 300 km in 5 hours, what is its speed?",
+                        options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
+                        correct: 1,
+                        explanation: "Speed = Distance/Time = 300/5 = 60 km/h",
+                        subject: "math",
+                        difficulty: "easy"
+                    },
+                    {
+                        id: 3,
+                        question: "A shopkeeper buys an item for ₹400 and sells it for ₹500. What is his profit percentage?",
+                        options: ["20%", "25%", "30%", "35%"],
+                        correct: 1,
+                        explanation: "Profit = 500-400=100, Profit % = (100/400)×100 = 25%",
+                        subject: "math",
+                        difficulty: "medium"
+                    },
+                    {
+                        id: 4,
+                        question: "If all cats are animals, and some animals are pets, then:",
+                        options: [
+                            "All cats are pets",
+                            "Some cats are pets", 
+                            "No cats are pets",
+                            "Cannot be determined"
+                        ],
+                        correct: 3,
+                        explanation: "We cannot determine if cats are pets from given statements",
+                        subject: "reasoning",
+                        difficulty: "medium"
+                    },
+                    {
+                        id: 5,
+                        question: "Choose the correct spelling:",
+                        options: ["Accommodation", "Acommodation", "Accomodation", "Acomodation"],
+                        correct: 0,
+                        explanation: "Accommodation has double 'c' and double 'm'",
+                        subject: "english",
+                        difficulty: "easy"
+                    }
+                ];
+            }
+            
+            init() {
+                this.loadQuestion();
+                this.startTimer();
+                this.updatePalette();
+                
+                // Set test title
+                const testName = localStorage.getItem('mockvibe_test_name') || 'Mock Test';
+                document.getElementById('testTitle').textContent = testName;
+            }
+            
+            startTimer() {
+                this.timerInterval = setInterval(() => {
+                    if (this.timeLeft <= 0) {
+                        this.submit();
+                        return;
+                    }
+                    
+                    const minutes = Math.floor(this.timeLeft / 60);
+                    const seconds = this.timeLeft % 60;
+                    document.getElementById('timer').textContent = 
+                        `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    
+                    this.timeLeft--;
+                }, 1000);
+            }
+            
+            loadQuestion() {
+                if (this.currentQuestion >= this.questions.length) {
+                    this.submit();
+                    return;
+                }
+                
+                const q = this.questions[this.currentQuestion];
+                
+                // Update question text
+                document.getElementById('questionText').textContent = q.question;
+                document.getElementById('qNumber').textContent = `Q.${this.currentQuestion + 1}`;
+                document.getElementById('questionCounter').textContent = 
+                    `Question ${this.currentQuestion + 1} of ${this.questions.length}`;
+                
+                // Create options
+                const container = document.getElementById('optionsContainer');
+                container.innerHTML = '';
+                
+                q.options.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    if (this.userAnswers[this.currentQuestion] === index) {
+                        optionDiv.classList.add('selected');
+                    }
+                    
+                    optionDiv.innerHTML = `
+                        <div class="option-label">${String.fromCharCode(65 + index)}</div>
+                        <div class="option-text">${option}</div>
+                    `;
+                    
+                    optionDiv.onclick = () => {
+                        // Remove selection from all options
+                        document.querySelectorAll('.option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        
+                        // Add selection to clicked option
+                        optionDiv.classList.add('selected');
+                        
+                        // Save answer
+                        this.userAnswers[this.currentQuestion] = index;
+                        this.updatePalette();
+                        
+                        // Vibration feedback
+                        if (navigator.vibrate) {
+                            navigator.vibrate(30);
+                        }
+                    };
+                    
+                    container.appendChild(optionDiv);
+                });
+                
+                // Update button states
+                document.getElementById('prevBtn').disabled = this.currentQuestion === 0;
+                document.getElementById('nextBtn').textContent = 
+                    this.currentQuestion === this.questions.length - 1 ? 'Finish →' : 'Next →';
+                
+                // Update palette current item
+                this.updatePalette();
+            }
+            
+            updatePalette() {
+                const palette = document.getElementById('questionPalette');
+                palette.innerHTML = '';
+                
+                this.questions.forEach((_, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'palette-item';
+                    if (index === this.currentQuestion) {
+                        item.classList.add('current');
+                    }
+                    if (this.userAnswers[index] !== undefined) {
+                        item.classList.add('answered');
+                    }
+                    if (this.markedForReview.has(index)) {
+                        item.style.border = '2px solid #FF9800';
+                    }
+                    
+                    item.textContent = index + 1;
+                    item.onclick = () => {
+                        this.currentQuestion = index;
+                        this.loadQuestion();
+                    };
+                    
+                    palette.appendChild(item);
+                });
+            }
+            
+            prevQuestion() {
+                if (this.currentQuestion > 0) {
+                    this.currentQuestion--;
+                    this.loadQuestion();
+                }
+            }
+            
+            nextQuestion() {
+                // Save current answer if selected
+                const selectedOption = document.querySelector('.option.selected');
+                if (selectedOption) {
+                    const optionIndex = Array.from(document.querySelectorAll('.option')).indexOf(selectedOption);
+                    this.userAnswers[this.currentQuestion] = optionIndex;
+                }
+                
+                if (this.currentQuestion < this.questions.length - 1) {
+                    this.currentQuestion++;
+                    this.loadQuestion();
+                } else {
+                    this.submit();
+                }
+            }
+            
+            submit() {
+                clearInterval(this.timerInterval);
+                
+                // Calculate score
+                let score = 0;
+                let correctAnswers = [];
+                let incorrectAnswers = [];
+                
+                this.questions.forEach((q, index) => {
+                    if (this.userAnswers[index] === q.correct) {
+                        score++;
+                        correctAnswers.push(index + 1);
+                    } else if (this.userAnswers[index] !== undefined) {
+                        incorrectAnswers.push(index + 1);
+                    }
+                });
+                
+                // Calculate time taken
+                const endTime = new Date();
+                const timeTaken = Math.floor((endTime - this.startTime) / 1000);
+                const minutes = Math.floor(timeTaken / 60);
+                const seconds = timeTaken % 60;
+                
+                // Prepare result
+                const result = {
+                    score: score,
+                    total: this.questions.length,
+                    percentage: ((score / this.questions.length) * 100).toFixed(1),
+                    correct: correctAnswers,
+                    incorrect: incorrectAnswers,
+                    unanswered: this.questions.length - Object.keys(this.userAnswers).length,
+                    timeTaken: `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`,
+                    testName: localStorage.getItem('mockvibe_test_name') || 'Mock Test',
+                    timestamp: new Date().toISOString(),
+                    questions: this.questions.map((q, i) => ({
+                        ...q,
+                        userAnswer: this.userAnswers[i],
+                        isCorrect: this.userAnswers[i] === q.correct
+                    }))
+                };
+                
+                // Save result
+                localStorage.setItem('mockvibe_last_result', JSON.stringify(result));
+                
+                // Save to history
+                this.saveToHistory(result);
+                
+                // Redirect to results page
+                window.location.href = 'results.html';
+            }
+            
+            saveToHistory(result) {
+                let history = JSON.parse(localStorage.getItem('mockvibe_history') || '[]');
+                history.push({
+                    date: new Date().toLocaleDateString('en-IN'),
+                    time: new Date().toLocaleTimeString('en-IN', { hour12: true }),
+                    ...result
+                });
+                
+                // Keep only last 20 tests
+                if (history.length > 20) {
+                    history = history.slice(-20);
+                }
+                
+                localStorage.setItem('mockvibe_history', JSON.stringify(history));
+            }
+            
+            // Additional functions
+            clearResponse() {
+                delete this.userAnswers[this.currentQuestion];
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.updatePalette();
+            }
+            
+            markForReview() {
+                if (this.markedForReview.has(this.currentQuestion)) {
+                    this.markedForReview.delete(this.currentQuestion);
+                } else {
+                    this.markedForReview.add(this.currentQuestion);
+                }
+                this.updatePalette();
+            }
+        }
+        
+        // Initialize test
+        let testEngine;
+        
+        window.onload = function() {
+            testEngine = new MockVibeTest();
+            window.testEngine = testEngine; // Make accessible globally
+            testEngine.init();
+        };
+        
+        // Global functions for buttons
+        function prevQuestion() {
+            testEngine.prevQuestion();
+        }
+        
+        function nextQuestion() {
+            testEngine.nextQuestion();
+        }
+        
+        function submitTest() {
+            if (confirm('Are you sure you want to submit the test?')) {
+                testEngine.submit();
+            }
+        }
+        
+        function clearResponse() {
+            testEngine.clearResponse();
+        }
+        
+        function markForReview() {
+            testEngine.markForReview();
+        }
+    </script>
+</body>
+</html>
