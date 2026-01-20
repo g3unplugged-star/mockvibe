@@ -4,22 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MockVibe | Free SSC, Banking, UPSC Mock Tests & Previous Year Papers</title>
+<title>MockVibe | Free SSC CGL, Banking & UPSC Mock Tests + PYQs</title>
 
-<meta name="description" content="Practice SSC CGL, Banking PO, UPSC CSAT mock tests & previous year papers for free. Real exam interface, solutions, analytics & rank prediction.">
-<meta name="keywords" content="SSC CGL mock test, previous year papers, free mock tests, banking PO practice, UPSC CSAT online test">
+<meta name="description" content="Practice SSC CGL, Banking PO & UPSC CSAT mock tests for free. Attempt previous year papers (2022–2024), expected 2025 model paper, section-wise practice, solutions & analytics.">
+<meta name="keywords" content="SSC CGL mock test free, SSC previous year papers, banking PO practice test, UPSC CSAT mock test, government exam preparation">
 <meta name="author" content="MockVibe">
 <link rel="canonical" href="https://g3unplugged-star.github.io/mockvibe/">
 
 <!-- Open Graph -->
 <meta property="og:title" content="MockVibe – Free Mock Tests for Govt Exams">
-<meta property="og:description" content="SSC, Banking, UPSC real mock tests with solutions & analytics. 100% free.">
+<meta property="og:description" content="Free SSC, Banking & UPSC mock tests with PYQs, solutions & analytics.">
 <meta property="og:url" content="https://g3unplugged-star.github.io/mockvibe/">
 <meta property="og:type" content="website">
 
-<!-- Fonts & Icons -->
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNC6D3BBXX"></script>
@@ -30,10 +29,34 @@ gtag('js', new Date());
 gtag('config', 'G-KNC6D3BBXX');
 </script>
 
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"Is MockVibe completely free?",
+      "acceptedAnswer":{"@type":"Answer","text":"Yes. MockVibe provides 100% free mock tests and previous year papers without registration."}
+    },
+    {
+      "@type":"Question",
+      "name":"Which exams are covered on MockVibe?",
+      "acceptedAnswer":{"@type":"Answer","text":"SSC CGL, Banking PO (IBPS/SBI), UPSC CSAT and upcoming government exams."}
+    },
+    {
+      "@type":"Question",
+      "name":"Does MockVibe provide previous year papers?",
+      "acceptedAnswer":{"@type":"Answer","text":"Yes. MockVibe includes SSC CGL previous year papers (2022–2024) and a 2025 expected model paper."}
+    }
+  ]
+}
+</script>
+
 <style>
 :root{
 --blue:#2563eb;
---dark:#1e40af;
 --bg:#f8fafc;
 --card:#ffffff;
 --text:#1e293b;
@@ -43,20 +66,21 @@ gtag('config', 'G-KNC6D3BBXX');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Inter;background:var(--bg);color:var(--text)}
 .container{max-width:1200px;margin:auto;padding:20px}
-.header{
+
+header{
 background:linear-gradient(135deg,#2563eb,#0d9488);
 color:#fff;
-padding:50px 20px;
+padding:60px 20px;
 border-radius:0 0 30px 30px;
 text-align:center;
 }
-.header h1{font-family:Poppins;font-size:2.6rem}
-.header p{opacity:.9;margin-top:10px}
+header h1{font-family:Poppins;font-size:2.6rem}
+header p{opacity:.9;margin-top:10px}
 
 .section-title{
 font-family:Poppins;
 font-size:1.9rem;
-margin:50px 0 20px;
+margin:60px 0 20px;
 }
 
 .cards{
@@ -71,13 +95,11 @@ border-radius:var(--radius);
 padding:25px;
 box-shadow:0 10px 25px rgba(0,0,0,.05);
 }
-.card span {
-  display: inline-block;
-  margin-bottom: 10px;
-}
 
 .card h3{margin-bottom:10px}
 .card p{color:var(--muted);font-size:.95rem}
+
+.card span{display:inline-block;margin-bottom:10px}
 
 .btn{
 display:inline-block;
@@ -87,12 +109,11 @@ border-radius:8px;
 font-weight:600;
 text-decoration:none;
 text-align:center;
-cursor:pointer;
 }
 .btn-primary{background:var(--blue);color:#fff}
 .btn-outline{border:2px solid var(--blue);color:var(--blue)}
 
-.footer{
+footer{
 margin-top:80px;
 padding:40px;
 background:#1e293b;
@@ -100,132 +121,98 @@ color:#fff;
 text-align:center;
 border-radius:30px 30px 0 0;
 }
-.footer p{opacity:.8;font-size:.9rem}
+footer p{opacity:.8;font-size:.9rem}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-<h1>MockVibe – Feel the Vibe, Crack the Exam 🚀</h1>
-<p>Free real-exam mock tests & previous year papers for SSC, Banking & UPSC</p>
-</div>
+<header>
+<h1>MockVibe – Free Mock Tests for Govt Exams 🚀</h1>
+<p>SSC CGL • Banking PO • UPSC CSAT — Practice PYQs, model papers & sectional tests</p>
+</header>
 
-<div class="container">
+<main class="container">
 
-<!-- EXAM BANKS -->
+<section>
 <h2 class="section-title">📚 Exam Banks</h2>
 <div class="cards">
   <div class="card">
     <h3>SSC CGL Tier I</h3>
-    <p>Practice full-length tests, section-wise mocks & previous year papers.</p>
-    <a class="btn btn-primary"
-       href="test.html?mode=pyq&exam=ssc-cgl&year=2024">
-       SSC CGL 2024 PYQ
-    </a>
+    <p>PYQs, model papers & section-wise mock tests.</p>
+    <a class="btn btn-primary" href="test.html?mode=pyq&exam=ssc-cgl&year=2024">Start SSC CGL</a>
   </div>
 
   <div class="card">
     <h3>Banking PO</h3>
-    <p>IBPS & SBI PO style tests – Quant, Reasoning & English.</p>
-    <a class="btn btn-primary"
-       href="test.html?exam=banking-po&section=quant">
-       Start Banking Mock
-    </a>
+    <p>Quant, Reasoning & English practice.</p>
+    <a class="btn btn-primary" href="test.html?exam=banking-po&section=quant">Start Banking</a>
   </div>
-<h2 class="section-title">📄 SSC CGL Previous Year Papers</h2>
-
-<div class="cards" id="pyqList">
-  <!-- Loaded dynamically -->
-</div>
 
   <div class="card">
     <h3>UPSC CSAT</h3>
-    <p>CSAT Paper II – comprehension & logical reasoning practice.</p>
-    <a class="btn btn-primary"
-       href="test.html?exam=upsc-csat&section=quant">
-       Start CSAT Practice
-    </a>
+    <p>Paper-II aptitude & reasoning practice.</p>
+    <a class="btn btn-primary" href="test.html?exam=upsc-csat&section=quant">Start CSAT</a>
   </div>
 </div>
+</section>
 
-<!-- PRACTICE -->
-<h2 class="section-title">⚡ Quick Practice (SSC CGL)</h2>
+<section>
+<h2 class="section-title">📄 SSC CGL Previous Year Papers</h2>
+<div class="cards" id="pyqList"></div>
+</section>
+
+<section>
+<h2 class="section-title">⚡ Practice by Subject (SSC CGL)</h2>
 <div class="cards">
-
   <div class="card">
     <h3>Quantitative Aptitude</h3>
-    <p>Percentage, Profit & Loss, Time & Work, Algebra.</p>
-    <a class="btn btn-outline"
-       href="test.html?exam=ssc-cgl&section=quant">
-       Practice Quant
-    </a>
+    <p>Percentage, Profit & Loss, Algebra, TSD.</p>
+    <a class="btn btn-outline" href="test.html?exam=ssc-cgl&section=quant">Practice Quant</a>
   </div>
-
   <div class="card">
     <h3>Logical Reasoning</h3>
-    <p>Puzzles, Coding-Decoding, Series, Blood Relations.</p>
-    <a class="btn btn-outline"
-       href="test.html?exam=ssc-cgl&section=reasoning">
-       Practice Reasoning
-    </a>
+    <p>Puzzles, Series, Coding-Decoding.</p>
+    <a class="btn btn-outline" href="test.html?exam=ssc-cgl&section=reasoning">Practice Reasoning</a>
   </div>
-
   <div class="card">
     <h3>English Language</h3>
-    <p>Error spotting, RCs, vocabulary & grammar.</p>
-    <a class="btn btn-outline"
-       href="test.html?exam=ssc-cgl&section=english">
-       Practice English
-    </a>
+    <p>Grammar, Vocabulary, RCs.</p>
+    <a class="btn btn-outline" href="test.html?exam=ssc-cgl&section=english">Practice English</a>
   </div>
-
 </div>
+</section>
 
-<!-- DAILY CHALLENGE -->
+<section>
 <h2 class="section-title">🔥 Daily Challenge</h2>
 <div class="card" style="text-align:center">
 <p>15 mixed questions • 20 minutes • Rank-based challenge</p>
-<a class="btn btn-primary"
-   href="test.html?exam=ssc-cgl&section=quant">
-   Take Today’s Challenge
-</a>
+<a class="btn btn-primary" href="test.html?exam=ssc-cgl&section=quant">Take Today’s Challenge</a>
 </div>
+</section>
 
-</div>
+</main>
 
-<div class="footer">
-<p>© 2024 MockVibe • Built with ❤️ for Indian aspirants</p>
-<p>Free SSC CGL • Banking • UPSC Mock Tests</p>
-</div>
+<footer>
+<p>© 2024 MockVibe • Free Government Exam Preparation Platform</p>
+</footer>
+
 <script>
 fetch('data/exams.json')
-  .then(res => res.json())
-  .then(data => {
-    const pyqs = data['ssc-cgl'].pyq;
-    const box = document.getElementById('pyqList');
-
-    pyqs.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'card';
-
-      const badge =
-        item.type === 'model'
-          ? `<span style="color:#f97316;font-weight:600">⭐ ${item.label}</span>`
-          : `<span style="color:#16a34a">${item.label}</span>`;
-
-      div.innerHTML = `
-        <h3>SSC CGL ${item.year}</h3>
-        <p>${badge}</p>
-        <a class="btn btn-primary"
-           href="test.html?mode=pyq&exam=ssc-cgl&year=${item.year}">
-           Start Test
-        </a>
-      `;
-
-      box.appendChild(div);
-    });
+.then(r=>r.json())
+.then(data=>{
+  const box=document.getElementById('pyqList');
+  data['ssc-cgl'].pyq.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='card';
+    d.innerHTML=`
+      <h3>SSC CGL ${item.year}</h3>
+      <span>${item.type==='model'?'⭐ Expected / Model Paper':'Previous Year Paper'}</span>
+      <a class="btn btn-primary" href="test.html?mode=pyq&exam=ssc-cgl&year=${item.year}">Start Test</a>
+    `;
+    box.appendChild(d);
   });
+});
 </script>
 
 </body>
