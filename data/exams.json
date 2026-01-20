@@ -1,1 +1,12 @@
+{
+  "ssc-cgl": {
+    "name": "SSC CGL",
+    "pyq": [
+      { "year": 2022, "type": "pyq", "label": "Previous Year Paper" },
+      { "year": 2023, "type": "pyq", "label": "Previous Year Paper" },
+      { "year": 2024, "type": "pyq", "label": "Previous Year Paper" },
+      { "year": 2025, "type": "model", "label": "Expected / Model Paper" }
+    ]
+  }
+}
 
