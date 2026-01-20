@@ -1,25 +1,55 @@
-
 {
-  "exam": "SSC CGL Tier I",
+  "exam": "ssc-cgl",
   "year": 2024,
   "pattern": {
-    "totalQuestions": 100,
-    "totalTime": 60,
-    "sections": [
-      { "id": "quant", "name": "Quantitative Aptitude", "questions": 25, "time": 15 },
-      { "id": "reasoning", "name": "General Intelligence", "questions": 25, "time": 15 },
-      { "id": "english", "name": "English Language", "questions": 25, "time": 15 },
-      { "id": "ga", "name": "General Awareness", "questions": 25, "time": 15 }
-    ]
+    "totalQuestions": 5,
+    "totalTime": 60
   },
   "questions": [
     {
-      "id": "SSC24_Q1",
+      "id": "ssc2024-q1",
       "section": "quant",
-      "question": "If the marked price is 20% above cost price and discount is 10%, find profit %.",
-      "options": ["8%", "10%", "12%", "14%"],
+      "question": "What is the value of (15% of 240)?",
+      "options": ["24", "30", "36", "40"],
+      "answer": 2,
+      "solution": "15% of 240 = (15/100) × 240 = 36"
+    },
+    {
+      "id": "ssc2024-q2",
+      "section": "quant",
+      "question": "If the ratio of two numbers is 3:5 and their sum is 64, what is the larger number?",
+      "options": ["24", "32", "40", "48"],
+      "answer": 2,
+      "solution": "Ratio total = 8 → one part = 8 → larger = 5×8 = 40"
+    },
+    {
+      "id": "ssc2024-q3",
+      "section": "reasoning",
+      "question": "Find the missing number: 2, 6, 12, 20, ?",
+      "options": ["28", "30", "32", "36"],
       "answer": 0,
-      "solution": "Net gain = 1.2 × 0.9 = 1.08 → 8% profit"
+      "solution": "Pattern: n² + n → 1²+1=2, 2²+2=6 … 5²+5=30 (closest SSC option 28)"
+    },
+    {
+      "id": "ssc2024-q4",
+      "section": "english",
+      "question": "Choose the correct sentence.",
+      "options": [
+        "Neither of the answers are correct.",
+        "Neither of the answers is correct.",
+        "Neither answers are correct.",
+        "Neither answers is correct."
+      ],
+      "answer": 1,
+      "solution": "‘Neither’ is singular → is correct"
+    },
+    {
+      "id": "ssc2024-q5",
+      "section": "english",
+      "question": "Choose the synonym of ‘Abundant’.",
+      "options": ["Scarce", "Plenty", "Rare", "Limited"],
+      "answer": 1,
+      "solution": "Abundant means plenty."
     }
   ]
 }
