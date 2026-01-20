@@ -1,1 +1,38 @@
+{
+  "exam": "banking-po",
+  "questions": [
+    {
+      "id": "bank-q1",
+      "section": "quant",
+      "question": "What is the simple interest on ₹1000 at 10% per annum for 2 years?",
+      "options": ["₹100", "₹150", "₹200", "₹250"],
+      "answer": 2,
+      "solution": "SI = (P×R×T)/100 = (1000×10×2)/100 = ₹200"
+    },
+    {
+      "id": "bank-q2",
+      "section": "quant",
+      "question": "If x + y = 10 and x − y = 2, what is x?",
+      "options": ["4", "5", "6", "7"],
+      "answer": 2,
+      "solution": "Adding equations → 2x = 12 → x = 6"
+    },
+    {
+      "id": "bank-q3",
+      "section": "reasoning",
+      "question": "Which number comes next in the series: 2, 4, 8, 16, ?",
+      "options": ["18", "20", "24", "32"],
+      "answer": 3,
+      "solution": "Each number is multiplied by 2."
+    },
+    {
+      "id": "bank-q4",
+      "section": "english",
+      "question": "Choose the correct word: He is good ___ mathematics.",
+      "options": ["in", "on", "at", "with"],
+      "answer": 2,
+      "solution": "Correct preposition is 'good at'."
+    }
+  ]
+}
 
