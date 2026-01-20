@@ -1,1 +1,35 @@
+{
+  "exam": "ssc-cgl",
+  "year": 2023,
+  "pattern": {
+    "totalQuestions": 5,
+    "totalTime": 60
+  },
+  "questions": [
+    {
+      "id": "ssc2023-q1",
+      "section": "quant",
+      "question": "A shopkeeper sells an item at a loss of 10%. If the cost price is ₹500, what is the selling price?",
+      "options": ["₹450", "₹460", "₹480", "₹490"],
+      "answer": 0,
+      "solution": "Loss = 10% → SP = 90% of 500 = ₹450"
+    },
+    {
+      "id": "ssc2023-q2",
+      "section": "reasoning",
+      "question": "If CAT = 3120 and DOG = 4157, what is PIG?",
+      "options": ["7167", "7168", "7169", "7170"],
+      "answer": 1,
+      "solution": "Letter positions: P(16) I(9) G(7) → 16 9 7 → pattern based encoding"
+    },
+    {
+      "id": "ssc2023-q3",
+      "section": "english",
+      "question": "Choose the antonym of ‘Transparent’.",
+      "options": ["Clear", "Opaque", "Bright", "Clean"],
+      "answer": 1,
+      "solution": "Opaque is the opposite of transparent."
+    }
+  ]
+}
 
