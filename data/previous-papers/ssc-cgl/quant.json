@@ -1,1 +1,30 @@
+{
+  "exam": "ssc-cgl",
+  "section": "quant",
+  "total_questions": 200,
+  "questions": [
+    {
+      "id": "ssc_q_001",
+      "year": 2024,
+      "topic": "percentage",
+      "difficulty": "easy",
+      "question": "What is 20% of 250?",
+      "options": ["40", "45", "50", "55"],
+      "correct": 2,
+      "solution": "20% of 250 = 50",
+      "time": 60
+    },
+    {
+      "id": "ssc_q_002",
+      "year": 2024,
+      "topic": "profit-loss",
+      "difficulty": "medium",
+      "question": "A shopkeeper sells an item at 10% loss. If CP = ₹500, find SP.",
+      "options": ["450", "480", "470", "490"],
+      "correct": 0,
+      "solution": "10% loss ⇒ SP = 90% of 500 = 450",
+      "time": 75
+    }
+  ]
+}
 
