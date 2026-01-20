@@ -1,1 +1,35 @@
+{
+  "exam": "ssc-cgl",
+  "year": 2022,
+  "pattern": {
+    "totalQuestions": 5,
+    "totalTime": 60
+  },
+  "questions": [
+    {
+      "id": "ssc2022-q1",
+      "section": "quant",
+      "question": "What is the average of first 10 natural numbers?",
+      "options": ["5", "5.5", "6", "6.5"],
+      "answer": 1,
+      "solution": "Sum = 55 → Average = 55/10 = 5.5"
+    },
+    {
+      "id": "ssc2022-q2",
+      "section": "reasoning",
+      "question": "Which word does not belong to the group?",
+      "options": ["Chair", "Table", "Sofa", "Television"],
+      "answer": 3,
+      "solution": "Television is electronic; others are furniture."
+    },
+    {
+      "id": "ssc2022-q3",
+      "section": "english",
+      "question": "Choose the correctly spelled word.",
+      "options": ["Accomodation", "Acommodation", "Accommodation", "Accomadation"],
+      "answer": 2,
+      "solution": "Correct spelling is Accommodation."
+    }
+  ]
+}
 
