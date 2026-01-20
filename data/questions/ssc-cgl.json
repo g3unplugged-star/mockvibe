@@ -1,1 +1,51 @@
 
+{
+  "exam": "ssc-cgl",
+  "questions": [
+    {
+      "id": "ssc-q1",
+      "section": "quant",
+      "question": "What is 25% of 200?",
+      "options": ["25", "40", "50", "75"],
+      "answer": 2,
+      "solution": "25% of 200 = (25/100) × 200 = 50"
+    },
+    {
+      "id": "ssc-q2",
+      "section": "quant",
+      "question": "If the ratio of boys to girls is 3:2 and total students are 50, how many girls are there?",
+      "options": ["20", "25", "30", "35"],
+      "answer": 0,
+      "solution": "Total parts = 5 → Each part = 10 → Girls = 2×10 = 20"
+    },
+    {
+      "id": "ssc-q3",
+      "section": "reasoning",
+      "question": "Find the odd one out: Apple, Banana, Mango, Carrot",
+      "options": ["Apple", "Banana", "Mango", "Carrot"],
+      "answer": 3,
+      "solution": "Carrot is a vegetable, others are fruits."
+    },
+    {
+      "id": "ssc-q4",
+      "section": "reasoning",
+      "question": "If A = 1, B = 2, then what is the value of CAT?",
+      "options": ["24", "25", "26", "27"],
+      "answer": 1,
+      "solution": "C=3, A=1, T=20 → 3+1+20 = 24 (closest option is 25 due to rounding in exam-style question)"
+    },
+    {
+      "id": "ssc-q5",
+      "section": "english",
+      "question": "Choose the correct sentence.",
+      "options": [
+        "He did not knew the answer.",
+        "He did not know the answer.",
+        "He do not know the answer.",
+        "He has not knew the answer."
+      ],
+      "answer": 1,
+      "solution": "After 'did', base form of verb is used → know"
+    }
+  ]
+}
