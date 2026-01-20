@@ -802,6 +802,99 @@
             }
         }
 
+        /* Test Not Started Overlay */
+        .test-not-started-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .test-start-modal {
+            background: white;
+            border-radius: var(--radius);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 3px solid var(--primary);
+        }
+
+        .test-start-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .test-start-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .test-start-body {
+            padding: 32px;
+        }
+
+        .test-instructions {
+            margin-bottom: 32px;
+        }
+
+        .test-instructions h3 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .test-instructions ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-instructions li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .test-timer-info {
+            background: #f0f9ff;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 2px solid var(--primary);
+        }
+
+        .timer-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .timer-info-item {
+            text-align: center;
+        }
+
+        .timer-info-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .timer-info-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .test-container {
@@ -852,6 +945,10 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .timer-info-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -891,6 +988,10 @@
                 font-size: 1.5rem;
                 letter-spacing: 2px;
             }
+
+            .test-start-body {
+                padding: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -920,8 +1021,67 @@
     </style>
 </head>
 <body class="exam-mode">
+    <!-- Test Start Overlay -->
+    <div class="test-not-started-overlay" id="testStartOverlay">
+        <div class="test-start-modal">
+            <div class="test-start-header">
+                <h2><i class="fas fa-graduation-cap"></i> SSC CGL Tier 1 Mock Test</h2>
+                <p>Get ready for your timed exam simulation</p>
+            </div>
+            
+            <div class="test-start-body">
+                <div class="test-instructions">
+                    <h3><i class="fas fa-info-circle"></i> Important Instructions</h3>
+                    <ul>
+                        <li>Total duration: <strong>60 minutes</strong> for 100 questions</li>
+                        <li>Section-wise time limits apply</li>
+                        <li>Each question carries 2 marks</li>
+                        <li>Negative marking: 0.5 marks for wrong answers</li>
+                        <li>Use the question palette to navigate between questions</li>
+                        <li>Timer will start as soon as you begin the test</li>
+                        <li>You cannot pause the timer once started</li>
+                        <li>Ensure stable internet connection</li>
+                    </ul>
+                </div>
+                
+                <div class="test-timer-info">
+                    <h4 style="text-align: center; margin-bottom: 20px; color: var(--primary);">
+                        <i class="fas fa-clock"></i> Time Limits
+                    </h4>
+                    <div class="timer-info-grid">
+                        <div class="timer-info-item">
+                            <div class="timer-info-value">60:00</div>
+                            <div class="timer-info-label">Total Time</div>
+                        </div>
+                        <div class="timer-info-item">
+                            <div class="timer-info-value">25:00</div>
+                            <div class="timer-info-label">Quantitative Aptitude</div>
+                        </div>
+                        <div class="timer-info-item">
+                            <div class="timer-info-value">20:00</div>
+                            <div class="timer-info-label">General Intelligence</div>
+                        </div>
+                        <div class="timer-info-item">
+                            <div class="timer-info-value">20:00</div>
+                            <div class="timer-info-label">English Language</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: center; gap: 16px;">
+                    <button class="btn btn-outline" onclick="cancelTest()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="btn btn-primary" onclick="startTest()">
+                        <i class="fas fa-play"></i> Start Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Exam Header with Timer -->
-    <header class="exam-header">
+    <header class="exam-header" style="display: none;" id="examHeader">
         <div class="exam-brand">
             <h1><i class="fas fa-graduation-cap"></i> MockVibe Exam</h1>
             <span>LIVE TEST</span>
@@ -940,7 +1100,7 @@
         </div>
     </header>
 
-    <div class="test-container">
+    <div class="test-container" style="display: none;" id="testContainer">
         <!-- Exam Sidebar -->
         <aside class="exam-sidebar" id="sidebar">
             <div class="exam-info">
@@ -1305,15 +1465,19 @@
             answers: {},
             markedQuestions: new Set(),
             visitedQuestions: new Set(),
-            startTime: Date.now(),
+            startTime: null, // Will be set when test starts
             isPaused: false,
             mainTimerInterval: null,
             sectionTimerInterval: null,
-            sectionStartTime: Date.now(),
-            autoSubmitWarningShown: false
+            sectionStartTime: null, // Will be set when section starts
+            autoSubmitWarningShown: false,
+            testStarted: false // NEW: Flag to track if test has started
         };
 
         // DOM Elements
+        const testStartOverlay = document.getElementById('testStartOverlay');
+        const examHeader = document.getElementById('examHeader');
+        const testContainer = document.getElementById('testContainer');
         const mainTimerElement = document.getElementById('mainTimer');
         const sectionTimerElement = document.getElementById('sectionTimer');
         const examDateElement = document.getElementById('examDate');
@@ -1341,12 +1505,6 @@
             // Initialize question grid for current section
             initQuestionGrid();
             
-            // Start main timer
-            startMainTimer();
-            
-            // Start section timer
-            startSectionTimer();
-            
             // Mark first question as visited
             examConfig.visitedQuestions.add(1);
             
@@ -1366,6 +1524,10 @@
             
             // Update question status
             updateQuestionStatus();
+            
+            // Initialize timer displays (static values before test starts)
+            updateMainTimerDisplay(examConfig.totalDuration);
+            updateSectionTimerDisplay(examConfig.sections[examConfig.currentSection]);
         }
 
         function initQuestionGrid() {
@@ -1381,11 +1543,43 @@
             }
         }
 
+        // NEW FUNCTION: Start the test (called when user clicks "Start Test")
+        function startTest() {
+            // Set test started flag
+            examConfig.testStarted = true;
+            examConfig.startTime = Date.now();
+            examConfig.sectionStartTime = Date.now();
+            
+            // Hide start overlay
+            testStartOverlay.style.display = 'none';
+            
+            // Show exam interface
+            examHeader.style.display = 'flex';
+            testContainer.style.display = 'grid';
+            
+            // Start timers
+            startMainTimer();
+            startSectionTimer();
+            
+            // Initialize exam
+            initRealExam();
+            
+            // Show notification
+            showNotification('Test started! Timer is now running.', 'success');
+        }
+
+        // NEW FUNCTION: Cancel test and return to homepage
+        function cancelTest() {
+            if (confirm('Are you sure you want to cancel the test? You will lose all progress.')) {
+                window.location.href = '/';
+            }
+        }
+
         function startMainTimer() {
             if (examConfig.mainTimerInterval) clearInterval(examConfig.mainTimerInterval);
             
             examConfig.mainTimerInterval = setInterval(() => {
-                if (examConfig.isPaused) return;
+                if (examConfig.isPaused || !examConfig.testStarted) return;
                 
                 const elapsed = Math.floor((Date.now() - examConfig.startTime) / 1000);
                 const remaining = Math.max(0, examConfig.totalDuration - elapsed);
@@ -1415,7 +1609,7 @@
             
             examConfig.sectionStartTime = Date.now();
             examConfig.sectionTimerInterval = setInterval(() => {
-                if (examConfig.isPaused) return;
+                if (examConfig.isPaused || !examConfig.testStarted) return;
                 
                 const elapsed = Math.floor((Date.now() - examConfig.sectionStartTime) / 1000);
                 const totalSectionTime = examConfig.sections[examConfig.currentSection];
@@ -1456,6 +1650,11 @@
         }
 
         function selectOption(optionIndex) {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             const questionKey = `${examConfig.currentSection}-${examConfig.currentQuestion}`;
             examConfig.answers[questionKey] = optionIndex;
             
@@ -1480,6 +1679,11 @@
         }
 
         function markForReview() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             const questionKey = `${examConfig.currentSection}-${examConfig.currentQuestion}`;
             
             if (examConfig.markedQuestions.has(questionKey)) {
@@ -1495,6 +1699,11 @@
         }
 
         function clearResponse() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             const questionKey = `${examConfig.currentSection}-${examConfig.currentQuestion}`;
             delete examConfig.answers[questionKey];
             examConfig.markedQuestions.delete(questionKey);
@@ -1510,6 +1719,11 @@
         }
 
         function nextQuestion() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             const totalQuestions = examConfig.sectionQuestions[examConfig.currentSection];
             if (examConfig.currentQuestion < totalQuestions) {
                 navigateToQuestion(examConfig.currentQuestion + 1);
@@ -1520,12 +1734,22 @@
         }
 
         function prevQuestion() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             if (examConfig.currentQuestion > 1) {
                 navigateToQuestion(examConfig.currentQuestion - 1);
             }
         }
 
         function navigateToQuestion(questionNumber) {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             examConfig.currentQuestion = questionNumber;
             
             // Mark as visited
@@ -1632,6 +1856,11 @@
         }
 
         function submitSection() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             document.getElementById('submitSectionModal').classList.add('active');
         }
 
@@ -1710,6 +1939,11 @@
         }
 
         function submitExam() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             document.getElementById('submitExamModal').classList.add('active');
         }
 
@@ -1777,26 +2011,47 @@
         }
 
         function hideInstructions() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             instructionsPanel.style.display = 'none';
             localStorage.setItem('instructionsSeen', 'true');
         }
 
         function showCalculator() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             showNotification('Calculator feature would open here', 'info');
         }
 
         function showSummary() {
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first!', 'warning');
+                return;
+            }
+            
             showNotification('Test summary feature would open here', 'info');
         }
 
         function setupAutoSave() {
             // Auto-save every 30 seconds
             setInterval(() => {
-                saveProgress();
+                if (examConfig.testStarted) {
+                    saveProgress();
+                }
             }, 30000);
             
             // Save on page unload
-            window.addEventListener('beforeunload', saveProgress);
+            window.addEventListener('beforeunload', () => {
+                if (examConfig.testStarted) {
+                    saveProgress();
+                }
+            });
         }
 
         function saveProgress() {
@@ -1808,7 +2063,8 @@
                 currentQuestion: examConfig.currentQuestion,
                 startTime: examConfig.startTime,
                 sectionStartTime: examConfig.sectionStartTime,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                testStarted: examConfig.testStarted // NEW: Save test started flag
             };
             
             localStorage.setItem('mockvibe_exam_progress', JSON.stringify(progress));
@@ -1825,13 +2081,16 @@
                 examConfig.currentQuestion = progress.currentQuestion || 1;
                 examConfig.startTime = progress.startTime || Date.now();
                 examConfig.sectionStartTime = progress.sectionStartTime || Date.now();
+                examConfig.testStarted = progress.testStarted || false; // NEW: Load test started flag
                 
-                // Adjust timers for elapsed time
-                const timeElapsed = Date.now() - examConfig.startTime;
-                examConfig.totalDuration = Math.max(0, examConfig.totalDuration - Math.floor(timeElapsed / 1000));
-                
-                showNotification('Previous session restored', 'info');
-                return true;
+                if (examConfig.testStarted) {
+                    // Adjust timers for elapsed time
+                    const timeElapsed = Date.now() - examConfig.startTime;
+                    examConfig.totalDuration = Math.max(0, examConfig.totalDuration - Math.floor(timeElapsed / 1000));
+                    
+                    showNotification('Previous session restored', 'info');
+                    return true;
+                }
             }
             return false;
         }
@@ -1866,6 +2125,14 @@
         function setupExamShortcuts() {
             document.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                
+                if (!examConfig.testStarted) {
+                    // Only allow escape to cancel test before start
+                    if (e.key === 'Escape') {
+                        cancelTest();
+                    }
+                    return;
+                }
                 
                 switch(e.key) {
                     case 'ArrowLeft':
@@ -1982,14 +2249,30 @@
         // Initialize exam
         document.addEventListener('DOMContentLoaded', () => {
             // Try to load saved progress
-            if (!loadProgress()) {
-                // Start new exam
-                initRealExam();
-            } else {
-                // Resume from saved progress
+            if (loadProgress() && examConfig.testStarted) {
+                // Resume from saved progress - show test interface directly
+                testStartOverlay.style.display = 'none';
+                examHeader.style.display = 'flex';
+                testContainer.style.display = 'grid';
+                
+                // Initialize exam
                 initRealExam();
                 switchToSection(examConfig.currentSection);
                 navigateToQuestion(examConfig.currentQuestion);
+                
+                // Start timers
+                startMainTimer();
+                startSectionTimer();
+                
+                showNotification('Test resumed from previous session', 'info');
+            } else {
+                // Start new exam - show start overlay
+                testStartOverlay.style.display = 'flex';
+                examHeader.style.display = 'none';
+                testContainer.style.display = 'none';
+                
+                // Initialize exam without starting timers
+                initRealExam();
             }
         });
     </script>
