@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mock Test - MockVibe</title>
+    
+    <!-- Google Analytics (Add your ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Take free mock tests for competitive exams. Practice Quantitative Aptitude, Reasoning, English with detailed solutions.">
+    <meta name="keywords" content="mock test, online test, competitive exams, SSC, banking, UPSC, quantitative aptitude, reasoning, english">
+    <meta name="author" content="MockVibe">
+    
     <style>
         :root {
-            --primary: #8E2DE2;
-            --secondary: #4A00E0;
-            --accent: #00DBDE;
-            --pink: #FC00FF;
-            --gradient: linear-gradient(45deg, #00DBDE, #FC00FF);
-            --bg-gradient: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
+            --primary: #4361ee;    /* Softer blue */
+            --secondary: #3a0ca3;  /* Darker blue */
+            --accent: #4cc9f0;     /* Light blue */
+            --light: #f8f9fa;      /* Light background */
+            --dark: #212529;       /* Dark text */
+            --success: #4CAF50;    /* Green */
+            --warning: #FF9800;    /* Orange */
+            --gradient: linear-gradient(135deg, #4361ee 0%, #4cc9f0 100%);
+            --bg-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,7 +39,7 @@
             font-family: 'Segoe UI', system-ui, sans-serif;
             background: var(--bg-gradient);
             min-height: 100vh;
-            color: white;
+            color: var(--dark);
         }
         
         .test-container {
@@ -31,49 +50,49 @@
         
         /* Header */
         .test-header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: white;
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
         
         .test-info h2 {
             font-size: 1.4rem;
             margin-bottom: 5px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
         
         .timer-container {
-            background: rgba(255, 0, 0, 0.15);
+            background: rgba(255, 0, 0, 0.08);
             padding: 15px 25px;
             border-radius: 10px;
             text-align: center;
             min-width: 140px;
+            border: 2px solid rgba(255, 0, 0, 0.2);
         }
         
         #timer {
             font-size: 2rem;
             font-weight: bold;
             font-family: monospace;
+            color: #dc3545;
         }
         
         /* Question */
         .question-container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
         
         .question-number {
@@ -84,12 +103,14 @@
             border-radius: 20px;
             font-size: 0.9rem;
             margin-bottom: 20px;
+            font-weight: 600;
         }
         
         .question-text {
             font-size: 1.3rem;
             line-height: 1.6;
             margin-bottom: 25px;
+            color: var(--dark);
         }
         
         /* Options */
@@ -99,11 +120,11 @@
         }
         
         .option {
-            background: rgba(255, 255, 255, 0.05);
+            background: white;
             padding: 18px 20px;
             border-radius: 12px;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 2px solid rgba(0,0,0,0.1);
             transition: all 0.3s;
             display: flex;
             align-items: center;
@@ -111,17 +132,19 @@
         }
         
         .option:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: #f8f9fa;
+            border-color: var(--accent);
             transform: translateX(5px);
         }
         
         .option.selected {
-            background: rgba(0, 219, 222, 0.2);
+            background: rgba(76, 201, 240, 0.1);
             border-color: var(--accent);
         }
         
         .option-label {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
             width: 35px;
             height: 35px;
             border-radius: 50%;
@@ -134,7 +157,7 @@
         
         .option.selected .option-label {
             background: var(--accent);
-            color: #000;
+            color: white;
         }
         
         /* Controls */
@@ -151,16 +174,17 @@
             border: none;
             border-radius: 10px;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             font-family: inherit;
             flex: 1;
             min-width: 150px;
+            letter-spacing: 0.5px;
         }
         
         #prevBtn {
-            background: rgba(108, 117, 125, 0.8);
+            background: rgba(108, 117, 125, 0.9);
             color: white;
         }
         
@@ -170,13 +194,13 @@
         }
         
         #submitBtn {
-            background: rgba(220, 53, 69, 0.8);
+            background: rgba(220, 53, 69, 0.9);
             color: white;
         }
         
         .control-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         
         .control-btn:disabled {
@@ -194,17 +218,21 @@
         .nav-btn {
             display: inline-block;
             padding: 12px 30px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            background: white;
+            color: var(--primary);
             text-decoration: none;
             border-radius: 10px;
             margin: 0 10px;
             transition: all 0.3s;
+            border: 2px solid rgba(67, 97, 238, 0.2);
+            font-weight: 500;
         }
         
         .nav-btn:hover {
             background: var(--gradient);
+            color: white;
             transform: translateY(-3px);
+            border-color: transparent;
         }
         
         /* Question Palette */
@@ -214,34 +242,46 @@
             gap: 10px;
             margin: 30px 0;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
+            background: white;
             border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.1);
         }
         
         .palette-item {
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: #f8f9fa;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
+            color: var(--dark);
+            border: 2px solid transparent;
         }
         
         .palette-item:hover {
             transform: scale(1.1);
+            background: var(--accent);
+            color: white;
         }
         
         .palette-item.answered {
             background: var(--accent);
-            color: #000;
+            color: white;
         }
         
         .palette-item.current {
-            border: 3px solid var(--pink);
+            border: 3px solid var(--primary);
+            background: white;
+            color: var(--primary);
+        }
+        
+        .palette-item.marked {
+            border: 2px solid var(--warning);
+            background: rgba(255, 152, 0, 0.1);
         }
         
         @media (max-width: 768px) {
@@ -249,12 +289,16 @@
             .controls { flex-direction: column; }
             .control-btn { width: 100%; min-width: auto; }
             .question-text { font-size: 1.1rem; }
+            .nav-buttons { display: flex; flex-direction: column; gap: 10px; }
+            .nav-btn { margin: 0; }
         }
         
         @media (max-width: 480px) {
             .test-container { padding: 15px; }
             .question-container { padding: 20px; }
             .option { padding: 15px; }
+            .question-palette { grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); }
+            .palette-item { width: 40px; height: 40px; }
         }
     </style>
 </head>
@@ -267,7 +311,7 @@
                 <p id="questionCounter">Question 1 of 10</p>
             </div>
             <div class="timer-container">
-                <div style="font-size: 0.9rem; opacity: 0.9;">Time Remaining</div>
+                <div style="font-size: 0.9rem; opacity: 0.9; color: #666;">Time Remaining</div>
                 <div id="timer">30:00</div>
             </div>
         </div>
@@ -310,73 +354,153 @@
         </div>
     </div>
 
+    <!-- Link to Question Bank FIRST -->
+    <script src="questions.js"></script>
+    
+    <!-- Main Test Script -->
     <script>
-        // MockVibe Test Engine
+        // Function to load questions from question bank OR fallback
+        function loadQuestions() {
+            // Get subject from localStorage
+            const subject = localStorage.getItem('mockvibe_test') || 'math';
+            const testName = localStorage.getItem('mockvibe_test_name') || 'Mock Test';
+            
+            // Update test title
+            document.getElementById('testTitle').textContent = testName;
+            
+            // Try to load from question bank
+            if (typeof getQuestionsBySubject === 'function') {
+                console.log('Loading questions from question bank...');
+                const questions = getQuestionsBySubject(subject, 10);
+                
+                if (questions && questions.length > 0) {
+                    console.log(`Loaded ${questions.length} questions from ${subject} bank`);
+                    return questions;
+                }
+            }
+            
+            console.log('Using fallback questions');
+            // Fallback questions if question bank not available
+            return [
+                {
+                    id: 1,
+                    question: "What is 25% of 200?",
+                    options: ["40", "50", "60", "70"],
+                    correct: 1,
+                    explanation: "25% of 200 = (25/100) × 200 = 50",
+                    difficulty: "easy",
+                    topic: "percentage",
+                    marks: 1
+                },
+                {
+                    id: 2,
+                    question: "If a train travels 300 km in 5 hours, what is its speed?",
+                    options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
+                    correct: 1,
+                    explanation: "Speed = Distance/Time = 300/5 = 60 km/h",
+                    difficulty: "easy",
+                    topic: "speed_distance_time",
+                    marks: 1
+                },
+                {
+                    id: 3,
+                    question: "A shopkeeper buys an item for ₹400 and sells it for ₹500. What is his profit percentage?",
+                    options: ["20%", "25%", "30%", "35%"],
+                    correct: 1,
+                    explanation: "Profit = 500-400=100, Profit % = (100/400)×100 = 25%",
+                    difficulty: "medium",
+                    topic: "profit_loss",
+                    marks: 2
+                },
+                {
+                    id: 4,
+                    question: "If all cats are animals, and some animals are pets, then:",
+                    options: [
+                        "All cats are pets",
+                        "Some cats are pets", 
+                        "No cats are pets",
+                        "Cannot be determined"
+                    ],
+                    correct: 3,
+                    explanation: "We cannot determine if cats are pets from given statements",
+                    difficulty: "medium",
+                    topic: "logical_reasoning",
+                    marks: 2
+                },
+                {
+                    id: 5,
+                    question: "Choose the correct spelling:",
+                    options: ["Accommodation", "Acommodation", "Accomodation", "Acomodation"],
+                    correct: 0,
+                    explanation: "Accommodation has double 'c' and double 'm'",
+                    difficulty: "easy",
+                    topic: "spelling",
+                    marks: 1
+                },
+                {
+                    id: 6,
+                    question: "What is the average of first 5 natural numbers?",
+                    options: ["2", "2.5", "3", "3.5"],
+                    correct: 2,
+                    explanation: "Average = (1+2+3+4+5)/5 = 15/5 = 3",
+                    difficulty: "easy",
+                    topic: "average",
+                    marks: 1
+                },
+                {
+                    id: 7,
+                    question: "If 'APPLE' is coded as 'BQQMF', how is 'MANGO' coded?",
+                    options: ["NBOHP", "NCOIP", "NBOHQ", "NCOHQ"],
+                    correct: 0,
+                    explanation: "Each letter moves one step forward: A→B, P→Q, L→M, E→F",
+                    difficulty: "medium",
+                    topic: "coding_decoding",
+                    marks: 2
+                },
+                {
+                    id: 8,
+                    question: "Choose the correct synonym of 'Quick':",
+                    options: ["Slow", "Fast", "Lazy", "Late"],
+                    correct: 1,
+                    explanation: "Quick means fast or rapid",
+                    difficulty: "easy",
+                    topic: "synonyms",
+                    marks: 1
+                },
+                {
+                    id: 9,
+                    question: "Find the value of x: 2x + 5 = 15",
+                    options: ["3", "4", "5", "6"],
+                    correct: 2,
+                    explanation: "2x + 5 = 15 ⇒ 2x = 10 ⇒ x = 5",
+                    difficulty: "easy",
+                    topic: "algebra",
+                    marks: 1
+                },
+                {
+                    id: 10,
+                    question: "Complete the analogy: Doctor:Hospital::Teacher:?",
+                    options: ["School", "College", "University", "Classroom"],
+                    correct: 0,
+                    explanation: "Doctor works in Hospital, Teacher works in School",
+                    difficulty: "easy",
+                    topic: "analogy",
+                    marks: 1
+                }
+            ];
+        }
+
+        // MockVibe Test Engine - UPDATED VERSION
         class MockVibeTest {
             constructor() {
-                this.questions = this.getQuestions();
+                this.questions = loadQuestions(); // Load questions dynamically
                 this.currentQuestion = 0;
                 this.userAnswers = {};
                 this.markedForReview = new Set();
                 this.timeLeft = 30 * 60; // 30 minutes
                 this.timerInterval = null;
                 this.startTime = new Date();
-            }
-            
-            getQuestions() {
-                // Sample questions - you can expand this
-                return [
-                    {
-                        id: 1,
-                        question: "What is 25% of 200?",
-                        options: ["40", "50", "60", "70"],
-                        correct: 1,
-                        explanation: "25% of 200 = (25/100) × 200 = 50",
-                        subject: "math",
-                        difficulty: "easy"
-                    },
-                    {
-                        id: 2,
-                        question: "If a train travels 300 km in 5 hours, what is its speed?",
-                        options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
-                        correct: 1,
-                        explanation: "Speed = Distance/Time = 300/5 = 60 km/h",
-                        subject: "math",
-                        difficulty: "easy"
-                    },
-                    {
-                        id: 3,
-                        question: "A shopkeeper buys an item for ₹400 and sells it for ₹500. What is his profit percentage?",
-                        options: ["20%", "25%", "30%", "35%"],
-                        correct: 1,
-                        explanation: "Profit = 500-400=100, Profit % = (100/400)×100 = 25%",
-                        subject: "math",
-                        difficulty: "medium"
-                    },
-                    {
-                        id: 4,
-                        question: "If all cats are animals, and some animals are pets, then:",
-                        options: [
-                            "All cats are pets",
-                            "Some cats are pets", 
-                            "No cats are pets",
-                            "Cannot be determined"
-                        ],
-                        correct: 3,
-                        explanation: "We cannot determine if cats are pets from given statements",
-                        subject: "reasoning",
-                        difficulty: "medium"
-                    },
-                    {
-                        id: 5,
-                        question: "Choose the correct spelling:",
-                        options: ["Accommodation", "Acommodation", "Accomodation", "Acomodation"],
-                        correct: 0,
-                        explanation: "Accommodation has double 'c' and double 'm'",
-                        subject: "english",
-                        difficulty: "easy"
-                    }
-                ];
+                this.totalQuestions = this.questions.length;
             }
             
             init() {
@@ -384,9 +508,15 @@
                 this.startTimer();
                 this.updatePalette();
                 
-                // Set test title
-                const testName = localStorage.getItem('mockvibe_test_name') || 'Mock Test';
-                document.getElementById('testTitle').textContent = testName;
+                // Track test start with Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    const subject = localStorage.getItem('mockvibe_test') || 'math';
+                    gtag('event', 'test_start', {
+                        'test_subject': subject,
+                        'test_name': document.getElementById('testTitle').textContent,
+                        'question_count': this.totalQuestions
+                    });
+                }
             }
             
             startTimer() {
@@ -448,9 +578,17 @@
                         this.userAnswers[this.currentQuestion] = index;
                         this.updatePalette();
                         
-                        // Vibration feedback
+                        // Vibration feedback if supported
                         if (navigator.vibrate) {
                             navigator.vibrate(30);
+                        }
+                        
+                        // Track answer selection
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'answer_select', {
+                                'question_number': this.currentQuestion + 1,
+                                'test_subject': localStorage.getItem('mockvibe_test') || 'math'
+                            });
                         }
                     };
                     
@@ -473,6 +611,7 @@
                 this.questions.forEach((_, index) => {
                     const item = document.createElement('div');
                     item.className = 'palette-item';
+                    
                     if (index === this.currentQuestion) {
                         item.classList.add('current');
                     }
@@ -480,7 +619,7 @@
                         item.classList.add('answered');
                     }
                     if (this.markedForReview.has(index)) {
-                        item.style.border = '2px solid #FF9800';
+                        item.classList.add('marked');
                     }
                     
                     item.textContent = index + 1;
@@ -523,11 +662,16 @@
                 let score = 0;
                 let correctAnswers = [];
                 let incorrectAnswers = [];
+                let totalMarks = 0;
+                let earnedMarks = 0;
                 
                 this.questions.forEach((q, index) => {
+                    totalMarks += (q.marks || 1);
+                    
                     if (this.userAnswers[index] === q.correct) {
                         score++;
                         correctAnswers.push(index + 1);
+                        earnedMarks += (q.marks || 1);
                     } else if (this.userAnswers[index] !== undefined) {
                         incorrectAnswers.push(index + 1);
                     }
@@ -538,17 +682,21 @@
                 const timeTaken = Math.floor((endTime - this.startTime) / 1000);
                 const minutes = Math.floor(timeTaken / 60);
                 const seconds = timeTaken % 60;
+                const percentage = ((score / this.questions.length) * 100).toFixed(1);
                 
                 // Prepare result
                 const result = {
                     score: score,
                     total: this.questions.length,
-                    percentage: ((score / this.questions.length) * 100).toFixed(1),
+                    percentage: percentage,
+                    marksEarned: earnedMarks,
+                    totalMarks: totalMarks,
                     correct: correctAnswers,
                     incorrect: incorrectAnswers,
                     unanswered: this.questions.length - Object.keys(this.userAnswers).length,
                     timeTaken: `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`,
                     testName: localStorage.getItem('mockvibe_test_name') || 'Mock Test',
+                    testSubject: localStorage.getItem('mockvibe_test') || 'math',
                     timestamp: new Date().toISOString(),
                     questions: this.questions.map((q, i) => ({
                         ...q,
@@ -562,6 +710,17 @@
                 
                 // Save to history
                 this.saveToHistory(result);
+                
+                // Track test completion with Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'test_complete', {
+                        'score': score,
+                        'total': this.questions.length,
+                        'percentage': percentage,
+                        'time_taken': `${minutes}:${seconds}`,
+                        'test_subject': result.testSubject
+                    });
+                }
                 
                 // Redirect to results page
                 window.location.href = 'results.html';
@@ -590,6 +749,13 @@
                     opt.classList.remove('selected');
                 });
                 this.updatePalette();
+                
+                // Track clear response
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'clear_response', {
+                        'question_number': this.currentQuestion + 1
+                    });
+                }
             }
             
             markForReview() {
@@ -609,6 +775,11 @@
             testEngine = new MockVibeTest();
             window.testEngine = testEngine; // Make accessible globally
             testEngine.init();
+            
+            // Console log for debugging
+            console.log('MockVibe Test Engine initialized');
+            console.log(`Loaded ${testEngine.questions.length} questions`);
+            console.log('Question bank functions available:', typeof getQuestionsBySubject !== 'undefined');
         };
         
         // Global functions for buttons
