@@ -77,6 +77,21 @@
             gap: 12px;
         }
 
+        .exam-brand a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .exam-brand a:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
         .exam-brand h1 {
             font-family: 'Poppins', sans-serif;
             font-size: 1.4rem;
@@ -89,6 +104,7 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
+            cursor: default;
         }
 
         /* Real Exam Timer */
@@ -1067,6 +1083,7 @@
                         <li>Timer will start as soon as you begin the test</li>
                         <li>You cannot pause the timer once started</li>
                         <li>Ensure stable internet connection</li>
+                        <li><strong>Note:</strong> Timer resets when you start a new test</li>
                     </ul>
                 </div>
                 
@@ -1106,10 +1123,13 @@
         </div>
     </div>
 
-    <!-- Exam Header with Timer - FIXED: Added unique class for section name -->
+    <!-- Exam Header with Timer - FIXED: Added clickable logo -->
     <header class="exam-header" style="display: none;" id="examHeader">
         <div class="exam-brand">
-            <h1><i class="fas fa-graduation-cap"></i> MockVibe Exam</h1>
+            <a href="/" title="Go to Homepage" onclick="return goToHomepage()">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>MockVibe Exam</h1>
+            </a>
             <span>LIVE TEST</span>
         </div>
         
@@ -1472,12 +1492,20 @@
         const examConfig = {
             // Total exam duration: 60 minutes
             totalDuration: 60 * 60, // seconds
+            originalTotalDuration: 60 * 60, // Store original for reset
             // Section durations in seconds
             sections: {
                 quant: 25 * 60, // 25 minutes
                 reasoning: 20 * 60, // 20 minutes
                 english: 20 * 60, // 20 minutes
                 gk: 15 * 60 // 15 minutes
+            },
+            // Store original section times for reset
+            originalSections: {
+                quant: 25 * 60,
+                reasoning: 20 * 60,
+                english: 20 * 60,
+                gk: 15 * 60
             },
             // Section-wise questions
             sectionQuestions: {
@@ -1497,7 +1525,8 @@
             sectionTimerInterval: null,
             sectionStartTime: null, // Will be set when section starts
             autoSubmitWarningShown: false,
-            testStarted: false // NEW: Flag to track if test has started
+            testStarted: false, // Flag to track if test has started
+            isNewTest: true // NEW: Flag to track if this is a new test
         };
 
         // DOM Elements
@@ -1572,8 +1601,15 @@
 
         // NEW FUNCTION: Start the test (called when user clicks "Start Test")
         function startTest() {
+            // Clear any existing progress for a fresh start
+            clearProgress();
+            
+            // Reset timers to original values
+            resetTimers();
+            
             // Set test started flag
             examConfig.testStarted = true;
+            examConfig.isNewTest = false;
             examConfig.startTime = Date.now();
             examConfig.sectionStartTime = Date.now();
             
@@ -1595,9 +1631,50 @@
             showNotification('Test started! Timer is now running.', 'success');
         }
 
+        // NEW FUNCTION: Reset timers to original values
+        function resetTimers() {
+            examConfig.totalDuration = examConfig.originalTotalDuration;
+            examConfig.sections = JSON.parse(JSON.stringify(examConfig.originalSections));
+        }
+
+        // NEW FUNCTION: Clear progress for fresh start
+        function clearProgress() {
+            examConfig.answers = {};
+            examConfig.markedQuestions = new Set();
+            examConfig.visitedQuestions = new Set([1]);
+            examConfig.currentSection = 'quant';
+            examConfig.currentQuestion = 1;
+            examConfig.startTime = null;
+            examConfig.sectionStartTime = null;
+            examConfig.autoSubmitWarningShown = false;
+            
+            // Clear localStorage for fresh test
+            localStorage.removeItem('mockvibe_exam_progress');
+        }
+
+        // NEW FUNCTION: Go to homepage
+        function goToHomepage() {
+            if (examConfig.testStarted && !examConfig.isNewTest) {
+                if (confirm('Are you sure you want to leave the test? Your progress will be saved, but the timer will continue running.')) {
+                    saveProgress();
+                    // In a real app, this would redirect to homepage
+                    // For demo, we'll just show a message
+                    showNotification('Redirecting to homepage...', 'info');
+                    // Simulate redirect
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                    return false;
+                }
+                return false;
+            }
+            return true;
+        }
+
         // NEW FUNCTION: Cancel test and return to homepage
         function cancelTest() {
             if (confirm('Are you sure you want to cancel the test? You will lose all progress.')) {
+                clearProgress();
                 window.location.href = '/';
             }
         }
@@ -1985,6 +2062,11 @@
             clearInterval(examConfig.mainTimerInterval);
             clearInterval(examConfig.sectionTimerInterval);
             
+            // Clear progress for next test
+            clearProgress();
+            examConfig.testStarted = false;
+            examConfig.isNewTest = true;
+            
             // Calculate score and show results
             const score = calculateScore();
             const totalMarks = 200;
@@ -2091,7 +2173,11 @@
                 startTime: examConfig.startTime,
                 sectionStartTime: examConfig.sectionStartTime,
                 timestamp: Date.now(),
-                testStarted: examConfig.testStarted // NEW: Save test started flag
+                testStarted: examConfig.testStarted,
+                isNewTest: examConfig.isNewTest,
+                // Save elapsed time instead of remaining time
+                timeElapsed: examConfig.startTime ? Math.floor((Date.now() - examConfig.startTime) / 1000) : 0,
+                sectionTimeElapsed: examConfig.sectionStartTime ? Math.floor((Date.now() - examConfig.sectionStartTime) / 1000) : 0
             };
             
             localStorage.setItem('mockvibe_exam_progress', JSON.stringify(progress));
@@ -2100,23 +2186,43 @@
         function loadProgress() {
             const saved = localStorage.getItem('mockvibe_exam_progress');
             if (saved) {
-                const progress = JSON.parse(saved);
-                examConfig.answers = progress.answers || {};
-                examConfig.markedQuestions = new Set(progress.markedQuestions || []);
-                examConfig.visitedQuestions = new Set(progress.visitedQuestions || []);
-                examConfig.currentSection = progress.currentSection || 'quant';
-                examConfig.currentQuestion = progress.currentQuestion || 1;
-                examConfig.startTime = progress.startTime || Date.now();
-                examConfig.sectionStartTime = progress.sectionStartTime || Date.now();
-                examConfig.testStarted = progress.testStarted || false; // NEW: Load test started flag
-                
-                if (examConfig.testStarted) {
-                    // Adjust timers for elapsed time
-                    const timeElapsed = Date.now() - examConfig.startTime;
-                    examConfig.totalDuration = Math.max(0, examConfig.totalDuration - Math.floor(timeElapsed / 1000));
+                try {
+                    const progress = JSON.parse(saved);
                     
-                    showNotification('Previous session restored', 'info');
-                    return true;
+                    // Only restore if it's not a new test
+                    if (progress.testStarted && !progress.isNewTest) {
+                        examConfig.answers = progress.answers || {};
+                        examConfig.markedQuestions = new Set(progress.markedQuestions || []);
+                        examConfig.visitedQuestions = new Set(progress.visitedQuestions || []);
+                        examConfig.currentSection = progress.currentSection || 'quant';
+                        examConfig.currentQuestion = progress.currentQuestion || 1;
+                        examConfig.testStarted = progress.testStarted;
+                        examConfig.isNewTest = progress.isNewTest || false;
+                        
+                        // Calculate remaining time based on elapsed time
+                        if (progress.timeElapsed) {
+                            examConfig.startTime = Date.now() - (progress.timeElapsed * 1000);
+                            const remaining = Math.max(0, examConfig.totalDuration - progress.timeElapsed);
+                            updateMainTimerDisplay(remaining);
+                        } else {
+                            examConfig.startTime = Date.now();
+                        }
+                        
+                        if (progress.sectionTimeElapsed) {
+                            examConfig.sectionStartTime = Date.now() - (progress.sectionTimeElapsed * 1000);
+                            const sectionRemaining = Math.max(0, examConfig.sections[examConfig.currentSection] - progress.sectionTimeElapsed);
+                            updateSectionTimerDisplay(sectionRemaining);
+                        } else {
+                            examConfig.sectionStartTime = Date.now();
+                        }
+                        
+                        showNotification('Previous session restored. Timer continues from where you left.', 'info');
+                        return true;
+                    }
+                } catch (e) {
+                    console.error('Error loading progress:', e);
+                    // Clear corrupted data
+                    localStorage.removeItem('mockvibe_exam_progress');
                 }
             }
             return false;
@@ -2275,32 +2381,16 @@
 
         // Initialize exam
         document.addEventListener('DOMContentLoaded', () => {
-            // Try to load saved progress
-            if (loadProgress() && examConfig.testStarted) {
-                // Resume from saved progress - show test interface directly
-                testStartOverlay.style.display = 'none';
-                examHeader.style.display = 'flex';
-                testContainer.style.display = 'grid';
-                
-                // Initialize exam
-                initRealExam();
-                switchToSection(examConfig.currentSection);
-                navigateToQuestion(examConfig.currentQuestion);
-                
-                // Start timers
-                startMainTimer();
-                startSectionTimer();
-                
-                showNotification('Test resumed from previous session', 'info');
-            } else {
-                // Start new exam - show start overlay
-                testStartOverlay.style.display = 'flex';
-                examHeader.style.display = 'none';
-                testContainer.style.display = 'none';
-                
-                // Initialize exam without starting timers
-                initRealExam();
-            }
+            // Always start with fresh test (show start overlay)
+            testStartOverlay.style.display = 'flex';
+            examHeader.style.display = 'none';
+            testContainer.style.display = 'none';
+            
+            // Clear any existing progress for fresh start
+            clearProgress();
+            
+            // Initialize exam without starting timers
+            initRealExam();
         });
     </script>
 </body>
