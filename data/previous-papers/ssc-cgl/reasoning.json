@@ -1,1 +1,41 @@
-
+{
+  "subject": "General Intelligence & Reasoning",
+  "total_questions": 180,
+  "last_updated": "2024-01-21",
+  "topics": [
+    {
+      "topic_id": "REASON_001",
+      "topic_name": "Analogy",
+      "questions": [
+        {
+          "id": "REASON_001_001",
+          "question": "Doctor : Hospital :: Teacher : ?",
+          "options": ["School", "College", "University", "Classroom"],
+          "correct_answer": "School",
+          "explanation": "Doctor works in Hospital, similarly Teacher works in School.",
+          "difficulty": "easy"
+        }
+      ]
+    },
+    {
+      "topic_id": "REASON_002",
+      "topic_name": "Coding-Decoding",
+      "questions": [
+        {
+          "id": "REASON_002_001",
+          "question": "If 'TEACHER' is coded as 'VGCEJGT', how is 'STUDENT' coded?",
+          "options": ["UVWFGPV", "UVWFGPU", "TVWFGPV", "TVWFGPU"],
+          "correct_answer": "UVWFGPV",
+          "explanation": "Each letter moves +2 positions: T→V, E→G, A→C, C→E, H→J, E→G, R→T",
+          "solution_steps": [
+            "Pattern: Each letter +2 in alphabet",
+            "T(20)+2=22→V",
+            "S(19)+2=21→U",
+            "Continue for all letters"
+          ],
+          "difficulty": "medium"
+        }
+      ]
+    }
+  ]
+}
