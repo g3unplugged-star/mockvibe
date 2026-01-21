@@ -123,6 +123,33 @@
             display: block;
         }
 
+        /* Section Timer - FIXED: More specific selectors */
+        .section-timer {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .section-timer .section-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .section-timer .section-timer-name {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            display: block;
+            margin-top: 4px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
         .timer-critical {
             animation: criticalPulse 0.5s infinite alternate;
         }
@@ -130,26 +157,6 @@
         @keyframes criticalPulse {
             from { color: white; }
             to { color: #ff6b6b; }
-        }
-
-        /* Section Timer */
-        .section-timer {
-            background: rgba(0, 0, 0, 0.15);
-            padding: 8px 16px;
-            border-radius: var(--radius);
-            text-align: center;
-            min-width: 120px;
-        }
-
-        .section-time {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .section-name {
-            font-size: 0.8rem;
-            opacity: 0.9;
         }
 
         .test-container {
@@ -238,7 +245,7 @@
             margin-bottom: 8px;
         }
 
-        .section-name {
+        .section-card .section-name {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             color: var(--text);
@@ -944,6 +951,12 @@
             .exam-timer-container {
                 width: 100%;
                 justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .real-timer, .section-timer {
+                min-width: 160px;
             }
 
             .timer-info-grid {
@@ -989,6 +1002,10 @@
                 letter-spacing: 2px;
             }
 
+            .section-timer .section-time {
+                font-size: 1.2rem;
+            }
+
             .test-start-body {
                 padding: 20px;
             }
@@ -1016,6 +1033,15 @@
             
             .modal {
                 width: 95%;
+            }
+
+            .exam-brand h1 {
+                font-size: 1.2rem;
+            }
+
+            .real-timer, .section-timer {
+                padding: 10px 16px;
+                min-width: 140px;
             }
         }
     </style>
@@ -1080,7 +1106,7 @@
         </div>
     </div>
 
-    <!-- Exam Header with Timer -->
+    <!-- Exam Header with Timer - FIXED: Added unique class for section name -->
     <header class="exam-header" style="display: none;" id="examHeader">
         <div class="exam-brand">
             <h1><i class="fas fa-graduation-cap"></i> MockVibe Exam</h1>
@@ -1095,7 +1121,7 @@
             
             <div class="section-timer">
                 <div class="section-time" id="sectionTimer">25:00</div>
-                <span class="section-name">Quantitative Aptitude</span>
+                <span class="section-timer-name" id="sectionTimerName">Quantitative Aptitude</span>
             </div>
         </div>
     </header>
@@ -1480,6 +1506,7 @@
         const testContainer = document.getElementById('testContainer');
         const mainTimerElement = document.getElementById('mainTimer');
         const sectionTimerElement = document.getElementById('sectionTimer');
+        const sectionTimerNameElement = document.getElementById('sectionTimerName');
         const examDateElement = document.getElementById('examDate');
         const questionGrid = document.getElementById('questionGrid');
         const answeredCount = document.getElementById('answeredCount');
@@ -1915,8 +1942,8 @@
                 }
             });
             
-            // Update section timer display
-            document.getElementById('sectionTimer').nextElementSibling.textContent = getSectionName(section);
+            // Update section timer display in header
+            sectionTimerNameElement.textContent = getSectionName(section);
             
             // Reinitialize question grid
             initQuestionGrid();
