@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MockVibe | SSC CGL Tier 1 Mock Test - Timed Exam</title>
+    <title>MockVibe | Test Results & Performance Analysis</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
@@ -46,362 +49,478 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg);
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .exam-mode {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+        .results-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
         }
 
-        /* Exam Header */
-        .exam-header {
+        /* Results Header */
+        .results-header {
             background: linear-gradient(135deg, #1e3a8a, #1e40af);
             color: white;
-            padding: 16px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            border-bottom: 3px solid var(--accent);
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
         }
 
-        .exam-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .results-header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
-        .exam-brand a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .exam-brand a:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .exam-brand h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-
-        .exam-brand span {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .test-complete-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
             font-weight: 500;
-            cursor: default;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* Real Exam Timer */
-        .exam-timer-container {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .real-timer {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px 24px;
-            border-radius: var(--radius);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .timer-display {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-align: center;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .timer-label {
-            font-size: 0.85rem;
-            opacity: 0.9;
-            text-align: center;
-            margin-top: 4px;
-            display: block;
-        }
-
-        /* Section Timer - FIXED: More specific selectors */
-        .section-timer {
-            background: rgba(0, 0, 0, 0.15);
-            padding: 12px 20px;
-            border-radius: var(--radius);
-            text-align: center;
-            min-width: 140px;
-        }
-
-        .section-timer .section-time {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: white;
-            letter-spacing: 1px;
-        }
-
-        .section-timer .section-timer-name {
-            font-size: 0.8rem;
-            opacity: 0.9;
-            display: block;
-            margin-top: 4px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .timer-critical {
-            animation: criticalPulse 0.5s infinite alternate;
-        }
-
-        @keyframes criticalPulse {
-            from { color: white; }
-            to { color: #ff6b6b; }
-        }
-
-        .test-container {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            min-height: calc(100vh - 80px);
-            gap: 0;
-        }
-
-        /* Enhanced Exam Sidebar */
-        .exam-sidebar {
-            background: var(--sidebar);
-            border-right: 1px solid var(--border);
-            padding: 24px;
-            overflow-y: auto;
-            position: sticky;
-            top: 80px;
-            height: calc(100vh - 80px);
-            box-shadow: var(--shadow);
-        }
-
-        .exam-info {
-            margin-bottom: 32px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .exam-title {
+        .results-header h1 {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 12px;
-            color: var(--exam-blue);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
         }
 
-        .exam-meta {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+        .results-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .test-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 32px;
         }
 
         .meta-item {
+            text-align: center;
+        }
+
+        .meta-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            color: white;
+        }
+
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Main Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .result-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Score Card */
+        .score-display {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .score-circle {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 24px;
+        }
+
+        .score-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .score-main {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .score-total {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .score-percentile {
+            font-size: 1rem;
+            color: var(--success);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .score-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            border-radius: var(--radius);
+            background: #f8fafc;
+        }
+
+        .stat-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
 
-        .meta-item i {
-            width: 16px;
-            text-align: center;
+        .stat-correct .stat-value { color: var(--success); }
+        .stat-incorrect .stat-value { color: var(--danger); }
+        .stat-skipped .stat-value { color: var(--warning); }
+
+        /* Detailed Analysis */
+        .analysis-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
             color: var(--primary);
         }
 
-        /* Exam Sections */
-        .exam-sections {
+        .performance-chart {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 32px;
+            height: 400px;
+        }
+
+        /* Section Breakdown */
+        .section-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin-bottom: 32px;
         }
 
         .section-card {
-            background: white;
-            border: 2px solid var(--border);
+            background: var(--card);
             border-radius: var(--radius);
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
+            padding: 24px;
+            border: 1px solid var(--border);
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
-        .section-card.active {
-            border-color: var(--primary);
-            background: rgba(37, 99, 235, 0.05);
+        .section-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
         }
 
-        .section-card.completed {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.05);
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
         }
+
+        .section-card.quant::before { background: var(--primary); }
+        .section-card.reasoning::before { background: var(--success); }
+        .section-card.english::before { background: var(--warning); }
+        .section-card.gk::before { background: var(--info); }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 16px;
         }
 
-        .section-card .section-name {
+        .section-name {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             color: var(--text);
         }
 
-        .section-status {
-            font-size: 0.8rem;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 500;
-        }
-
-        .status-not-started {
-            background: var(--bg);
-            color: var(--text-muted);
-        }
-
-        .status-in-progress {
-            background: rgba(37, 99, 235, 0.1);
+        .section-score {
+            font-weight: 700;
             color: var(--primary);
         }
 
-        .status-completed {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
+        .section-stats {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
-        .section-details {
-            display: flex;
-            justify-content: space-between;
+        .section-stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .section-stat-value {
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: block;
+        }
+
+        .section-stat-label {
             font-size: 0.8rem;
             color: var(--text-muted);
         }
 
-        /* Enhanced Question Navigation */
-        .question-nav-section {
-            margin-bottom: 32px;
+        .section-progress {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 12px;
         }
 
-        .nav-header {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--text);
+        .section-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        .section-progress.quant .section-progress-fill { background: var(--primary); }
+        .section-progress.reasoning .section-progress-fill { background: var(--success); }
+        .section-progress.english .section-progress-fill { background: var(--warning); }
+        .section-progress.gk .section-progress-fill { background: var(--info); }
+
+        /* Comparison Section */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .comparison-item {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .comparison-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 16px;
         }
 
-        .question-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
+        .comparison-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--text);
         }
 
-        .question-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
+        .comparison-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .comparison-value.better { color: var(--success); }
+        .comparison-value.worse { color: var(--danger); }
+        .comparison-value.equal { color: var(--text-muted); }
+
+        /* Solutions Review */
+        .solutions-review {
+            margin-bottom: 40px;
+        }
+
+        .solution-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
             border: 2px solid var(--border);
             background: white;
             color: var(--text);
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .question-btn:hover {
+        .filter-btn:hover {
             border-color: var(--primary);
-            transform: translateY(-2px);
+            color: var(--primary);
         }
 
-        .question-btn.current {
+        .filter-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
         }
 
-        .question-btn.answered {
-            background: var(--success);
-            color: white;
-            border-color: var(--success);
-        }
-
-        .question-btn.marked {
-            background: var(--warning);
-            color: white;
-            border-color: var(--warning);
-        }
-
-        .question-btn.not-visited {
-            background: var(--bg);
-            color: var(--text-muted);
-            border-color: var(--border);
-        }
-
-        .question-btn.not-answered {
-            background: var(--danger);
-            color: white;
-            border-color: var(--danger);
-        }
-
-        .legend-grid {
+        .solutions-list {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-top: 16px;
+            gap: 16px;
         }
 
-        .legend-item {
+        .solution-item {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .solution-item:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .solution-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            margin-bottom: 16px;
         }
 
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 3px;
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        /* Exam Controls */
-        .exam-controls {
+        .question-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-correct { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-incorrect { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .status-skipped { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+
+        .solution-body {
+            margin-bottom: 16px;
+        }
+
+        .solution-actions {
             display: flex;
-            flex-direction: column;
             gap: 12px;
-            margin-top: 32px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .btn {
-            padding: 14px;
+            padding: 18px;
             border-radius: var(--radius);
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
@@ -413,6 +532,7 @@
             justify-content: center;
             gap: 10px;
             font-size: 0.95rem;
+            text-decoration: none;
         }
 
         .btn-primary {
@@ -437,6 +557,16 @@
             transform: translateY(-2px);
         }
 
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #0da67e;
+            transform: translateY(-2px);
+        }
+
         .btn-warning {
             background: var(--warning);
             color: white;
@@ -447,2176 +577,982 @@
             transform: translateY(-2px);
         }
 
-        /* Main Content Area */
-        .exam-content {
-            padding: 32px;
-            overflow-y: auto;
-            max-width: 900px;
-            margin: 0 auto;
-            width: 100%;
+        /* Accuracy Meter */
+        .accuracy-meter {
+            margin: 24px 0;
         }
 
-        /* Section Info */
-        .section-info {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 20px;
-            border-radius: var(--radius);
-            margin-bottom: 24px;
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.2);
-        }
-
-        .section-info h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
+        .accuracy-bar {
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
             margin-bottom: 8px;
         }
 
-        .section-stats {
+        .accuracy-fill {
+            height: 100%;
+            border-radius: 6px;
+            background: var(--success);
+            transition: width 1s ease;
+        }
+
+        .accuracy-labels {
             display: flex;
-            gap: 24px;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Time Analysis */
+        .time-analysis {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            border: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        .time-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
             margin-top: 16px;
         }
 
-        .section-stat {
+        .time-stat {
             text-align: center;
-        }
-
-        .stat-value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-
-        /* Question Area */
-        .question-container {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 32px;
-            box-shadow: var(--shadow);
-            margin-bottom: 32px;
-            border: 1px solid var(--border);
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 24px;
-        }
-
-        .question-number {
-            background: var(--primary);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .question-meta {
-            display: flex;
-            gap: 16px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .meta-tag {
-            background: var(--bg);
-            padding: 4px 12px;
-            border-radius: 12px;
-        }
-
-        .question-body {
-            margin-bottom: 32px;
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            line-height: 1.7;
-            margin-bottom: 24px;
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        .question-image {
-            max-width: 100%;
-            border-radius: var(--radius);
-            margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border);
-        }
-
-        /* Options */
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .option {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .option:hover {
-            border-color: var(--primary);
+            padding: 16px;
             background: #f8fafc;
-            transform: translateX(5px);
-        }
-
-        .option.selected {
-            border-color: var(--primary);
-            background: rgba(37, 99, 235, 0.05);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
-        }
-
-        .option.correct {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .option.incorrect {
-            border-color: var(--danger);
-            background: rgba(239, 68, 68, 0.05);
-        }
-
-        .option-label {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            background: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            margin-right: 20px;
-            flex-shrink: 0;
-            transition: var(--transition);
-            font-size: 1.1rem;
-        }
-
-        .option.selected .option-label {
-            background: var(--primary);
-            color: white;
-        }
-
-        .option.correct .option-label {
-            background: var(--success);
-            color: white;
-        }
-
-        .option.incorrect .option-label {
-            background: var(--danger);
-            color: white;
-        }
-
-        .option-text {
-            flex: 1;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        /* Question Actions */
-        .question-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-        }
-
-        .action-group {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--text-muted);
-        }
-
-        .btn-icon:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .btn-icon.active {
-            background: var(--warning);
-            color: white;
-            border-color: var(--warning);
-        }
-
-        /* Navigation Buttons */
-        .nav-buttons {
-            display: flex;
-            gap: 16px;
-        }
-
-        /* Exam Instructions */
-        .instructions-panel {
-            background: #fef3c7;
-            border: 2px solid #f59e0b;
             border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 24px;
         }
 
-        .instructions-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .instructions-header h3 {
+        .time-value {
             font-family: 'Poppins', sans-serif;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .instructions-list {
-            padding-left: 20px;
-            margin-bottom: 16px;
-        }
-
-        .instructions-list li {
-            margin-bottom: 8px;
-            color: var(--text-light);
-        }
-
-        /* Warning Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            backdrop-filter: blur(5px);
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal {
-            background: white;
-            border-radius: var(--radius);
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
-            border: 3px solid var(--danger);
-        }
-
-        .modal-overlay.active .modal {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            padding: 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, #dc2626, #ef4444);
-            color: white;
-            border-radius: var(--radius) var(--radius) 0 0;
-        }
-
-        .modal-header h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .modal-close {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-body {
-            padding: 24px;
-        }
-
-        .modal-footer {
-            padding: 20px 24px 24px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-        }
-
-        /* Auto-Submit Warning */
-        .auto-submit-warning {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #dc2626, #ef4444);
-            color: white;
-            padding: 16px 24px;
-            border-radius: var(--radius);
-            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
-            z-index: 1001;
-            display: none;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Test Not Started Overlay */
-        .test-not-started-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        .test-start-modal {
-            background: white;
-            border-radius: var(--radius);
-            max-width: 600px;
-            width: 100%;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            border: 3px solid var(--primary);
-        }
-
-        .test-start-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 24px;
-            text-align: center;
-        }
-
-        .test-start-header h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-        }
-
-        .test-start-body {
-            padding: 32px;
-        }
-
-        .test-instructions {
-            margin-bottom: 32px;
-        }
-
-        .test-instructions h3 {
-            font-family: 'Poppins', sans-serif;
-            margin-bottom: 16px;
-            color: var(--text);
-        }
-
-        .test-instructions ul {
-            padding-left: 20px;
-            margin-bottom: 20px;
-        }
-
-        .test-instructions li {
-            margin-bottom: 10px;
-            color: var(--text-light);
-        }
-
-        .test-timer-info {
-            background: #f0f9ff;
-            border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 24px;
-            border: 2px solid var(--primary);
-        }
-
-        .timer-info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        .timer-info-item {
-            text-align: center;
-        }
-
-        .timer-info-value {
-            font-family: 'JetBrains Mono', monospace;
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 5px;
+            display: block;
         }
 
-        .timer-info-label {
-            font-size: 0.9rem;
+        .time-label {
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
         /* Responsive Design */
-        @media (max-width: 1024px) {
-            .test-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .exam-sidebar {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 320px;
-                height: calc(100vh - 80px);
-                z-index: 100;
-                transition: left 0.3s ease;
-                box-shadow: var(--shadow-lg);
-            }
-            
-            .exam-sidebar.active {
-                left: 0;
-            }
-            
-            .mobile-toggle {
-                position: fixed;
-                bottom: 24px;
-                right: 24px;
-                width: 56px;
-                height: 56px;
-                border-radius: 50%;
-                background: var(--primary);
-                color: white;
-                border: none;
-                font-size: 1.5rem;
-                cursor: pointer;
-                z-index: 99;
-                box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .exam-header {
-                flex-direction: column;
-                gap: 12px;
-                padding: 12px 16px;
-            }
-            
-            .exam-timer-container {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-
-            .real-timer, .section-timer {
-                min-width: 160px;
-            }
-
-            .timer-info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
-            .exam-content {
-                padding: 20px;
+            .results-header h1 {
+                font-size: 2rem;
             }
             
-            .question-container {
-                padding: 24px;
+            .test-meta {
+                gap: 20px;
             }
             
-            .question-header {
-                flex-direction: column;
-                gap: 12px;
-            }
-            
-            .question-meta {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .question-actions {
-                flex-direction: column;
-                gap: 16px;
-            }
-            
-            .action-group {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .nav-buttons {
-                width: 100%;
-            }
-            
-            .timer-display {
+            .meta-value {
                 font-size: 1.5rem;
-                letter-spacing: 2px;
             }
-
-            .section-timer .section-time {
-                font-size: 1.2rem;
+            
+            .results-grid {
+                grid-template-columns: 1fr;
             }
-
-            .test-start-body {
+            
+            .performance-chart {
+                height: 300px;
                 padding: 20px;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .score-circle {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .score-main {
+                font-size: 2.5rem;
             }
         }
 
         @media (max-width: 480px) {
-            .question-grid {
-                grid-template-columns: repeat(4, 1fr);
+            .results-header {
+                padding: 30px 0;
             }
             
-            .option {
-                padding: 16px;
+            .results-header h1 {
+                font-size: 1.8rem;
             }
             
-            .option-label {
-                width: 36px;
-                height: 36px;
-                margin-right: 12px;
-            }
-            
-            .section-stats {
+            .test-meta {
                 flex-direction: column;
-                gap: 12px;
+                gap: 15px;
             }
             
-            .modal {
-                width: 95%;
+            .section-breakdown {
+                grid-template-columns: 1fr;
             }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .solution-filters {
+                justify-content: center;
+            }
+            
+            .score-circle {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .score-main {
+                font-size: 2rem;
+            }
+        }
 
-            .exam-brand h1 {
-                font-size: 1.2rem;
-            }
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
 
-            .real-timer, .section-timer {
-                padding: 10px 16px;
-                min-width: 140px;
-            }
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 2px dashed var(--border);
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .no-results p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
-<body class="exam-mode">
-    <!-- Test Start Overlay -->
-    <div class="test-not-started-overlay" id="testStartOverlay">
-        <div class="test-start-modal">
-            <div class="test-start-header">
-                <h2><i class="fas fa-graduation-cap"></i> SSC CGL Tier 1 Mock Test</h2>
-                <p>Get ready for your timed exam simulation</p>
+<body>
+    <!-- Results Header -->
+    <header class="results-header">
+        <div class="results-header-content">
+            <div class="test-complete-badge">
+                <i class="fas fa-check-circle"></i> TEST COMPLETED
             </div>
+            <h1>Performance Analysis Report</h1>
+            <p>Detailed insights into your SSC CGL Tier 1 Mock Test performance</p>
             
-            <div class="test-start-body">
-                <div class="test-instructions">
-                    <h3><i class="fas fa-info-circle"></i> Important Instructions</h3>
-                    <ul>
-                        <li>Total duration: <strong>60 minutes</strong> for 100 questions</li>
-                        <li>Section-wise time limits apply</li>
-                        <li>Each question carries 2 marks</li>
-                        <li>Negative marking: 0.5 marks for wrong answers</li>
-                        <li>Use the question palette to navigate between questions</li>
-                        <li>Timer will start as soon as you begin the test</li>
-                        <li>You cannot pause the timer once started</li>
-                        <li>Ensure stable internet connection</li>
-                        <li><strong>Note:</strong> Timer resets when you start a new test</li>
-                    </ul>
+            <div class="test-meta">
+                <div class="meta-item">
+                    <span class="meta-value" id="testName">SSC CGL Tier 1</span>
+                    <span class="meta-label">Test Name</span>
                 </div>
-                
-                <div class="test-timer-info">
-                    <h4 style="text-align: center; margin-bottom: 20px; color: var(--primary);">
-                        <i class="fas fa-clock"></i> Time Limits
-                    </h4>
-                    <div class="timer-info-grid">
-                        <div class="timer-info-item">
-                            <div class="timer-info-value">60:00</div>
-                            <div class="timer-info-label">Total Time</div>
-                        </div>
-                        <div class="timer-info-item">
-                            <div class="timer-info-value">25:00</div>
-                            <div class="timer-info-label">Quantitative Aptitude</div>
-                        </div>
-                        <div class="timer-info-item">
-                            <div class="timer-info-value">20:00</div>
-                            <div class="timer-info-label">General Intelligence</div>
-                        </div>
-                        <div class="timer-info-item">
-                            <div class="timer-info-value">20:00</div>
-                            <div class="timer-info-label">English Language</div>
-                        </div>
-                    </div>
+                <div class="meta-item">
+                    <span class="meta-value" id="testDate">--</span>
+                    <span class="meta-label">Date</span>
                 </div>
-                
-                <div style="display: flex; justify-content: center; gap: 16px;">
-                    <button class="btn btn-outline" onclick="cancelTest()">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-                    <button class="btn btn-primary" onclick="startTest()">
-                        <i class="fas fa-play"></i> Start Test
-                    </button>
+                <div class="meta-item">
+                    <span class="meta-value" id="totalTime">60 min</span>
+                    <span class="meta-label">Duration</span>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Exam Header with Timer - FIXED: Added clickable logo -->
-    <header class="exam-header" style="display: none;" id="examHeader">
-        <div class="exam-brand">
-            <a href="https://g3unplugged-star.github.io/mockvibe/index.html" title="Go to Homepage" onclick="return goToHomepage()">
-                <i class="fas fa-graduation-cap"></i>
-                <h1>MockVibe Exam</h1>
-            </a>
-            <span>LIVE TEST</span>
-        </div>
-        
-        <div class="exam-timer-container">
-            <div class="real-timer">
-                <div class="timer-display" id="mainTimer">60:00</div>
-                <span class="timer-label">Total Time Remaining</span>
-            </div>
-            
-            <div class="section-timer">
-                <div class="section-time" id="sectionTimer">25:00</div>
-                <span class="section-timer-name" id="sectionTimerName">Quantitative Aptitude</span>
+                <div class="meta-item">
+                    <span class="meta-value" id="totalQuestions">100</span>
+                    <span class="meta-label">Questions</span>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="test-container" style="display: none;" id="testContainer">
-        <!-- Exam Sidebar -->
-        <aside class="exam-sidebar" id="sidebar">
-            <div class="exam-info">
-                <h2 class="exam-title">SSC CGL Tier 1 Mock Test</h2>
-                <div class="exam-meta">
-                    <div class="meta-item">
-                        <i class="fas fa-calendar"></i>
-                        <span>Date: <strong id="examDate"></strong></span>
+    <div class="results-container">
+        <!-- Main Results Grid -->
+        <div class="results-grid">
+            <!-- Overall Score Card -->
+            <div class="result-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-trophy"></i>
                     </div>
-                    <div class="meta-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Duration: <strong>60 Min</strong></span>
+                    <h3 class="card-title">Overall Score</h3>
+                </div>
+                
+                <div class="score-display">
+                    <div class="score-circle">
+                        <canvas id="scoreChart"></canvas>
+                        <div class="score-value">
+                            <span class="score-main" id="scoreValue">0</span>
+                            <span class="score-total">/200</span>
+                            <div class="score-percentile" id="percentage">0%</div>
+                        </div>
                     </div>
-                    <div class="meta-item">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Questions: <strong>100</strong></span>
+                    <div class="score-label">Total Marks Obtained</div>
+                </div>
+                
+                <div class="accuracy-meter">
+                    <div class="accuracy-bar">
+                        <div class="accuracy-fill" id="accuracyBar" style="width: 0%"></div>
                     </div>
-                    <div class="meta-item">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Marks: <strong>200</strong></span>
+                    <div class="accuracy-labels">
+                        <span>Accuracy: <strong id="accuracyValue">0%</strong></span>
+                        <span>Rank Estimate: <strong id="rankEstimate">--</strong></span>
                     </div>
                 </div>
             </div>
 
-            <!-- Exam Sections -->
-            <div class="exam-sections">
-                <div class="section-card active" data-section="quant">
+            <!-- Performance Stats Card -->
+            <div class="result-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="card-title">Performance Stats</h3>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-item stat-correct">
+                        <span class="stat-value" id="correctAnswers">0</span>
+                        <span class="stat-label">Correct Answers</span>
+                    </div>
+                    <div class="stat-item stat-incorrect">
+                        <span class="stat-value" id="wrongAnswers">0</span>
+                        <span class="stat-label">Wrong Answers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalAttempted">0</span>
+                        <span class="stat-label">Attempted</span>
+                    </div>
+                    <div class="stat-item stat-skipped">
+                        <span class="stat-value" id="skippedQuestions">0</span>
+                        <span class="stat-label">Skipped</span>
+                    </div>
+                </div>
+                
+                <div class="time-analysis">
+                    <h4 style="font-family: 'Poppins', sans-serif; margin-bottom: 16px; color: var(--text);">
+                        <i class="fas fa-clock"></i> Time Analysis
+                    </h4>
+                    <div class="time-stats">
+                        <div class="time-stat">
+                            <span class="time-value" id="timePerQuestion">0s</span>
+                            <span class="time-label">Avg Time/Question</span>
+                        </div>
+                        <div class="time-stat">
+                            <span class="time-value" id="timeAccuracy">0%</span>
+                            <span class="time-label">Time Accuracy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section-wise Breakdown -->
+        <div class="analysis-section">
+            <h2 class="section-title">
+                <i class="fas fa-layer-group"></i> Section-wise Performance
+            </h2>
+            
+            <div class="section-breakdown">
+                <!-- Quantitative Aptitude -->
+                <div class="section-card quant">
                     <div class="section-header">
                         <span class="section-name">Quantitative Aptitude</span>
-                        <span class="section-status status-in-progress">IN PROGRESS</span>
+                        <span class="section-score" id="quantScore">0/50</span>
                     </div>
-                    <div class="section-details">
-                        <span>25 Questions</span>
-                        <span>25 Minutes</span>
+                    <div class="section-stats">
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="quantCorrect">0</span>
+                            <span class="section-stat-label">Correct</span>
+                        </div>
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="quantWrong">0</span>
+                            <span class="section-stat-label">Wrong</span>
+                        </div>
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="quantAccuracy">0%</span>
+                            <span class="section-stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <div class="section-progress quant">
+                        <div class="section-progress-fill" id="quantProgress" style="width: 0%"></div>
                     </div>
                 </div>
-                
-                <div class="section-card" data-section="reasoning">
+
+                <!-- General Intelligence -->
+                <div class="section-card reasoning">
                     <div class="section-header">
                         <span class="section-name">General Intelligence</span>
-                        <span class="section-status status-not-started">NOT STARTED</span>
+                        <span class="section-score" id="reasoningScore">0/50</span>
                     </div>
-                    <div class="section-details">
-                        <span>25 Questions</span>
-                        <span>20 Minutes</span>
+                    <div class="section-stats">
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="reasoningCorrect">0</span>
+                            <span class="section-stat-label">Correct</span>
+                        </div>
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="reasoningWrong">0</span>
+                            <span class="section-stat-label">Wrong</span>
+                        </div>
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="reasoningAccuracy">0%</span>
+                            <span class="section-stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <div class="section-progress reasoning">
+                        <div class="section-progress-fill" id="reasoningProgress" style="width: 0%"></div>
                     </div>
                 </div>
-                
-                <div class="section-card" data-section="english">
+
+                <!-- English Language -->
+                <div class="section-card english">
                     <div class="section-header">
                         <span class="section-name">English Language</span>
-                        <span class="section-status status-not-started">NOT STARTED</span>
+                        <span class="section-score" id="englishScore">0/50</span>
                     </div>
-                    <div class="section-details">
-                        <span>25 Questions</span>
-                        <span>20 Minutes</span>
+                    <div class="section-stats">
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="englishCorrect">0</span>
+                            <span class="section-stat-label">Correct</span>
+                        </div>
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="englishWrong">0</span>
+                            <span class="section-stat-label">Wrong</span>
+                        </div>
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="englishAccuracy">0%</span>
+                            <span class="section-stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <div class="section-progress english">
+                        <div class="section-progress-fill" id="englishProgress" style="width: 0%"></div>
                     </div>
                 </div>
-                
-                <div class="section-card" data-section="gk">
+
+                <!-- General Awareness -->
+                <div class="section-card gk">
                     <div class="section-header">
                         <span class="section-name">General Awareness</span>
-                        <span class="section-status status-not-started">NOT STARTED</span>
+                        <span class="section-score" id="gkScore">0/50</span>
                     </div>
-                    <div class="section-details">
-                        <span>25 Questions</span>
-                        <span>15 Minutes</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Question Navigation -->
-            <div class="question-nav-section">
-                <div class="nav-header">
-                    <span>Question Palette</span>
-                    <span id="answeredCount">0/25</span>
-                </div>
-                
-                <div class="question-grid" id="questionGrid">
-                    <!-- Questions will be dynamically generated -->
-                </div>
-                
-                <div class="legend-grid">
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: var(--primary);"></div>
-                        <span>Current</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: var(--success);"></div>
-                        <span>Answered</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: var(--warning);"></div>
-                        <span>Marked</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: var(--danger);"></div>
-                        <span>Not Answered</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: var(--bg);"></div>
-                        <span>Not Visited</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Exam Controls -->
-            <div class="exam-controls">
-                <button class="btn btn-primary" onclick="submitSection()">
-                    <i class="fas fa-forward"></i> Submit Section
-                </button>
-                <button class="btn btn-outline" onclick="showSummary()">
-                    <i class="fas fa-chart-pie"></i> View Summary
-                </button>
-                <button class="btn btn-warning" onclick="submitExam()">
-                    <i class="fas fa-flag-checkered"></i> Submit Exam
-                </button>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="exam-content">
-            <!-- Section Instructions -->
-            <div class="instructions-panel" id="instructionsPanel">
-                <div class="instructions-header">
-                    <h3><i class="fas fa-info-circle"></i> Section Instructions</h3>
-                    <button class="btn-icon" onclick="hideInstructions()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <ul class="instructions-list">
-                    <li>This section contains 25 questions</li>
-                    <li>Time allotted: 25 minutes</li>
-                    <li>Each question carries 2 marks</li>
-                    <li>There is negative marking of 0.5 marks for wrong answers</li>
-                    <li>Use the question palette to navigate between questions</li>
-                    <li>Click "Mark for Review" to flag questions for later review</li>
-                </ul>
-                <button class="btn btn-primary" onclick="hideInstructions()">
-                    <i class="fas fa-play"></i> Start Section
-                </button>
-            </div>
-
-            <!-- Section Info -->
-            <div class="section-info">
-                <h2>Quantitative Aptitude</h2>
-                <p>Solve questions based on arithmetic, algebra, geometry, and data interpretation</p>
-                <div class="section-stats">
-                    <div class="section-stat">
-                        <span class="stat-value" id="sectionTimeRemaining">25:00</span>
-                        <span class="stat-label">Time Remaining</span>
-                    </div>
-                    <div class="section-stat">
-                        <span class="stat-value" id="sectionAnswered">0</span>
-                        <span class="stat-label">Answered</span>
-                    </div>
-                    <div class="section-stat">
-                        <span class="stat-value" id="sectionMarked">0</span>
-                        <span class="stat-label">Marked</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Question Container -->
-            <div class="question-container">
-                <div class="question-header">
-                    <div class="question-number">Question 1 of 25</div>
-                    <div class="question-meta">
-                        <span class="meta-tag">Marks: +2, -0.5</span>
-                        <span class="meta-tag">Difficulty: Medium</span>
-                        <span class="meta-tag">Time: 60 sec</span>
-                    </div>
-                </div>
-                
-                <div class="question-body">
-                    <div class="question-text">
-                        If the selling price of an article is doubled, then its profit triples. Find the profit percent.
-                    </div>
-                    
-                    <!-- Question Image (Optional) -->
-                    <img src="https://via.placeholder.com/800x400?text=Math+Diagram" 
-                         alt="Question Diagram" 
-                         class="question-image" 
-                         id="questionImage" 
-                         style="display: none;">
-                    
-                    <!-- Options -->
-                    <div class="options-grid">
-                        <div class="option" onclick="selectOption(0)">
-                            <div class="option-label">A</div>
-                            <div class="option-text">100%</div>
+                    <div class="section-stats">
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="gkCorrect">0</span>
+                            <span class="section-stat-label">Correct</span>
                         </div>
-                        <div class="option" onclick="selectOption(1)">
-                            <div class="option-label">B</div>
-                            <div class="option-text">200%</div>
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="gkWrong">0</span>
+                            <span class="section-stat-label">Wrong</span>
                         </div>
-                        <div class="option" onclick="selectOption(2)">
-                            <div class="option-label">C</div>
-                            <div class="option-text">300%</div>
-                        </div>
-                        <div class="option" onclick="selectOption(3)">
-                            <div class="option-label">D</div>
-                            <div class="option-text">400%</div>
+                        <div class="section-stat">
+                            <span class="section-stat-value" id="gkAccuracy">0%</span>
+                            <span class="section-stat-label">Accuracy</span>
                         </div>
                     </div>
-                </div>
-
-                <!-- Question Actions -->
-                <div class="question-actions">
-                    <div class="action-group">
-                        <button class="btn-icon" onclick="markForReview()" id="reviewBtn" title="Mark for Review">
-                            <i class="fas fa-flag"></i>
-                        </button>
-                        <button class="btn-icon" onclick="clearResponse()" title="Clear Response">
-                            <i class="fas fa-eraser"></i>
-                        </button>
-                        <button class="btn-icon" onclick="showCalculator()" title="Calculator">
-                            <i class="fas fa-calculator"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="nav-buttons">
-                        <button class="btn btn-outline" onclick="prevQuestion()">
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </button>
-                        <button class="btn btn-primary" onclick="nextQuestion()">
-                            Save & Next <i class="fas fa-arrow-right"></i>
-                        </button>
+                    <div class="section-progress gk">
+                        <div class="section-progress-fill" id="gkProgress" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
 
-    <!-- Mobile Toggle Button -->
-    <button class="mobile-toggle" id="sidebarToggle" style="display: none;">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Auto-Submit Warning -->
-    <div class="auto-submit-warning" id="autoSubmitWarning">
-        <strong><i class="fas fa-exclamation-triangle"></i> WARNING:</strong> 
-        Test will auto-submit in <span id="warningTime">30</span> seconds!
-    </div>
-
-    <!-- Section Submit Modal -->
-    <div class="modal-overlay" id="submitSectionModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2><i class="fas fa-forward"></i> Submit Section</h2>
-                <button class="modal-close" onclick="closeSubmitModal()">&times;</button>
-            </div>
+        <!-- Performance Chart -->
+        <div class="analysis-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i> Performance Visualization
+            </h2>
             
-            <div class="modal-body">
-                <div style="text-align: center; margin-bottom: 24px;">
-                    <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: var(--warning); margin-bottom: 16px;"></i>
-                    <h3 style="font-family: 'Poppins', sans-serif; margin-bottom: 12px;">Are you sure you want to submit this section?</h3>
-                    <p style="color: var(--text-light); margin-bottom: 20px;">
-                        Once submitted, you cannot return to this section. Please review your answers before proceeding.
+            <div class="performance-chart">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="analysis-section">
+            <h2 class="section-title">
+                <i class="fas fa-users"></i> Comparison Analysis
+            </h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <div class="comparison-header">
+                        <span class="comparison-title">Your Score</span>
+                        <span class="comparison-value" id="yourScore">0</span>
+                    </div>
+                    <p style="color: var(--text-muted); margin-top: 12px;">
+                        Out of 200 total marks
                     </p>
                 </div>
                 
-                <div style="background: #f8fafc; padding: 20px; border-radius: var(--radius); margin-bottom: 24px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                        <span>Answered Questions:</span>
-                        <strong id="modalAnswered">0</strong>
+                <div class="comparison-item">
+                    <div class="comparison-header">
+                        <span class="comparison-title">Average Score</span>
+                        <span class="comparison-value equal" id="averageScore">120</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                        <span>Marked for Review:</span>
-                        <strong style="color: var(--warning);" id="modalMarked">0</strong>
-                    </div>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span>Not Answered:</span>
-                        <strong style="color: var(--danger);" id="modalNotAnswered">25</strong>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeSubmitModal()">
-                    Cancel
-                </button>
-                <button class="btn btn-primary" onclick="confirmSubmitSection()">
-                    Submit Section
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Test Summary Modal -->
-    <div class="modal-overlay" id="summaryModal">
-        <div class="modal" style="max-width: 700px;">
-            <div class="modal-header">
-                <h2><i class="fas fa-chart-pie"></i> Test Summary</h2>
-                <button class="modal-close" onclick="closeSummaryModal()">&times;</button>
-            </div>
-            
-            <div class="modal-body">
-                <div style="margin-bottom: 24px;">
-                    <h3 style="font-family: 'Poppins', sans-serif; margin-bottom: 16px; color: var(--primary);">Overall Test Status</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px;">
-                        <div style="background: #f8fafc; padding: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
-                            <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary); text-align: center;" id="summaryTotalAnswered">0</div>
-                            <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Total Answered</div>
-                        </div>
-                        <div style="background: #f8fafc; padding: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
-                            <div style="font-size: 2.5rem; font-weight: 700; color: var(--warning); text-align: center;" id="summaryTotalMarked">0</div>
-                            <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Marked for Review</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 24px;">
-                    <h3 style="font-family: 'Poppins', sans-serif; margin-bottom: 16px; color: var(--primary);">Section-wise Summary</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div style="font-weight: 600; color: var(--primary);">Quantitative Aptitude</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summaryQuant">0/25 answered</div>
-                        </div>
-                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div style="font-weight: 600; color: var(--text-muted);">General Intelligence</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summaryReasoning">0/25 answered</div>
-                        </div>
-                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div style="font-weight: 600; color: var(--text-muted);">English Language</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summaryEnglish">0/25 answered</div>
-                        </div>
-                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div style="font-weight: 600; color: var(--text-muted);">General Awareness</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summaryGK">0/25 answered</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="background: #f0f9ff; padding: 20px; border-radius: var(--radius); border: 2px solid var(--primary);">
-                    <h4 style="font-family: 'Poppins', sans-serif; margin-bottom: 12px; color: var(--primary);">
-                        <i class="fas fa-clock"></i> Time Status
-                    </h4>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-weight: 600; font-size: 1.2rem;" id="summaryMainTime">60:00</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);">Total Time Remaining</div>
-                        </div>
-                        <div>
-                            <div style="font-weight: 600; font-size: 1.2rem;" id="summarySectionTime">25:00</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summarySectionName">Quantitative Aptitude</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeSummaryModal()">
-                    Close
-                </button>
-                <button class="btn btn-primary" onclick="closeSummaryModal(); navigateToQuestion(1);">
-                    Go to First Question
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Final Submit Modal -->
-    <div class="modal-overlay" id="submitExamModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2><i class="fas fa-flag-checkered"></i> Submit Exam</h2>
-                <button class="modal-close" onclick="closeSubmitExamModal()">&times;</button>
-            </div>
-            
-            <div class="modal-body">
-                <div style="text-align: center; margin-bottom: 24px;">
-                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success); margin-bottom: 16px;"></i>
-                    <h3 style="font-family: 'Poppins', sans-serif; margin-bottom: 12px;">Exam Completion</h3>
-                    <p style="color: var(--text-light); margin-bottom: 20px;">
-                        You are about to submit your final answers. Please ensure you have reviewed all sections.
+                    <p style="color: var(--text-muted); margin-top: 12px;">
+                        Based on 1000+ test takers
                     </p>
                 </div>
                 
-                <div style="background: #f8fafc; padding: 20px; border-radius: var(--radius);">
-                    <h4 style="font-family: 'Poppins', sans-serif; margin-bottom: 16px;">Section-wise Summary</h4>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                        <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div style="font-weight: 600; color: var(--primary);">Quantitative Aptitude</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="finalQuant">0/25 answered</div>
-                        </div>
-                        <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div style="font-weight: 600; color: var(--text-muted);">General Intelligence</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="finalReasoning">0/25 answered</div>
-                        </div>
-                        <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div style="font-weight: 600; color: var(--text-muted);">English Language</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="finalEnglish">0/25 answered</div>
-                        </div>
-                        <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div style="font-weight: 600; color: var(--text-muted);">General Awareness</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="finalGK">0/25 answered</div>
-                        </div>
+                <div class="comparison-item">
+                    <div class="comparison-header">
+                        <span class="comparison-title">Topper's Score</span>
+                        <span class="comparison-value worse" id="topperScore">185</span>
                     </div>
+                    <p style="color: var(--text-muted); margin-top: 12px;">
+                        Highest score recorded
+                    </p>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="comparison-header">
+                        <span class="comparison-title">Cut-off Estimate</span>
+                        <span class="comparison-value better" id="cutoffScore">110</span>
+                    </div>
+                    <p style="color: var(--text-muted); margin-top: 12px;">
+                        Expected cutoff for Tier 1
+                    </p>
                 </div>
             </div>
+        </div>
+
+        <!-- Solutions Review Section -->
+        <div class="analysis-section solutions-review">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i> Review Your Answers
+            </h2>
             
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeSubmitExamModal()">
-                    Continue Exam
-                </button>
-                <button class="btn btn-primary" onclick="confirmSubmitExam()">
-                    Submit Final Answers
-                </button>
+            <div class="solution-filters">
+                <button class="filter-btn active" onclick="filterSolutions('all')">All Questions</button>
+                <button class="filter-btn" onclick="filterSolutions('correct')">Correct Answers</button>
+                <button class="filter-btn" onclick="filterSolutions('incorrect')">Wrong Answers</button>
+                <button class="filter-btn" onclick="filterSolutions('skipped')">Skipped</button>
             </div>
+            
+            <div class="solutions-list" id="solutionsList">
+                <!-- Solutions will be dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="https://g3unplugged-star.github.io/mockvibe/index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+            <a href="#" class="btn btn-outline" id="retakeTest">
+                <i class="fas fa-redo"></i> Retake Test
+            </a>
+            <a href="#" class="btn btn-success" id="downloadReport">
+                <i class="fas fa-download"></i> Download Report
+            </a>
+            <a href="#" class="btn btn-warning" onclick="shareResults()">
+                <i class="fas fa-share-alt"></i> Share Results
+            </a>
         </div>
     </div>
 
     <script>
-        // Real Exam Configuration
-        const examConfig = {
-            // Total exam duration: 60 minutes
-            totalDuration: 60 * 60, // seconds
-            originalTotalDuration: 60 * 60, // Store original for reset
-            // Section durations in seconds
-            sections: {
-                quant: 25 * 60, // 25 minutes
-                reasoning: 20 * 60, // 20 minutes
-                english: 20 * 60, // 20 minutes
-                gk: 15 * 60 // 15 minutes
-            },
-            // Store original section times for reset
-            originalSections: {
-                quant: 25 * 60,
-                reasoning: 20 * 60,
-                english: 20 * 60,
-                gk: 15 * 60
-            },
-            // Section-wise questions
-            sectionQuestions: {
-                quant: 25,
-                reasoning: 25,
-                english: 25,
-                gk: 25
-            },
-            currentSection: 'quant',
-            currentQuestion: 1,
-            answers: {},
-            markedQuestions: new Set(),
-            visitedQuestions: new Set(),
-            startTime: null, // Will be set when test starts
-            isPaused: false,
-            mainTimerInterval: null,
-            sectionTimerInterval: null,
-            sectionStartTime: null, // Will be set when section starts
-            autoSubmitWarningShown: false,
-            testStarted: false, // Flag to track if test has started
-            isNewTest: true // NEW: Flag to track if this is a new test
-        };
-
-        // DOM Elements
-        const testStartOverlay = document.getElementById('testStartOverlay');
-        const examHeader = document.getElementById('examHeader');
-        const testContainer = document.getElementById('testContainer');
-        const mainTimerElement = document.getElementById('mainTimer');
-        const sectionTimerElement = document.getElementById('sectionTimer');
-        const sectionTimerNameElement = document.getElementById('sectionTimerName');
-        const examDateElement = document.getElementById('examDate');
-        const questionGrid = document.getElementById('questionGrid');
-        const answeredCount = document.getElementById('answeredCount');
-        const sectionTimeRemaining = document.getElementById('sectionTimeRemaining');
-        const sectionAnswered = document.getElementById('sectionAnswered');
-        const sectionMarked = document.getElementById('sectionMarked');
-        const instructionsPanel = document.getElementById('instructionsPanel');
-        const autoSubmitWarning = document.getElementById('autoSubmitWarning');
-        const warningTime = document.getElementById('warningTime');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-
-        // Debug function to check state
-        function debugState() {
-            console.log('Current State:', {
-                testStarted: examConfig.testStarted,
-                isNewTest: examConfig.isNewTest,
-                currentSection: examConfig.currentSection,
-                currentQuestion: examConfig.currentQuestion,
-                answersCount: Object.keys(examConfig.answers).length,
-                markedCount: examConfig.markedQuestions.size,
-                visitedCount: examConfig.visitedQuestions.size
-            });
+        // Load results from localStorage
+        const results = JSON.parse(localStorage.getItem('mockvibe_exam_results'));
+        
+        // If no results found, show error
+        if (!results) {
+            document.body.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>No Test Results Found</h3>
+                    <p>It seems you haven't completed any test yet. Please complete a mock test to view your results.</p>
+                    <a href="https://g3unplugged-star.github.io/mockvibe/index.html" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            `;
+        } else {
+            // Process and display results
+            displayResults(results);
+            initializeCharts(results);
+            generateSolutionsList(results);
         }
 
-        // Initialize Real Exam
-        function initRealExam() {
-            // Set exam date
-            const now = new Date();
-            examDateElement.textContent = now.toLocaleDateString('en-IN', {
+        function displayResults(data) {
+            // Calculate derived metrics
+            const accuracy = data.totalAnswered > 0 ? ((data.correctAnswers / data.totalAnswered) * 100).toFixed(1) : 0;
+            const timePerQuestion = data.totalAnswered > 0 ? Math.floor((60 * 60) / data.totalAnswered) : 0; // Assuming 60 min test
+            const timeAccuracy = Math.min(100, Math.floor((data.totalAnswered / 100) * 100)); // Based on attempted vs total
+            
+            // Update header information
+            document.getElementById('testName').textContent = data.testName || 'SSC CGL Tier 1';
+            document.getElementById('testDate').textContent = new Date(data.testDate).toLocaleDateString('en-IN', {
                 day: 'numeric',
-                month: 'long',
+                month: 'short',
                 year: 'numeric'
             });
+            document.getElementById('totalQuestions').textContent = data.totalQuestions || 100;
             
-            // Initialize question grid for current section
-            initQuestionGrid();
+            // Update score display
+            document.getElementById('scoreValue').textContent = data.score || 0;
+            document.getElementById('percentage').textContent = data.percentage ? `${data.percentage}%` : '0%';
             
-            // Mark first question as visited
-            examConfig.visitedQuestions.add(1);
+            // Update stats
+            document.getElementById('correctAnswers').textContent = data.correctAnswers || 0;
+            document.getElementById('wrongAnswers').textContent = data.wrongAnswers || 0;
+            document.getElementById('totalAttempted').textContent = data.totalAnswered || 0;
+            document.getElementById('skippedQuestions').textContent = data.skipped || data.totalQuestions - data.totalAnswered || 0;
             
-            // Setup mobile toggle
-            setupMobileToggle();
+            // Update accuracy
+            document.getElementById('accuracyValue').textContent = `${accuracy}%`;
+            document.getElementById('accuracyBar').style.width = `${accuracy}%`;
             
-            // Setup auto-save
-            setupAutoSave();
+            // Update time analysis
+            document.getElementById('timePerQuestion').textContent = `${timePerQuestion}s`;
+            document.getElementById('timeAccuracy').textContent = `${timeAccuracy}%`;
             
-            // Show instructions for first-time visitors
-            if (!localStorage.getItem('instructionsSeen')) {
-                instructionsPanel.style.display = 'block';
-            }
-            
-            // Setup keyboard shortcuts
-            setupExamShortcuts();
-            
-            // Update question status
-            updateQuestionStatus();
-            
-            // Initialize timer displays (static values before test starts)
-            updateMainTimerDisplay(examConfig.totalDuration);
-            updateSectionTimerDisplay(examConfig.sections[examConfig.currentSection]);
-            
-            console.log('Exam initialized. testStarted:', examConfig.testStarted);
-        }
-
-        function initQuestionGrid() {
-            questionGrid.innerHTML = '';
-            const totalQuestions = examConfig.sectionQuestions[examConfig.currentSection];
-            
-            for (let i = 1; i <= totalQuestions; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'question-btn not-visited';
-                btn.textContent = i;
-                btn.onclick = () => navigateToQuestion(i);
-                questionGrid.appendChild(btn);
-            }
-        }
-
-        // NEW FUNCTION: Start the test (called when user clicks "Start Test")
-        function startTest() {
-            console.log('Starting test...');
-            
-            // Clear any existing progress for a fresh start
-            clearProgress();
-            
-            // Reset timers to original values
-            resetTimers();
-            
-            // Set test started flag
-            examConfig.testStarted = true;
-            examConfig.isNewTest = false;
-            examConfig.startTime = Date.now();
-            examConfig.sectionStartTime = Date.now();
-            
-            // Hide start overlay
-            testStartOverlay.style.display = 'none';
-            
-            // Show exam interface
-            examHeader.style.display = 'flex';
-            testContainer.style.display = 'grid';
-            
-            // Start timers
-            startMainTimer();
-            startSectionTimer();
-            
-            // Initialize exam
-            initRealExam();
-            
-            // Show notification
-            showNotification('Test started! Timer is now running.', 'success');
-            
-            console.log('Test started successfully. testStarted:', examConfig.testStarted);
-            debugState();
-        }
-
-        // NEW FUNCTION: Reset timers to original values
-        function resetTimers() {
-            examConfig.totalDuration = examConfig.originalTotalDuration;
-            examConfig.sections = JSON.parse(JSON.stringify(examConfig.originalSections));
-        }
-
-        // NEW FUNCTION: Clear progress for fresh start
-        function clearProgress() {
-            examConfig.answers = {};
-            examConfig.markedQuestions = new Set();
-            examConfig.visitedQuestions = new Set([1]);
-            examConfig.currentSection = 'quant';
-            examConfig.currentQuestion = 1;
-            examConfig.startTime = null;
-            examConfig.sectionStartTime = null;
-            examConfig.autoSubmitWarningShown = false;
-            
-            // Clear localStorage for fresh test
-            localStorage.removeItem('mockvibe_exam_progress');
-            localStorage.removeItem('mockvibe_exam_results');
-        }
-
-        // NEW FUNCTION: Go to homepage
-        function goToHomepage() {
-            if (examConfig.testStarted && !examConfig.isNewTest) {
-                if (confirm('Are you sure you want to leave the test? Your progress will be saved, but the timer will continue running.')) {
-                    saveProgress();
-                    // Redirect to homepage
-                    window.location.href = 'https://g3unplugged-star.github.io/mockvibe/index.html';
-                    return false;
-                }
-                return false;
-            }
-            return true;
-        }
-
-        // NEW FUNCTION: Cancel test and return to homepage
-        function cancelTest() {
-            if (confirm('Are you sure you want to cancel the test? You will lose all progress.')) {
-                clearProgress();
-                window.location.href = 'https://g3unplugged-star.github.io/mockvibe/index.html';
-            }
-        }
-
-        function startMainTimer() {
-            if (examConfig.mainTimerInterval) clearInterval(examConfig.mainTimerInterval);
-            
-            examConfig.mainTimerInterval = setInterval(() => {
-                if (examConfig.isPaused || !examConfig.testStarted) return;
-                
-                const elapsed = Math.floor((Date.now() - examConfig.startTime) / 1000);
-                const remaining = Math.max(0, examConfig.totalDuration - elapsed);
-                
-                updateMainTimerDisplay(remaining);
-                
-                // Show warnings
-                if (remaining === 300) { // 5 minutes
-                    showNotification('5 minutes remaining!', 'warning');
-                } else if (remaining === 60) { // 1 minute
-                    showNotification('1 minute remaining!', 'danger');
-                    showAutoSubmitWarning(60);
-                } else if (remaining <= 30 && remaining > 0) {
-                    showAutoSubmitWarning(remaining);
-                }
-                
-                // Auto-submit when time is up
-                if (remaining <= 0) {
-                    clearInterval(examConfig.mainTimerInterval);
-                    autoSubmitExam();
-                }
-            }, 1000);
-        }
-
-        function startSectionTimer() {
-            if (examConfig.sectionTimerInterval) clearInterval(examConfig.sectionTimerInterval);
-            
-            examConfig.sectionStartTime = Date.now();
-            examConfig.sectionTimerInterval = setInterval(() => {
-                if (examConfig.isPaused || !examConfig.testStarted) return;
-                
-                const elapsed = Math.floor((Date.now() - examConfig.sectionStartTime) / 1000);
-                const totalSectionTime = examConfig.sections[examConfig.currentSection];
-                const remaining = Math.max(0, totalSectionTime - elapsed);
-                
-                updateSectionTimerDisplay(remaining);
-                
-                // Auto-submit section when time is up
-                if (remaining <= 0) {
-                    clearInterval(examConfig.sectionTimerInterval);
-                    autoSubmitSection();
-                }
-            }, 1000);
-        }
-
-        function updateMainTimerDisplay(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            const timeString = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            
-            mainTimerElement.textContent = timeString;
-            
-            // Add critical class for last 5 minutes
-            if (seconds <= 300) {
-                mainTimerElement.classList.add('timer-critical');
+            // Update section scores (assuming data has section-wise breakdown)
+            if (data.sections) {
+                updateSectionScores(data.sections);
             } else {
-                mainTimerElement.classList.remove('timer-critical');
-            }
-        }
-
-        function updateSectionTimerDisplay(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            const timeString = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            
-            sectionTimerElement.textContent = timeString;
-            sectionTimeRemaining.textContent = timeString;
-        }
-
-        function selectOption(optionIndex) {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
+                // Fallback: Generate mock section data
+                updateSectionScores(generateMockSectionData(data));
             }
             
-            const questionKey = `${examConfig.currentSection}-${examConfig.currentQuestion}`;
-            examConfig.answers[questionKey] = optionIndex;
+            // Update comparison section
+            document.getElementById('yourScore').textContent = data.score || 0;
+            document.getElementById('rankEstimate').textContent = estimateRank(data.score || 0);
             
-            // Update UI
-            updateOptionSelection(optionIndex);
-            
-            // Update question status
-            updateQuestionStatus();
-            
-            // Auto-save
-            saveProgress();
-            
-            debugState();
+            // Animate score counter
+            animateValue('scoreValue', 0, data.score || 0, 1500);
+            animateValue('correctAnswers', 0, data.correctAnswers || 0, 1000);
+            animateValue('wrongAnswers', 0, data.wrongAnswers || 0, 1000);
         }
 
-        function updateOptionSelection(selectedIndex) {
-            const options = document.querySelectorAll('.option');
-            options.forEach((opt, idx) => {
-                opt.classList.remove('selected');
-                if (idx === selectedIndex) {
-                    opt.classList.add('selected');
+        function generateMockSectionData(data) {
+            // Generate mock section data for demonstration
+            const totalSections = 4;
+            const questionsPerSection = data.totalQuestions / totalSections;
+            const scorePerSection = (data.score || 0) / totalSections;
+            
+            return {
+                quant: {
+                    name: "Quantitative Aptitude",
+                    score: Math.floor(scorePerSection * 0.9), // Slightly lower
+                    total: 50,
+                    correct: Math.floor((data.correctAnswers || 0) / totalSections * 0.9),
+                    wrong: Math.floor((data.wrongAnswers || 0) / totalSections * 0.9),
+                    accuracy: Math.floor(Math.random() * 20 + 60)
+                },
+                reasoning: {
+                    name: "General Intelligence",
+                    score: Math.floor(scorePerSection * 1.1), // Slightly higher
+                    total: 50,
+                    correct: Math.floor((data.correctAnswers || 0) / totalSections * 1.1),
+                    wrong: Math.floor((data.wrongAnswers || 0) / totalSections * 1.1),
+                    accuracy: Math.floor(Math.random() * 20 + 65)
+                },
+                english: {
+                    name: "English Language",
+                    score: Math.floor(scorePerSection),
+                    total: 50,
+                    correct: Math.floor((data.correctAnswers || 0) / totalSections),
+                    wrong: Math.floor((data.wrongAnswers || 0) / totalSections),
+                    accuracy: Math.floor(Math.random() * 20 + 70)
+                },
+                gk: {
+                    name: "General Awareness",
+                    score: Math.floor(scorePerSection * 0.8), // Lower
+                    total: 50,
+                    correct: Math.floor((data.correctAnswers || 0) / totalSections * 0.8),
+                    wrong: Math.floor((data.wrongAnswers || 0) / totalSections * 0.8),
+                    accuracy: Math.floor(Math.random() * 20 + 55)
                 }
-            });
-        }
-
-        function markForReview() {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            const questionKey = `${examConfig.currentSection}-${examConfig.currentQuestion}`;
-            
-            if (examConfig.markedQuestions.has(questionKey)) {
-                examConfig.markedQuestions.delete(questionKey);
-                showNotification('Review mark removed', 'info');
-            } else {
-                examConfig.markedQuestions.add(questionKey);
-                showNotification('Marked for review', 'warning');
-            }
-            
-            updateReviewButton();
-            updateQuestionStatus();
-        }
-
-        function clearResponse() {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            const questionKey = `${examConfig.currentSection}-${examConfig.currentQuestion}`;
-            delete examConfig.answers[questionKey];
-            examConfig.markedQuestions.delete(questionKey);
-            
-            // Clear UI selection
-            const options = document.querySelectorAll('.option');
-            options.forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            updateQuestionStatus();
-            showNotification('Response cleared', 'info');
-        }
-
-        function nextQuestion() {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            const totalQuestions = examConfig.sectionQuestions[examConfig.currentSection];
-            if (examConfig.currentQuestion < totalQuestions) {
-                navigateToQuestion(examConfig.currentQuestion + 1);
-            } else {
-                // Last question, show submit section option
-                showNotification('Last question of section. Consider submitting section.', 'info');
-            }
-        }
-
-        function prevQuestion() {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            if (examConfig.currentQuestion > 1) {
-                navigateToQuestion(examConfig.currentQuestion - 1);
-            }
-        }
-
-        function navigateToQuestion(questionNumber) {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            examConfig.currentQuestion = questionNumber;
-            
-            // Mark as visited
-            examConfig.visitedQuestions.add(questionNumber);
-            
-            // Update UI
-            updateQuestionDisplay();
-            updateQuestionButtons();
-            updateReviewButton();
-            
-            // Close sidebar on mobile
-            if (window.innerWidth <= 1024) {
-                sidebar.classList.remove('active');
-            }
-        }
-
-        function updateQuestionDisplay() {
-            // Update question number
-            document.querySelector('.question-number').textContent = 
-                `Question ${examConfig.currentQuestion} of ${examConfig.sectionQuestions[examConfig.currentSection]}`;
-            
-            // Load question data (in real app, this would fetch from server)
-            // For demo, we'll just show placeholder text
-            document.querySelector('.question-text').textContent = 
-                `Question ${examConfig.currentQuestion}: What is the solution to this problem?`;
-            
-            // Clear previous selections
-            const options = document.querySelectorAll('.option');
-            options.forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // Restore saved answer if exists
-            const questionKey = `${examConfig.currentSection}-${examConfig.currentQuestion}`;
-            if (examConfig.answers[questionKey] !== undefined) {
-                updateOptionSelection(examConfig.answers[questionKey]);
-            }
-        }
-
-        function updateQuestionButtons() {
-            const buttons = document.querySelectorAll('.question-btn');
-            const totalQuestions = examConfig.sectionQuestions[examConfig.currentSection];
-            
-            buttons.forEach((btn, idx) => {
-                const questionNum = idx + 1;
-                if (questionNum > totalQuestions) {
-                    btn.style.display = 'none';
-                    return;
-                }
-                btn.style.display = 'flex';
-                
-                // Reset classes
-                btn.className = 'question-btn';
-                
-                // Set status
-                const questionKey = `${examConfig.currentSection}-${questionNum}`;
-                
-                if (questionNum === examConfig.currentQuestion) {
-                    btn.classList.add('current');
-                } else if (examConfig.answers[questionKey] !== undefined) {
-                    btn.classList.add('answered');
-                } else if (examConfig.markedQuestions.has(questionKey)) {
-                    btn.classList.add('marked');
-                } else if (examConfig.visitedQuestions.has(questionNum)) {
-                    btn.classList.add('not-answered');
-                } else {
-                    btn.classList.add('not-visited');
-                }
-            });
-        }
-
-        function updateReviewButton() {
-            const questionKey = `${examConfig.currentSection}-${examConfig.currentQuestion}`;
-            const isMarked = examConfig.markedQuestions.has(questionKey);
-            const reviewBtn = document.getElementById('reviewBtn');
-            
-            reviewBtn.classList.toggle('active', isMarked);
-            reviewBtn.title = isMarked ? 'Remove Review Mark' : 'Mark for Review';
-        }
-
-        function updateQuestionStatus() {
-            const totalQuestions = examConfig.sectionQuestions[examConfig.currentSection];
-            let answered = 0;
-            let marked = 0;
-            
-            for (let i = 1; i <= totalQuestions; i++) {
-                const questionKey = `${examConfig.currentSection}-${i}`;
-                if (examConfig.answers[questionKey] !== undefined) {
-                    answered++;
-                }
-                if (examConfig.markedQuestions.has(questionKey)) {
-                    marked++;
-                }
-            }
-            
-            answeredCount.textContent = `${answered}/${totalQuestions}`;
-            sectionAnswered.textContent = answered;
-            sectionMarked.textContent = marked;
-            
-            // Update modal counts
-            document.getElementById('modalAnswered').textContent = answered;
-            document.getElementById('modalMarked').textContent = marked;
-            document.getElementById('modalNotAnswered').textContent = totalQuestions - answered;
-        }
-
-        function submitSection() {
-            console.log('submitSection called, testStarted:', examConfig.testStarted);
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            document.getElementById('submitSectionModal').classList.add('active');
-        }
-
-        function closeSubmitModal() {
-            document.getElementById('submitSectionModal').classList.remove('active');
-        }
-
-        function confirmSubmitSection() {
-            closeSubmitModal();
-            
-            // Stop section timer
-            clearInterval(examConfig.sectionTimerInterval);
-            
-            // Move to next section
-            const sections = ['quant', 'reasoning', 'english', 'gk'];
-            const currentIndex = sections.indexOf(examConfig.currentSection);
-            
-            if (currentIndex < sections.length - 1) {
-                const nextSection = sections[currentIndex + 1];
-                switchToSection(nextSection);
-                showNotification(`Section submitted. Starting ${getSectionName(nextSection)}`, 'success');
-            } else {
-                // All sections completed
-                showNotification('All sections completed!', 'success');
-                setTimeout(() => submitExam(), 1000);
-            }
-        }
-
-        function autoSubmitSection() {
-            showNotification('Section time over! Auto-submitting...', 'warning');
-            confirmSubmitSection();
-        }
-
-        function switchToSection(section) {
-            examConfig.currentSection = section;
-            examConfig.currentQuestion = 1;
-            examConfig.visitedQuestions.clear();
-            examConfig.visitedQuestions.add(1);
-            examConfig.sectionStartTime = Date.now();
-            
-            // Update UI
-            document.querySelectorAll('.section-card').forEach(card => {
-                card.classList.remove('active', 'completed');
-                if (card.dataset.section === section) {
-                    card.classList.add('active');
-                    card.querySelector('.section-status').textContent = 'IN PROGRESS';
-                    card.querySelector('.section-status').className = 'section-status status-in-progress';
-                } else if (sections.indexOf(card.dataset.section) < sections.indexOf(section)) {
-                    card.classList.add('completed');
-                    card.querySelector('.section-status').textContent = 'COMPLETED';
-                    card.querySelector('.section-status').className = 'section-status status-completed';
-                }
-            });
-            
-            // Update section timer display in header
-            sectionTimerNameElement.textContent = getSectionName(section);
-            
-            // Reinitialize question grid
-            initQuestionGrid();
-            updateQuestionDisplay();
-            updateQuestionStatus();
-            startSectionTimer();
-            
-            // Show section instructions
-            instructionsPanel.style.display = 'block';
-        }
-
-        function getSectionName(section) {
-            const names = {
-                quant: 'Quantitative Aptitude',
-                reasoning: 'General Intelligence',
-                english: 'English Language',
-                gk: 'General Awareness'
             };
-            return names[section] || section;
         }
 
-        // NEW FUNCTION: Show Summary Modal
-        function showSummary() {
-            console.log('showSummary called, testStarted:', examConfig.testStarted);
-            debugState();
-            
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first! Click "Start Test" on the welcome screen.', 'warning');
-                return;
+        function updateSectionScores(sections) {
+            // Update Quantitative Aptitude
+            if (sections.quant) {
+                document.getElementById('quantScore').textContent = `${sections.quant.score}/${sections.quant.total}`;
+                document.getElementById('quantCorrect').textContent = sections.quant.correct;
+                document.getElementById('quantWrong').textContent = sections.quant.wrong;
+                document.getElementById('quantAccuracy').textContent = `${sections.quant.accuracy}%`;
+                document.getElementById('quantProgress').style.width = `${sections.quant.accuracy}%`;
             }
             
-            // Calculate total answered across all sections
-            let totalAnswered = 0;
-            let totalMarked = 0;
+            // Update General Intelligence
+            if (sections.reasoning) {
+                document.getElementById('reasoningScore').textContent = `${sections.reasoning.score}/${sections.reasoning.total}`;
+                document.getElementById('reasoningCorrect').textContent = sections.reasoning.correct;
+                document.getElementById('reasoningWrong').textContent = sections.reasoning.wrong;
+                document.getElementById('reasoningAccuracy').textContent = `${sections.reasoning.accuracy}%`;
+                document.getElementById('reasoningProgress').style.width = `${sections.reasoning.accuracy}%`;
+            }
             
-            Object.keys(examConfig.sectionQuestions).forEach(section => {
-                for (let i = 1; i <= examConfig.sectionQuestions[section]; i++) {
-                    const questionKey = `${section}-${i}`;
-                    if (examConfig.answers[questionKey] !== undefined) {
-                        totalAnswered++;
-                    }
-                    if (examConfig.markedQuestions.has(questionKey)) {
-                        totalMarked++;
+            // Update English Language
+            if (sections.english) {
+                document.getElementById('englishScore').textContent = `${sections.english.score}/${sections.english.total}`;
+                document.getElementById('englishCorrect').textContent = sections.english.correct;
+                document.getElementById('englishWrong').textContent = sections.english.wrong;
+                document.getElementById('englishAccuracy').textContent = `${sections.english.accuracy}%`;
+                document.getElementById('englishProgress').style.width = `${sections.english.accuracy}%`;
+            }
+            
+            // Update General Awareness
+            if (sections.gk) {
+                document.getElementById('gkScore').textContent = `${sections.gk.score}/${sections.gk.total}`;
+                document.getElementById('gkCorrect').textContent = sections.gk.correct;
+                document.getElementById('gkWrong').textContent = sections.gk.wrong;
+                document.getElementById('gkAccuracy').textContent = `${sections.gk.accuracy}%`;
+                document.getElementById('gkProgress').style.width = `${sections.gk.accuracy}%`;
+            }
+        }
+
+        function estimateRank(score) {
+            // Simple rank estimation based on score
+            if (score >= 180) return "Top 100";
+            if (score >= 160) return "Top 500";
+            if (score >= 140) return "Top 1000";
+            if (score >= 120) return "Top 2000";
+            if (score >= 100) return "Top 5000";
+            return "Above 10000";
+        }
+
+        function animateValue(id, start, end, duration) {
+            if (start === end) return;
+            
+            const range = end - start;
+            const element = document.getElementById(id);
+            const startTime = new Date().getTime();
+            
+            function updateValue() {
+                const currentTime = new Date().getTime();
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const currentValue = Math.floor(start + (range * progress));
+                element.textContent = currentValue;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateValue);
+                }
+            }
+            
+            updateValue();
+        }
+
+        function initializeCharts(data) {
+            // Score Gauge Chart
+            const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+            const score = data.score || 0;
+            const maxScore = 200;
+            const percentage = (score / maxScore) * 100;
+            
+            new Chart(scoreCtx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [percentage, 100 - percentage],
+                        backgroundColor: [
+                            getScoreColor(percentage),
+                            '#e2e8f0'
+                        ],
+                        borderWidth: 0,
+                        cutout: '75%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
                     }
                 }
             });
-            
-            // Update summary modal content
-            document.getElementById('summaryTotalAnswered').textContent = totalAnswered;
-            document.getElementById('summaryTotalMarked').textContent = totalMarked;
-            
-            // Update section-wise summary
-            document.getElementById('summaryQuant').textContent = 
-                `${getAnsweredCount('quant')}/${examConfig.sectionQuestions.quant} answered`;
-            document.getElementById('summaryReasoning').textContent = 
-                `${getAnsweredCount('reasoning')}/${examConfig.sectionQuestions.reasoning} answered`;
-            document.getElementById('summaryEnglish').textContent = 
-                `${getAnsweredCount('english')}/${examConfig.sectionQuestions.english} answered`;
-            document.getElementById('summaryGK').textContent = 
-                `${getAnsweredCount('gk')}/${examConfig.sectionQuestions.gk} answered`;
-            
-            // Update time status
-            document.getElementById('summaryMainTime').textContent = mainTimerElement.textContent;
-            document.getElementById('summarySectionTime').textContent = sectionTimerElement.textContent;
-            document.getElementById('summarySectionName').textContent = sectionTimerNameElement.textContent;
-            
-            // Show the modal
-            document.getElementById('summaryModal').classList.add('active');
-        }
 
-        function getAnsweredCount(section) {
-            let answered = 0;
-            for (let i = 1; i <= examConfig.sectionQuestions[section]; i++) {
-                const questionKey = `${section}-${i}`;
-                if (examConfig.answers[questionKey] !== undefined) {
-                    answered++;
-                }
-            }
-            return answered;
-        }
-
-        function closeSummaryModal() {
-            document.getElementById('summaryModal').classList.remove('active');
-        }
-
-        function submitExam() {
-            console.log('submitExam called, testStarted:', examConfig.testStarted);
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
+            // Performance Chart
+            const perfCtx = document.getElementById('performanceChart').getContext('2d');
+            const sections = data.sections || generateMockSectionData(data);
             
-            // Update final modal with current data
-            document.getElementById('finalQuant').textContent = 
-                `${getAnsweredCount('quant')}/${examConfig.sectionQuestions.quant} answered`;
-            document.getElementById('finalReasoning').textContent = 
-                `${getAnsweredCount('reasoning')}/${examConfig.sectionQuestions.reasoning} answered`;
-            document.getElementById('finalEnglish').textContent = 
-                `${getAnsweredCount('english')}/${examConfig.sectionQuestions.english} answered`;
-            document.getElementById('finalGK').textContent = 
-                `${getAnsweredCount('gk')}/${examConfig.sectionQuestions.gk} answered`;
-            
-            document.getElementById('submitExamModal').classList.add('active');
-        }
-
-        function closeSubmitExamModal() {
-            document.getElementById('submitExamModal').classList.remove('active');
-        }
-
-        function confirmSubmitExam() {
-            closeSubmitExamModal();
-            
-            // Stop all timers
-            clearInterval(examConfig.mainTimerInterval);
-            clearInterval(examConfig.sectionTimerInterval);
-            
-            // Calculate score and other metrics
-            const score = calculateScore();
-            const totalMarks = 200;
-            const percentage = ((score / totalMarks) * 100).toFixed(2);
-            const totalQuestions = 100;
-            const totalAnswered = Object.keys(examConfig.answers).length;
-            const correctAnswers = Math.floor(totalAnswered * 0.7); // Assume 70% correct
-            const wrongAnswers = totalAnswered - correctAnswers;
-            const skippedQuestions = totalQuestions - totalAnswered;
-            
-            // Save results to localStorage
-            const results = {
-                score: score,
-                totalMarks: totalMarks,
-                percentage: percentage,
-                correctAnswers: correctAnswers,
-                wrongAnswers: wrongAnswers,
-                skippedQuestions: skippedQuestions,
-                totalQuestions: totalQuestions,
-                totalAnswered: totalAnswered,
-                answers: examConfig.answers,
-                markedQuestions: Array.from(examConfig.markedQuestions),
-                testDate: new Date().toISOString(),
-                testName: 'SSC CGL Tier 1 Mock Test',
-                // Add section-wise stats
-                sectionStats: {
-                    quant: {
-                        answered: getAnsweredCount('quant'),
-                        total: examConfig.sectionQuestions.quant
-                    },
-                    reasoning: {
-                        answered: getAnsweredCount('reasoning'),
-                        total: examConfig.sectionQuestions.reasoning
-                    },
-                    english: {
-                        answered: getAnsweredCount('english'),
-                        total: examConfig.sectionQuestions.english
-                    },
-                    gk: {
-                        answered: getAnsweredCount('gk'),
-                        total: examConfig.sectionQuestions.gk
-                    }
-                }
-            };
-            
-            localStorage.setItem('mockvibe_exam_results', JSON.stringify(results));
-            
-            console.log('Results saved:', results);
-            
-            // Clear progress for next test
-            clearProgress();
-            examConfig.testStarted = false;
-            examConfig.isNewTest = true;
-            
-            // IMPORTANT FIX: Redirect to correct results page URL
-            // Your results page is "result.html" not "results.html"
-            window.location.href = 'result.html';
-        }
-
-        function autoSubmitExam() {
-            showNotification('Exam time over! Auto-submitting...', 'danger');
-            confirmSubmitExam();
-        }
-
-        function showAutoSubmitWarning(seconds) {
-            if (!examConfig.autoSubmitWarningShown || seconds <= 10) {
-                warningTime.textContent = seconds;
-                autoSubmitWarning.style.display = 'block';
-                examConfig.autoSubmitWarningShown = true;
-                
-                if (seconds <= 10) {
-                    autoSubmitWarning.style.background = 'linear-gradient(135deg, #dc2626, #991b1b)';
-                }
-                
-                setTimeout(() => {
-                    autoSubmitWarning.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        function calculateScore() {
-            let score = 0;
-            const correctMark = 2;
-            const wrongPenalty = 0.5;
-            
-            // Calculate based on answers (simplified - 70% accuracy)
-            Object.keys(examConfig.answers).forEach(key => {
-                // For demo, assume 70% accuracy
-                if (Math.random() > 0.3) {
-                    score += correctMark;
-                } else {
-                    score -= wrongPenalty;
-                }
-            });
-            
-            return Math.max(0, score);
-        }
-
-        function hideInstructions() {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            instructionsPanel.style.display = 'none';
-            localStorage.setItem('instructionsSeen', 'true');
-        }
-
-        function showCalculator() {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            showNotification('Calculator feature would open here', 'info');
-        }
-
-        function setupAutoSave() {
-            // Auto-save every 30 seconds
-            setInterval(() => {
-                if (examConfig.testStarted) {
-                    saveProgress();
-                }
-            }, 30000);
-            
-            // Save on page unload
-            window.addEventListener('beforeunload', () => {
-                if (examConfig.testStarted) {
-                    saveProgress();
-                }
-            });
-        }
-
-        function saveProgress() {
-            const progress = {
-                answers: examConfig.answers,
-                markedQuestions: Array.from(examConfig.markedQuestions),
-                visitedQuestions: Array.from(examConfig.visitedQuestions),
-                currentSection: examConfig.currentSection,
-                currentQuestion: examConfig.currentQuestion,
-                startTime: examConfig.startTime,
-                sectionStartTime: examConfig.sectionStartTime,
-                timestamp: Date.now(),
-                testStarted: examConfig.testStarted,
-                isNewTest: examConfig.isNewTest,
-                // Save elapsed time instead of remaining time
-                timeElapsed: examConfig.startTime ? Math.floor((Date.now() - examConfig.startTime) / 1000) : 0,
-                sectionTimeElapsed: examConfig.sectionStartTime ? Math.floor((Date.now() - examConfig.sectionStartTime) / 1000) : 0
-            };
-            
-            localStorage.setItem('mockvibe_exam_progress', JSON.stringify(progress));
-        }
-
-        function loadProgress() {
-            const saved = localStorage.getItem('mockvibe_exam_progress');
-            if (saved) {
-                try {
-                    const progress = JSON.parse(saved);
-                    
-                    // Only restore if it's not a new test
-                    if (progress.testStarted && !progress.isNewTest) {
-                        examConfig.answers = progress.answers || {};
-                        examConfig.markedQuestions = new Set(progress.markedQuestions || []);
-                        examConfig.visitedQuestions = new Set(progress.visitedQuestions || []);
-                        examConfig.currentSection = progress.currentSection || 'quant';
-                        examConfig.currentQuestion = progress.currentQuestion || 1;
-                        examConfig.testStarted = progress.testStarted;
-                        examConfig.isNewTest = progress.isNewTest || false;
-                        
-                        // Calculate remaining time based on elapsed time
-                        if (progress.timeElapsed) {
-                            examConfig.startTime = Date.now() - (progress.timeElapsed * 1000);
-                            const remaining = Math.max(0, examConfig.totalDuration - progress.timeElapsed);
-                            updateMainTimerDisplay(remaining);
-                        } else {
-                            examConfig.startTime = Date.now();
+            new Chart(perfCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Quantitative', 'Reasoning', 'English', 'GK'],
+                    datasets: [
+                        {
+                            label: 'Your Score',
+                            data: [
+                                sections.quant?.score || 0,
+                                sections.reasoning?.score || 0,
+                                sections.english?.score || 0,
+                                sections.gk?.score || 0
+                            ],
+                            backgroundColor: [
+                                'rgba(37, 99, 235, 0.7)',
+                                'rgba(13, 148, 136, 0.7)',
+                                'rgba(245, 158, 11, 0.7)',
+                                'rgba(59, 130, 246, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgb(37, 99, 235)',
+                                'rgb(13, 148, 136)',
+                                'rgb(245, 158, 11)',
+                                'rgb(59, 130, 246)'
+                            ],
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Section Average',
+                            data: [35, 32, 38, 28],
+                            backgroundColor: 'rgba(148, 163, 184, 0.3)',
+                            borderColor: 'rgba(148, 163, 184, 0.5)',
+                            borderWidth: 1,
+                            type: 'line',
+                            tension: 0.3,
+                            fill: false
                         }
-                        
-                        if (progress.sectionTimeElapsed) {
-                            examConfig.sectionStartTime = Date.now() - (progress.sectionTimeElapsed * 1000);
-                            const sectionRemaining = Math.max(0, examConfig.sections[examConfig.currentSection] - progress.sectionTimeElapsed);
-                            updateSectionTimerDisplay(sectionRemaining);
-                        } else {
-                            examConfig.sectionStartTime = Date.now();
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 50,
+                            title: {
+                                display: true,
+                                text: 'Score'
+                            }
                         }
-                        
-                        showNotification('Previous session restored. Timer continues from where you left.', 'info');
-                        return true;
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
                     }
-                } catch (e) {
-                    console.error('Error loading progress:', e);
-                    // Clear corrupted data
-                    localStorage.removeItem('mockvibe_exam_progress');
                 }
-            }
-            return false;
+            });
         }
 
-        function setupMobileToggle() {
-            if (window.innerWidth <= 1024) {
-                sidebarToggle.style.display = 'flex';
+        function getScoreColor(percentage) {
+            if (percentage >= 80) return '#10b981'; // Green
+            if (percentage >= 60) return '#3b82f6'; // Blue
+            if (percentage >= 40) return '#f59e0b'; // Yellow
+            return '#ef4444'; // Red
+        }
+
+        function generateSolutionsList(data) {
+            const solutionsList = document.getElementById('solutionsList');
+            const questions = data.questions || generateMockQuestions();
+            
+            solutionsList.innerHTML = '';
+            
+            questions.forEach((question, index) => {
+                const solutionItem = document.createElement('div');
+                solutionItem.className = 'solution-item';
+                solutionItem.dataset.status = question.status || 'skipped';
                 
-                sidebarToggle.onclick = () => {
-                    sidebar.classList.toggle('active');
-                };
+                let statusClass = 'status-skipped';
+                let statusText = 'Skipped';
+                let statusIcon = 'far fa-circle';
                 
-                document.addEventListener('click', (e) => {
-                    if (sidebar.classList.contains('active') && 
-                        !sidebar.contains(e.target) && 
-                        e.target !== sidebarToggle) {
-                        sidebar.classList.remove('active');
-                    }
+                if (question.status === 'correct') {
+                    statusClass = 'status-correct';
+                    statusText = 'Correct';
+                    statusIcon = 'fas fa-check';
+                } else if (question.status === 'incorrect') {
+                    statusClass = 'status-incorrect';
+                    statusText = 'Incorrect';
+                    statusIcon = 'fas fa-times';
+                }
+                
+                solutionItem.innerHTML = `
+                    <div class="solution-header">
+                        <span class="question-number">Q${index + 1}</span>
+                        <span class="question-status ${statusClass}">
+                            <i class="${statusIcon}"></i> ${statusText}
+                        </span>
+                    </div>
+                    <div class="solution-body">
+                        <p><strong>Question:</strong> ${question.text || 'Sample question text here...'}</p>
+                        <div style="margin-top: 12px;">
+                            <p><strong>Your Answer:</strong> ${question.userAnswer || 'Not attempted'}</p>
+                            <p><strong>Correct Answer:</strong> ${question.correctAnswer || 'A'}</p>
+                        </div>
+                        ${question.explanation ? `<p style="margin-top: 12px; padding: 12px; background: #f1f5f9; border-radius: 8px;">
+                            <strong>Explanation:</strong> ${question.explanation}
+                        </p>` : ''}
+                    </div>
+                    <div class="solution-actions">
+                        <button class="btn-outline" style="padding: 8px 16px; font-size: 0.9rem;" onclick="saveQuestion(${index})">
+                            <i class="far fa-bookmark"></i> Bookmark
+                        </button>
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="reviewQuestion(${index})">
+                            <i class="fas fa-book"></i> Review Similar
+                        </button>
+                    </div>
+                `;
+                
+                solutionsList.appendChild(solutionItem);
+            });
+        }
+
+        function generateMockQuestions() {
+            const questions = [];
+            const statuses = ['correct', 'incorrect', 'skipped'];
+            
+            for (let i = 1; i <= 20; i++) {
+                const status = statuses[Math.floor(Math.random() * 3)];
+                const answers = ['A', 'B', 'C', 'D'];
+                
+                questions.push({
+                    text: `Sample question ${i}: What is the result of calculation or reasoning required here?`,
+                    userAnswer: status !== 'skipped' ? answers[Math.floor(Math.random() * 4)] : null,
+                    correctAnswer: answers[Math.floor(Math.random() * 4)],
+                    status: status,
+                    explanation: status === 'incorrect' ? 'This is a detailed explanation of why the correct answer is what it is, and common mistakes to avoid.' : null
                 });
             }
             
-            window.addEventListener('resize', () => {
-                if (window.innerWidth <= 1024) {
-                    sidebarToggle.style.display = 'flex';
+            return questions;
+        }
+
+        function filterSolutions(filter) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const solutionItems = document.querySelectorAll('.solution-item');
+            
+            solutionItems.forEach(item => {
+                if (filter === 'all' || item.dataset.status === filter) {
+                    item.style.display = 'block';
                 } else {
-                    sidebarToggle.style.display = 'none';
-                    sidebar.classList.remove('active');
+                    item.style.display = 'none';
                 }
             });
         }
 
-        function setupExamShortcuts() {
-            document.addEventListener('keydown', (e) => {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-                
-                if (!examConfig.testStarted) {
-                    // Only allow escape to cancel test before start
-                    if (e.key === 'Escape') {
-                        cancelTest();
-                    }
-                    return;
-                }
-                
-                switch(e.key) {
-                    case 'ArrowLeft':
-                        e.preventDefault();
-                        prevQuestion();
-                        break;
-                    case 'ArrowRight':
-                        e.preventDefault();
-                        nextQuestion();
-                        break;
-                    case ' ':
-                        e.preventDefault();
-                        markForReview();
-                        break;
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
-                        e.preventDefault();
-                        selectOption(parseInt(e.key) - 1);
-                        break;
-                    case 'Escape':
-                        e.preventDefault();
-                        closeSubmitModal();
-                        closeSubmitExamModal();
-                        closeSummaryModal();
-                        break;
-                    case 's':
-                        if (e.ctrlKey) {
-                            e.preventDefault();
-                            submitSection();
-                        }
-                        break;
-                    case 'e':
-                        if (e.ctrlKey) {
-                            e.preventDefault();
-                            submitExam();
-                        }
-                        break;
-                    case 'v':
-                        if (e.ctrlKey) {
-                            e.preventDefault();
-                            showSummary();
-                        }
-                        break;
-                }
-            });
+        function saveQuestion(index) {
+            alert(`Question ${index + 1} has been bookmarked for later review.`);
+            // In a real app, save to localStorage or send to backend
         }
 
-        function showNotification(message, type = 'info') {
-            // Create notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'success' ? '#10b981' : 
-                           type === 'warning' ? '#f59e0b' : 
-                           type === 'danger' ? '#ef4444' : '#3b82f6'};
-                color: white;
-                padding: 12px 24px;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                z-index: 1000;
-                animation: slideIn 0.3s ease;
-                font-family: 'Inter', sans-serif;
-                font-size: 0.95rem;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            `;
-            
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 
-                                 type === 'warning' ? 'exclamation-triangle' : 
-                                 type === 'danger' ? 'times-circle' : 'info-circle'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-            
-            // Add CSS animations
-            if (!document.querySelector('#notification-animations')) {
-                const style = document.createElement('style');
-                style.id = 'notification-animations';
-                style.textContent = `
-                    @keyframes slideIn {
-                        from {
-                            transform: translateX(100%);
-                            opacity: 0;
-                        }
-                        to {
-                            transform: translateX(0);
-                            opacity: 1;
-                        }
-                    }
-                    @keyframes slideOut {
-                        from {
-                            transform: translateX(0);
-                            opacity: 1;
-                        }
-                        to {
-                            transform: translateX(100%);
-                            opacity: 0;
-                        }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
+        function reviewQuestion(index) {
+            alert(`Opening practice questions similar to question ${index + 1}.`);
+            // In a real app, navigate to practice section with filtered questions
         }
 
-        // Initialize exam
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM loaded, checking for saved progress...');
-            
-            // Try to load saved progress first
-            if (loadProgress()) {
-                // If progress was loaded, show exam interface
-                console.log('Progress loaded, showing exam interface');
-                testStartOverlay.style.display = 'none';
-                examHeader.style.display = 'flex';
-                testContainer.style.display = 'grid';
-                
-                // Initialize exam
-                initRealExam();
-                switchToSection(examConfig.currentSection);
-                navigateToQuestion(examConfig.currentQuestion);
-                
-                // Start timers
-                startMainTimer();
-                startSectionTimer();
+        function shareResults() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My MockVibe Test Results',
+                    text: `I scored ${results.score}/200 on SSC CGL Tier 1 Mock Test!`,
+                    url: window.location.href
+                });
             } else {
-                // No saved progress, start with fresh test
-                console.log('No saved progress, showing start overlay');
-                testStartOverlay.style.display = 'flex';
-                examHeader.style.display = 'none';
-                testContainer.style.display = 'none';
-                
-                // Initialize exam without starting timers
-                initRealExam();
+                // Fallback: Copy to clipboard
+                const shareText = `I scored ${results.score}/200 on SSC CGL Tier 1 Mock Test! Check out MockVibe for more tests: ${window.location.href}`;
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Results copied to clipboard! Share with your friends.');
+                });
             }
-            
-            debugState();
+        }
+
+        // Add event listeners for action buttons
+        document.getElementById('retakeTest').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to retake this test? Your previous results will be saved.')) {
+                // In a real app, navigate to test page
+                alert('Redirecting to test page...');
+                window.location.href = 'https://g3unplugged-star.github.io/mockvibe/test.html';
+            }
+        });
+
+        document.getElementById('downloadReport').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Downloading your performance report...');
+            // In a real app, generate and download PDF
+            downloadPDFReport();
+        });
+
+        function downloadPDFReport() {
+            // This is a mock function - in a real app, use a PDF generation library
+            console.log('Generating PDF report...');
+            // Example using jsPDF:
+            // const doc = new jsPDF();
+            // doc.text('MockVibe Performance Report', 20, 20);
+            // doc.save('mockvibe-report.pdf');
+        }
+
+        // Add loading animation for progress bars
+        setTimeout(() => {
+            document.querySelectorAll('.section-progress-fill, .accuracy-fill').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300);
+            });
+        }, 500);
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for scroll animations
+        document.querySelectorAll('.result-card, .section-card, .comparison-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
         });
     </script>
 </body>
