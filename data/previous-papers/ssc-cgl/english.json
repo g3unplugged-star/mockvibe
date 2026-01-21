@@ -1,65 +1,651 @@
-{
-  "subject": "English Language & Comprehension",
-  "total_questions": 200,
-  "last_updated": "2024-01-21",
-  "categories": [
-    {
-      "category_id": "ENG_001",
-      "category_name": "Vocabulary",
-      "subcategories": [
-        {
-          "subcategory": "Synonyms",
-          "questions": [
-            {
-              "id": "ENG_001_001",
-              "question": "Choose the word most similar in meaning to 'ABDICATE'",
-              "options": [
-                "Claim",
-                "Renounce",
-                "Usurp",
-                "Assume"
-              ],
-              "correct_answer": "Renounce",
-              "explanation": "Abdicate means to renounce or relinquish a throne or power.",
-              "difficulty": "easy",
-              "tags": ["synonyms", "vocabulary"]
-            }
-          ]
-        },
-        {
-          "subcategory": "Antonyms",
-          "questions": [
-            {
-              "id": "ENG_001_002",
-              "question": "Choose the word opposite in meaning to 'MAGNANIMOUS'",
-              "options": [
-                "Generous",
-                "Petty",
-                "Courageous",
-                "Kind"
-              ],
-              "correct_answer": "Petty",
-              "explanation": "Magnanimous means generous or forgiving, especially towards a rival or less powerful person. Opposite is petty.",
-              "difficulty": "medium"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category_id": "ENG_002",
-      "category_name": "Grammar",
-      "questions": [
-        {
-          "id": "ENG_002_001",
-          "question": "Identify the error: 'One of the students (A)/ have not (B)/ submitted their assignment (C)/ No error (D)'",
-          "options": ["A", "B", "C", "D"],
-          "correct_answer": "B",
-          "explanation": "'One of the students' is singular, so it should be 'has not' instead of 'have not'.",
-          "solution": "Subject-verb agreement: One of + plural noun + singular verb",
-          "difficulty": "medium"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "question": "Choose the correct antonym of 'BENEVOLENT':",
+    "options": ["Malevolent", "Generous", "Kind", "Philanthropic"],
+    "answer": "Malevolent",
+    "explanation": "Benevolent means kind and helpful; malevolent means having or showing a wish to do evil to others."
+  },
+  {
+    "question": "Select the correctly spelt word:",
+    "options": ["Occurrence", "Occurence", "Ocurrence", "Occurrance"],
+    "answer": "Occurrence",
+    "explanation": "Occurrence is the correct spelling meaning an incident or event."
+  },
+  {
+    "question": "Identify the part with error: 'One of the students (A)/ have completed (B)/ their assignment (C)/ on time. (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'One of the students' is singular, so verb should be 'has' not 'have'."
+  },
+  {
+    "question": "Choose the correct synonym of 'EPHEMERAL':",
+    "options": ["Permanent", "Temporary", "Eternal", "Enduring"],
+    "answer": "Temporary",
+    "explanation": "Ephemeral means lasting for a very short time; temporary."
+  },
+  {
+    "question": "Select appropriate preposition: 'He is proficient ______ mathematics.'",
+    "options": ["at", "in", "with", "on"],
+    "answer": "in",
+    "explanation": "The correct preposition with 'proficient' is 'in'."
+  },
+  {
+    "question": "Choose the correct indirect speech: 'He said, \"I am going to the market.\"'",
+    "options": [
+      "He said that he is going to the market.",
+      "He said that he was going to the market.",
+      "He said that he will go to the market.",
+      "He said that he went to the market."
+    ],
+    "answer": "He said that he was going to the market.",
+    "explanation": "Present continuous changes to past continuous in indirect speech."
+  },
+  {
+    "question": "Select the word opposite in meaning to 'PRODIGAL':",
+    "options": ["Wasteful", "Extravagant", "Frugal", "Lavish"],
+    "answer": "Frugal",
+    "explanation": "Prodigal means wasteful; frugal means economical."
+  },
+  {
+    "question": "Choose the correct idiom: 'To beat around the ______'",
+    "options": ["Tree", "Bush", "Plant", "Forest"],
+    "answer": "Bush",
+    "explanation": "The correct idiom is 'beat around the bush' meaning to avoid coming to the point."
+  },
+  {
+    "question": "Select the correct plural: 'Criterion'",
+    "options": ["Criterions", "Criterion", "Criteria", "Criterias"],
+    "answer": "Criteria",
+    "explanation": "The plural of criterion is criteria."
+  },
+  {
+    "question": "Choose the correct meaning of 'Panacea':",
+    "options": ["Partial solution", "Final solution", "Universal remedy", "Problem"],
+    "answer": "Universal remedy",
+    "explanation": "Panacea means a solution or remedy for all difficulties or diseases."
+  },
+  {
+    "question": "Select the correctly spelt word:",
+    "options": ["Separate", "Seperate", "Saparate", "Separete"],
+    "answer": "Separate",
+    "explanation": "Separate is the correct spelling meaning to divide or keep apart."
+  },
+  {
+    "question": "Identify error: 'Neither of the boys (A)/ are willing (B)/ to accept (C)/ the responsibility. (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'Neither' is singular, so verb should be 'is' not 'are'."
+  },
+  {
+    "question": "Choose synonym for 'VORACIOUS':",
+    "options": ["Small", "Hungry", "Slow", "Picky"],
+    "answer": "Hungry",
+    "explanation": "Voracious means wanting or consuming great quantities of food; very hungry."
+  },
+  {
+    "question": "Select correct preposition: 'She was angry ______ his behavior.'",
+    "options": ["with", "at", "for", "on"],
+    "answer": "at",
+    "explanation": "The correct preposition is 'angry at' something."
+  },
+  {
+    "question": "Choose the correct passive: 'They are building a new house.'",
+    "options": [
+      "A new house is being built by them.",
+      "A new house was built by them.",
+      "A new house has been built by them.",
+      "A new house will be built by them."
+    ],
+    "answer": "A new house is being built by them.",
+    "explanation": "Present continuous active becomes present continuous passive."
+  },
+  {
+    "question": "Select antonym for 'TRANSPARENT':",
+    "options": ["Clear", "Opaque", "Lucid", "Sheer"],
+    "answer": "Opaque",
+    "explanation": "Transparent means see-through; opaque means not able to be seen through."
+  },
+  {
+    "question": "Choose the correct idiom: 'A blessing in ______'",
+    "options": ["Disguise", "Surprise", "Package", "Gift"],
+    "answer": "Disguise",
+    "explanation": "'A blessing in disguise' means something good that isn't recognized at first."
+  },
+  {
+    "question": "Select correct plural: 'Analysis'",
+    "options": ["Analyses", "Analysises", "Analysises", "Analysis"],
+    "answer": "Analyses",
+    "explanation": "The plural of analysis is analyses."
+  },
+  {
+    "question": "Choose meaning of 'Belligerent':",
+    "options": ["Peaceful", "Hostile", "Friendly", "Neutral"],
+    "answer": "Hostile",
+    "explanation": "Belligerent means hostile and aggressive."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Necessary", "Neccessary", "Necesary", "Necesarry"],
+    "answer": "Necessary",
+    "explanation": "Necessary is the correct spelling meaning required to be done."
+  },
+  {
+    "question": "Identify error: 'Each of the girls (A)/ have brought (B)/ their own lunch (C)/ today. (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'Each' is singular, so verb should be 'has' not 'have'."
+  },
+  {
+    "question": "Choose synonym for 'MUNDANE':",
+    "options": ["Extraordinary", "Ordinary", "Exciting", "Special"],
+    "answer": "Ordinary",
+    "explanation": "Mundane means lacking interest or excitement; ordinary."
+  },
+  {
+    "question": "Select preposition: 'He is accused ______ theft.'",
+    "options": ["with", "of", "for", "on"],
+    "answer": "of",
+    "explanation": "The correct preposition with 'accused' is 'of'."
+  },
+  {
+    "question": "Choose indirect speech: 'She said, \"I will come tomorrow.\"'",
+    "options": [
+      "She said that she will come the next day.",
+      "She said that she would come tomorrow.",
+      "She said that she would come the next day.",
+      "She said that she will come tomorrow."
+    ],
+    "answer": "She said that she would come the next day.",
+    "explanation": "'Will' changes to 'would' and 'tomorrow' to 'the next day'."
+  },
+  {
+    "question": "Select antonym for 'DILIGENT':",
+    "options": ["Hardworking", "Industrious", "Lazy", "Conscientious"],
+    "answer": "Lazy",
+    "explanation": "Diligent means hardworking; lazy means unwilling to work."
+  },
+  {
+    "question": "Choose correct idiom: 'Bite the ______'",
+    "options": ["Apple", "Bullet", "Nail", "Dust"],
+    "answer": "Bullet",
+    "explanation": "'Bite the bullet' means to endure a painful experience bravely."
+  },
+  {
+    "question": "Select plural: 'Phenomenon'",
+    "options": ["Phenomenons", "Phenomena", "Phenomenas", "Phenomenon"],
+    "answer": "Phenomena",
+    "explanation": "The plural of phenomenon is phenomena."
+  },
+  {
+    "question": "Choose meaning: 'Ambiguous'",
+    "options": ["Clear", "Unclear", "Definite", "Certain"],
+    "answer": "Unclear",
+    "explanation": "Ambiguous means open to more than one interpretation; unclear."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Recommend", "Reccomend", "Recomend", "Reccommend"],
+    "answer": "Recommend",
+    "explanation": "Recommend is the correct spelling meaning to advise or suggest."
+  },
+  {
+    "question": "Identify error: 'The team (A)/ are playing (B)/ very well (C)/ this season. (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'Team' is collective noun used as singular here, so 'is' not 'are'."
+  },
+  {
+    "question": "Choose synonym: 'AUGMENT'",
+    "options": ["Decrease", "Increase", "Maintain", "Reduce"],
+    "answer": "Increase",
+    "explanation": "Augment means to make greater by adding to it; increase."
+  },
+  {
+    "question": "Select preposition: 'I am interested ______ learning French.'",
+    "options": ["at", "in", "on", "with"],
+    "answer": "in",
+    "explanation": "The correct preposition with 'interested' is 'in'."
+  },
+  {
+    "question": "Choose passive: 'Someone stole my car.'",
+    "options": [
+      "My car was stolen by someone.",
+      "My car is stolen by someone.",
+      "My car has been stolen by someone.",
+      "My car had stolen by someone."
+    ],
+    "answer": "My car was stolen by someone.",
+    "explanation": "Simple past active becomes simple past passive."
+  },
+  {
+    "question": "Select antonym: 'SCARCITY'",
+    "options": ["Shortage", "Abundance", "Lack", "Deficit"],
+    "answer": "Abundance",
+    "explanation": "Scarcity means shortage; abundance means plenty."
+  },
+  {
+    "question": "Choose idiom: 'Break the ______'",
+    "options": ["Glass", "Ice", "Mold", "Law"],
+    "answer": "Ice",
+    "explanation": "'Break the ice' means to initiate conversation in a social setting."
+  },
+  {
+    "question": "Select plural: 'Basis'",
+    "options": ["Basises", "Bases", "Basis", "Basises"],
+    "answer": "Bases",
+    "explanation": "The plural of basis is bases."
+  },
+  {
+    "question": "Choose meaning: 'Pragmatic'",
+    "options": ["Idealistic", "Practical", "Theoretical", "Dreamy"],
+    "answer": "Practical",
+    "explanation": "Pragmatic means dealing with things sensibly and realistically."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Conscious", "Consious", "Concious", "Conscous"],
+    "answer": "Conscious",
+    "explanation": "Conscious is the correct spelling meaning aware of and responding to surroundings."
+  },
+  {
+    "question": "Identify error: 'One of my friend (A)/ is coming (B)/ to visit me (C)/ next week. (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "A",
+    "explanation": "Should be 'One of my friends' as it refers to one from many."
+  },
+  {
+    "question": "Choose synonym: 'INNOCUOUS'",
+    "options": ["Harmful", "Harmless", "Dangerous", "Toxic"],
+    "answer": "Harmless",
+    "explanation": "Innocuous means not harmful or offensive."
+  },
+  {
+    "question": "Select preposition: 'He is good ______ mathematics.'",
+    "options": ["at", "in", "with", "for"],
+    "answer": "at",
+    "explanation": "The correct preposition with 'good' when referring to skill is 'at'."
+  },
+  {
+    "question": "Choose indirect: 'He said, \"I have finished my work.\"'",
+    "options": [
+      "He said that he has finished his work.",
+      "He said that he had finished his work.",
+      "He said that he finished his work.",
+      "He said that he has been finishing his work."
+    ],
+    "answer": "He said that he had finished his work.",
+    "explanation": "Present perfect changes to past perfect in indirect speech."
+  },
+  {
+    "question": "Select antonym: 'REPULSE'",
+    "options": ["Attract", "Reject", "Repel", "Disgust"],
+    "answer": "Attract",
+    "explanation": "Repulse means to drive back; attract means to draw toward."
+  },
+  {
+    "question": "Choose idiom: 'Cost an arm and a ______'",
+    "options": ["Leg", "Hand", "Foot", "Eye"],
+    "answer": "Leg",
+    "explanation": "'Cost an arm and a leg' means to be very expensive."
+  },
+  {
+    "question": "Select plural: 'Crisis'",
+    "options": ["Crisises", "Crises", "Crisis", "Crisies"],
+    "answer": "Crises",
+    "explanation": "The plural of crisis is crises."
+  },
+  {
+    "question": "Choose meaning: 'Ubiquitous'",
+    "options": ["Rare", "Everywhere", "Nowhere", "Limited"],
+    "answer": "Everywhere",
+    "explanation": "Ubiquitous means present, appearing, or found everywhere."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Definitely", "Definately", "Definitly", "Definately"],
+    "answer": "Definitely",
+    "explanation": "Definitely is the correct spelling meaning without doubt."
+  },
+  {
+    "question": "Identify error: 'The news (A)/ are very (B)/ encouraging (C)/ today. (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'News' is singular, so verb should be 'is' not 'are'."
+  },
+  {
+    "question": "Choose synonym: 'LACONIC'",
+    "options": ["Talkative", "Brief", "Verbose", "Lengthy"],
+    "answer": "Brief",
+    "explanation": "Laconic means using very few words; brief."
+  },
+  {
+    "question": "Select preposition: 'She is married ______ a doctor.'",
+    "options": ["with", "to", "for", "by"],
+    "answer": "to",
+    "explanation": "The correct preposition with 'married' is 'to'."
+  },
+  {
+    "question": "Choose passive: 'They have completed the project.'",
+    "options": [
+      "The project has been completed by them.",
+      "The project was completed by them.",
+      "The project is completed by them.",
+      "The project had been completed by them."
+    ],
+    "answer": "The project has been completed by them.",
+    "explanation": "Present perfect active becomes present perfect passive."
+  },
+  {
+    "question": "Select antonym: 'VIVACIOUS'",
+    "options": ["Lively", "Energetic", "Dull", "Animated"],
+    "answer": "Dull",
+    "explanation": "Vivacious means attractively lively and animated; dull means lacking interest."
+  },
+  {
+    "question": "Choose idiom: 'Hit the ______'",
+    "options": ["Road", "Nail", "Books", "Jackpot"],
+    "answer": "Nail",
+    "explanation": "'Hit the nail on the head' means to describe exactly what is causing a situation."
+  },
+  {
+    "question": "Select plural: 'Thesis'",
+    "options": ["Thesises", "Theses", "Thesis", "Thesies"],
+    "answer": "Theses",
+    "explanation": "The plural of thesis is theses."
+  },
+  {
+    "question": "Choose meaning: 'Brusque'",
+    "options": ["Polite", "Rude", "Gentle", "Courteous"],
+    "answer": "Rude",
+    "explanation": "Brusque means abrupt or offhand in speech or manner; rude."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Embarrass", "Embarass", "Embarras", "Embaras"],
+    "answer": "Embarrass",
+    "explanation": "Embarrass is the correct spelling meaning to cause to feel awkward."
+  },
+  {
+    "question": "Identify error: 'The committee (A)/ have submitted (B)/ their report (C)/ yesterday. (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'Committee' as singular entity requires 'has' not 'have'."
+  },
+  {
+    "question": "Choose synonym: 'MAGNANIMOUS'",
+    "options": ["Petty", "Generous", "Mean", "Selfish"],
+    "answer": "Generous",
+    "explanation": "Magnanimous means generous or forgiving, especially toward a rival."
+  },
+  {
+    "question": "Select preposition: 'He was found guilty ______ murder.'",
+    "options": ["of", "for", "with", "in"],
+    "answer": "of",
+    "explanation": "The correct preposition with 'guilty' is 'of'."
+  },
+  {
+    "question": "Choose indirect: 'She said, \"I may go to the party.\"'",
+    "options": [
+      "She said that she may go to the party.",
+      "She said that she might go to the party.",
+      "She said that she can go to the party.",
+      "She said that she could go to the party."
+    ],
+    "answer": "She said that she might go to the party.",
+    "explanation": "'May' changes to 'might' in indirect speech."
+  },
+  {
+    "question": "Select antonym: 'HYPOCRISY'",
+    "options": ["Deceit", "Sincerity", "Pretense", "Fakery"],
+    "answer": "Sincerity",
+    "explanation": "Hypocrisy means pretending to have qualities one doesn't have; sincerity means honesty."
+  },
+  {
+    "question": "Choose idiom: 'Piece of ______'",
+    "options": ["Paper", "Cake", "Bread", "Pie"],
+    "answer": "Cake",
+    "explanation": "'Piece of cake' means something very easy to do."
+  },
+  {
+    "question": "Select plural: 'Curriculum'",
+    "options": ["Curriculums", "Curricula", "Curriculum", "Curriculae"],
+    "answer": "Curricula",
+    "explanation": "The plural of curriculum is curricula."
+  },
+  {
+    "question": "Choose meaning: 'Eloquent'",
+    "options": ["Inarticulate", "Fluent", "Mute", "Tongue-tied"],
+    "answer": "Fluent",
+    "explanation": "Eloquent means fluent or persuasive in speaking or writing."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Harass", "Harras", "Haras", "Harrass"],
+    "answer": "Harass",
+    "explanation": "Harass is the correct spelling meaning to subject to aggressive pressure."
+  },
+  {
+    "question": "Identify error: 'A pair of scissors (A)/ are lying (B)/ on the table. (C)/ No error (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'A pair' is singular, so verb should be 'is' not 'are'."
+  },
+  {
+    "question": "Choose synonym: 'PLACID'",
+    "options": ["Calm", "Agitated", "Turbulent", "Stormy"],
+    "answer": "Calm",
+    "explanation": "Placid means not easily upset or excited; calm."
+  },
+  {
+    "question": "Select preposition: 'She is allergic ______ cats.'",
+    "options": ["to", "with", "for", "on"],
+    "answer": "to",
+    "explanation": "The correct preposition with 'allergic' is 'to'."
+  },
+  {
+    "question": "Choose passive: 'Someone will clean the room.'",
+    "options": [
+      "The room will be cleaned by someone.",
+      "The room is cleaned by someone.",
+      "The room was cleaned by someone.",
+      "The room has been cleaned by someone."
+    ],
+    "answer": "The room will be cleaned by someone.",
+    "explanation": "Simple future active becomes simple future passive."
+  },
+  {
+    "question": "Select antonym: 'MALLEABLE'",
+    "options": ["Flexible", "Pliable", "Rigid", "Adaptable"],
+    "answer": "Rigid",
+    "explanation": "Malleable means easily influenced; rigid means unable to bend or be forced out of shape."
+  },
+  {
+    "question": "Choose idiom: 'Spill the ______'",
+    "options": ["Water", "Beans", "Milk", "Tea"],
+    "answer": "Beans",
+    "explanation": "'Spill the beans' means to reveal secret information."
+  },
+  {
+    "question": "Select plural: 'Index' (as in book)",
+    "options": ["Indexes", "Indices", "Both A and B", "Index"],
+    "answer": "Both A and B",
+    "explanation": "Both indexes and indices are acceptable plurals for index."
+  },
+  {
+    "question": "Choose meaning: 'Gregarious'",
+    "options": ["Solitary", "Sociable", "Shy", "Introverted"],
+    "answer": "Sociable",
+    "explanation": "Gregarious means fond of company; sociable."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Exaggerate", "Exagerate", "Exxagerate", "Exagarate"],
+    "answer": "Exaggerate",
+    "explanation": "Exaggerate is the correct spelling meaning to represent as larger than reality."
+  },
+  {
+    "question": "Identify error: 'Many a student (A)/ have failed (B)/ in the examination. (C)/ No error (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'Many a student' is singular, so verb should be 'has' not 'have'."
+  },
+  {
+    "question": "Choose synonym: 'ABSTAIN'",
+    "options": ["Indulge", "Refrain", "Partake", "Consume"],
+    "answer": "Refrain",
+    "explanation": "Abstain means to restrain oneself from doing something; refrain."
+  },
+  {
+    "question": "Select preposition: 'He is jealous ______ his brother's success.'",
+    "options": ["of", "with", "for", "at"],
+    "answer": "of",
+    "explanation": "The correct preposition with 'jealous' is 'of'."
+  },
+  {
+    "question": "Choose indirect: 'They said, \"We are playing football.\"'",
+    "options": [
+      "They said that they are playing football.",
+      "They said that they were playing football.",
+      "They said that they play football.",
+      "They said that they have been playing football."
+    ],
+    "answer": "They said that they were playing football.",
+    "explanation": "Present continuous changes to past continuous."
+  },
+  {
+    "question": "Select antonym: 'SUCCINCT'",
+    "options": ["Concise", "Brief", "Lengthy", "Terse"],
+    "answer": "Lengthy",
+    "explanation": "Succinct means briefly and clearly expressed; lengthy means long."
+  },
+  {
+    "question": "Choose idiom: 'Burning the midnight ______'",
+    "options": ["Candle", "Oil", "Lamp", "Fire"],
+    "answer": "Oil",
+    "explanation": "'Burning the midnight oil' means working late into the night."
+  },
+  {
+    "question": "Select plural: 'Medium'",
+    "options": ["Mediums", "Media", "Both A and B", "Medium"],
+    "answer": "Both A and B",
+    "explanation": "Both mediums and media are plurals depending on context."
+  },
+  {
+    "question": "Choose meaning: 'Candid'",
+    "options": ["Secretive", "Truthful", "Deceptive", "Evasive"],
+    "answer": "Truthful",
+    "explanation": "Candid means truthful and straightforward; frank."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Maintenance", "Maintainance", "Maintenence", "Maintainence"],
+    "answer": "Maintenance",
+    "explanation": "Maintenance is the correct spelling meaning the process of maintaining."
+  },
+  {
+    "question": "Identify error: 'The furniture (A)/ in this room (B)/ are very old. (C)/ No error (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "C",
+    "explanation": "'Furniture' is uncountable, so verb should be 'is' not 'are'."
+  },
+  {
+    "question": "Choose synonym: 'OSTENSIBLE'",
+    "options": ["Real", "Apparent", "Genuine", "Actual"],
+    "answer": "Apparent",
+    "explanation": "Ostensible means stated or appearing to be true, but not necessarily so; apparent."
+  },
+  {
+    "question": "Select preposition: 'He is different ______ his brother.'",
+    "options": ["than", "from", "to", "with"],
+    "answer": "from",
+    "explanation": "The correct preposition with 'different' is 'from' (though 'to' is used in British English)."
+  },
+  {
+    "question": "Choose passive: 'They were painting the house.'",
+    "options": [
+      "The house was being painted by them.",
+      "The house was painted by them.",
+      "The house is being painted by them.",
+      "The house had been painted by them."
+    ],
+    "answer": "The house was being painted by them.",
+    "explanation": "Past continuous active becomes past continuous passive."
+  },
+  {
+    "question": "Select antonym: 'PROLIFIC'",
+    "options": ["Productive", "Barren", "Fertile", "Creative"],
+    "answer": "Barren",
+    "explanation": "Prolific means producing much fruit or many offspring; barren means unproductive."
+  },
+  {
+    "question": "Choose idiom: 'Cry over spilt ______'",
+    "options": ["Water", "Milk", "Juice", "Coffee"],
+    "answer": "Milk",
+    "explanation": "'Cry over spilt milk' means to regret what cannot be changed."
+  },
+  {
+    "question": "Select plural: 'Alumnus'",
+    "options": ["Alumnuses", "Alumni", "Alumnae", "Alumnus"],
+    "answer": "Alumni",
+    "explanation": "The plural of alumnus (male graduate) is alumni."
+  },
+  {
+    "question": "Choose meaning: 'Skeptical'",
+    "options": ["Trusting", "Doubtful", "Credulous", "Gullible"],
+    "answer": "Doubtful",
+    "explanation": "Skeptical means not easily convinced; having doubts."
+  },
+  {
+    "question": "Select correctly spelt:",
+    "options": ["Privilege", "Privelage", "Privilage", "Privelege"],
+    "answer": "Privilege",
+    "explanation": "Privilege is the correct spelling meaning a special right or advantage."
+  },
+  {
+    "question": "Identify error: 'The police (A)/ has arrested (B)/ the thief. (C)/ No error (D)'",
+    "options": ["A", "B", "C", "D"],
+    "answer": "B",
+    "explanation": "'Police' is plural, so verb should be 'have' not 'has'."
+  },
+  {
+    "question": "Choose synonym: 'RANCOR'",
+    "options": ["Kindness", "Bitterness", "Affection", "Friendship"],
+    "answer": "Bitterness",
+    "explanation": "Rancor means bitterness or resentfulness."
+  },
+  {
+    "question": "Select preposition: 'She is capable ______ hard work.'",
+    "options": ["of", "for", "with", "in"],
+    "answer": "of",
+    "explanation": "The correct preposition with 'capable' is 'of'."
+  },
+  {
+    "question": "Choose indirect: 'He said, \"I can speak English.\"'",
+    "options": [
+      "He said that he can speak English.",
+      "He said that he could speak English.",
+      "He said that he can spoke English.",
+      "He said that he speaks English."
+    ],
+    "answer": "He said that he could speak English.",
+    "explanation": "'Can' changes to 'could' in indirect speech."
+  },
+  {
+    "question": "Select antonym: 'VORACIOUS'",
+    "options": ["Ravenous", "Insatiable", "Satiated", "Hungry"],
+    "answer": "Satiated",
+    "explanation": "Voracious means wanting or consuming great quantities; satiated means satisfied fully."
+  },
+  {
+    "question": "Choose idiom: 'Once in a blue ______'",
+    "options": ["Sky", "Moon", "Ocean", "Sea"],
+    "answer": "Moon",
+    "explanation": "'Once in a blue moon' means very rarely."
+  },
+  {
+    "question": "Select plural: 'Focus'",
+    "options": ["Focuses", "Foci", "Both A and B", "Focus"],
+    "answer": "Both A and B",
+    "explanation": "Both focuses and foci are acceptable plurals."
+  }
+]
