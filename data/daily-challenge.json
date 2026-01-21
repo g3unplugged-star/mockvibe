@@ -1,1 +1,29 @@
-
+{
+  "date": "2024-01-21",
+  "title": "SSC-CGL Daily Challenge",
+  "questions": [
+    {
+      "id": "DC_20240121_001",
+      "subject": "Mixed",
+      "question": "A sum of money doubles itself in 5 years at simple interest. In how many years will it become 8 times?",
+      "options": ["15 years", "20 years", "25 years", "35 years"],
+      "correct_answer": "35 years",
+      "explanation": "If money doubles in 5 years, interest = principal. Rate = 100/5 = 20%. To become 8 times, interest needed = 7P. Time = (7P×100)/(P×20) = 35 years.",
+      "difficulty": "hard",
+      "category": "Simple Interest",
+      "time_limit": 90
+    },
+    {
+      "id": "DC_20240121_002",
+      "subject": "English",
+      "question": "Choose the correctly spelled word:",
+      "options": ["Occurence", "Occurrence", "Ocurrence", "Occurense"],
+      "correct_answer": "Occurrence",
+      "explanation": "The correct spelling is 'Occurrence' with double 'r' and double 'c'.",
+      "difficulty": "easy",
+      "category": "Spelling"
+    }
+  ],
+  "leaderboard": [],
+  "total_participants": 0
+}
