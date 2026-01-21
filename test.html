@@ -1126,7 +1126,7 @@
     <!-- Exam Header with Timer - FIXED: Added clickable logo -->
     <header class="exam-header" style="display: none;" id="examHeader">
         <div class="exam-brand">
-            <a href="/" title="Go to Homepage" onclick="return goToHomepage()">
+            <a href="https://g3unplugged-star.github.io/mockvibe/index.html" title="Go to Homepage" onclick="return goToHomepage()">
                 <i class="fas fa-graduation-cap"></i>
                 <h1>MockVibe Exam</h1>
             </a>
@@ -1436,6 +1436,79 @@
         </div>
     </div>
 
+    <!-- Test Summary Modal -->
+    <div class="modal-overlay" id="summaryModal">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-pie"></i> Test Summary</h2>
+                <button class="modal-close" onclick="closeSummaryModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-family: 'Poppins', sans-serif; margin-bottom: 16px; color: var(--primary);">Overall Test Status</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px;">
+                        <div style="background: #f8fafc; padding: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
+                            <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary); text-align: center;" id="summaryTotalAnswered">0</div>
+                            <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Total Answered</div>
+                        </div>
+                        <div style="background: #f8fafc; padding: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
+                            <div style="font-size: 2.5rem; font-weight: 700; color: var(--warning); text-align: center;" id="summaryTotalMarked">0</div>
+                            <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Marked for Review</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-family: 'Poppins', sans-serif; margin-bottom: 16px; color: var(--primary);">Section-wise Summary</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-weight: 600; color: var(--primary);">Quantitative Aptitude</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summaryQuant">0/25 answered</div>
+                        </div>
+                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-weight: 600; color: var(--text-muted);">General Intelligence</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summaryReasoning">0/25 answered</div>
+                        </div>
+                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-weight: 600; color: var(--text-muted);">English Language</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summaryEnglish">0/25 answered</div>
+                        </div>
+                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-weight: 600; color: var(--text-muted);">General Awareness</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summaryGK">0/25 answered</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: #f0f9ff; padding: 20px; border-radius: var(--radius); border: 2px solid var(--primary);">
+                    <h4 style="font-family: 'Poppins', sans-serif; margin-bottom: 12px; color: var(--primary);">
+                        <i class="fas fa-clock"></i> Time Status
+                    </h4>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.2rem;" id="summaryMainTime">60:00</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Total Time Remaining</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.2rem;" id="summarySectionTime">25:00</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="summarySectionName">Quantitative Aptitude</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeSummaryModal()">
+                    Close
+                </button>
+                <button class="btn btn-primary" onclick="closeSummaryModal(); navigateToQuestion(1);">
+                    Go to First Question
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Final Submit Modal -->
     <div class="modal-overlay" id="submitExamModal">
         <div class="modal">
@@ -1458,19 +1531,19 @@
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
                         <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
                             <div style="font-weight: 600; color: var(--primary);">Quantitative Aptitude</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);">0/25 answered</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="finalQuant">0/25 answered</div>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
                             <div style="font-weight: 600; color: var(--text-muted);">General Intelligence</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);">Not started</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="finalReasoning">0/25 answered</div>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
                             <div style="font-weight: 600; color: var(--text-muted);">English Language</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);">Not started</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="finalEnglish">0/25 answered</div>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
                             <div style="font-weight: 600; color: var(--text-muted);">General Awareness</div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);">Not started</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);" id="finalGK">0/25 answered</div>
                         </div>
                     </div>
                 </div>
@@ -1548,6 +1621,19 @@
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
 
+        // Debug function to check state
+        function debugState() {
+            console.log('Current State:', {
+                testStarted: examConfig.testStarted,
+                isNewTest: examConfig.isNewTest,
+                currentSection: examConfig.currentSection,
+                currentQuestion: examConfig.currentQuestion,
+                answersCount: Object.keys(examConfig.answers).length,
+                markedCount: examConfig.markedQuestions.size,
+                visitedCount: examConfig.visitedQuestions.size
+            });
+        }
+
         // Initialize Real Exam
         function initRealExam() {
             // Set exam date
@@ -1584,6 +1670,8 @@
             // Initialize timer displays (static values before test starts)
             updateMainTimerDisplay(examConfig.totalDuration);
             updateSectionTimerDisplay(examConfig.sections[examConfig.currentSection]);
+            
+            console.log('Exam initialized. testStarted:', examConfig.testStarted);
         }
 
         function initQuestionGrid() {
@@ -1601,6 +1689,8 @@
 
         // NEW FUNCTION: Start the test (called when user clicks "Start Test")
         function startTest() {
+            console.log('Starting test...');
+            
             // Clear any existing progress for a fresh start
             clearProgress();
             
@@ -1629,6 +1719,9 @@
             
             // Show notification
             showNotification('Test started! Timer is now running.', 'success');
+            
+            console.log('Test started successfully. testStarted:', examConfig.testStarted);
+            debugState();
         }
 
         // NEW FUNCTION: Reset timers to original values
@@ -1650,6 +1743,7 @@
             
             // Clear localStorage for fresh test
             localStorage.removeItem('mockvibe_exam_progress');
+            localStorage.removeItem('mockvibe_exam_results');
         }
 
         // NEW FUNCTION: Go to homepage
@@ -1657,13 +1751,8 @@
             if (examConfig.testStarted && !examConfig.isNewTest) {
                 if (confirm('Are you sure you want to leave the test? Your progress will be saved, but the timer will continue running.')) {
                     saveProgress();
-                    // In a real app, this would redirect to homepage
-                    // For demo, we'll just show a message
-                    showNotification('Redirecting to homepage...', 'info');
-                    // Simulate redirect
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 1000);
+                    // Redirect to homepage
+                    window.location.href = 'https://g3unplugged-star.github.io/mockvibe/index.html';
                     return false;
                 }
                 return false;
@@ -1675,7 +1764,7 @@
         function cancelTest() {
             if (confirm('Are you sure you want to cancel the test? You will lose all progress.')) {
                 clearProgress();
-                window.location.href = '/';
+                window.location.href = 'https://g3unplugged-star.github.io/mockvibe/index.html';
             }
         }
 
@@ -1770,6 +1859,8 @@
             
             // Auto-save
             saveProgress();
+            
+            debugState();
         }
 
         function updateOptionSelection(selectedIndex) {
@@ -1960,6 +2051,7 @@
         }
 
         function submitSection() {
+            console.log('submitSection called, testStarted:', examConfig.testStarted);
             if (!examConfig.testStarted) {
                 showNotification('Please start the test first!', 'warning');
                 return;
@@ -2042,11 +2134,86 @@
             return names[section] || section;
         }
 
+        // NEW FUNCTION: Show Summary Modal
+        function showSummary() {
+            console.log('showSummary called, testStarted:', examConfig.testStarted);
+            debugState();
+            
+            if (!examConfig.testStarted) {
+                showNotification('Please start the test first! Click "Start Test" on the welcome screen.', 'warning');
+                return;
+            }
+            
+            // Calculate total answered across all sections
+            let totalAnswered = 0;
+            let totalMarked = 0;
+            
+            Object.keys(examConfig.sectionQuestions).forEach(section => {
+                for (let i = 1; i <= examConfig.sectionQuestions[section]; i++) {
+                    const questionKey = `${section}-${i}`;
+                    if (examConfig.answers[questionKey] !== undefined) {
+                        totalAnswered++;
+                    }
+                    if (examConfig.markedQuestions.has(questionKey)) {
+                        totalMarked++;
+                    }
+                }
+            });
+            
+            // Update summary modal content
+            document.getElementById('summaryTotalAnswered').textContent = totalAnswered;
+            document.getElementById('summaryTotalMarked').textContent = totalMarked;
+            
+            // Update section-wise summary
+            document.getElementById('summaryQuant').textContent = 
+                `${getAnsweredCount('quant')}/${examConfig.sectionQuestions.quant} answered`;
+            document.getElementById('summaryReasoning').textContent = 
+                `${getAnsweredCount('reasoning')}/${examConfig.sectionQuestions.reasoning} answered`;
+            document.getElementById('summaryEnglish').textContent = 
+                `${getAnsweredCount('english')}/${examConfig.sectionQuestions.english} answered`;
+            document.getElementById('summaryGK').textContent = 
+                `${getAnsweredCount('gk')}/${examConfig.sectionQuestions.gk} answered`;
+            
+            // Update time status
+            document.getElementById('summaryMainTime').textContent = mainTimerElement.textContent;
+            document.getElementById('summarySectionTime').textContent = sectionTimerElement.textContent;
+            document.getElementById('summarySectionName').textContent = sectionTimerNameElement.textContent;
+            
+            // Show the modal
+            document.getElementById('summaryModal').classList.add('active');
+        }
+
+        function getAnsweredCount(section) {
+            let answered = 0;
+            for (let i = 1; i <= examConfig.sectionQuestions[section]; i++) {
+                const questionKey = `${section}-${i}`;
+                if (examConfig.answers[questionKey] !== undefined) {
+                    answered++;
+                }
+            }
+            return answered;
+        }
+
+        function closeSummaryModal() {
+            document.getElementById('summaryModal').classList.remove('active');
+        }
+
         function submitExam() {
+            console.log('submitExam called, testStarted:', examConfig.testStarted);
             if (!examConfig.testStarted) {
                 showNotification('Please start the test first!', 'warning');
                 return;
             }
+            
+            // Update final modal with current data
+            document.getElementById('finalQuant').textContent = 
+                `${getAnsweredCount('quant')}/${examConfig.sectionQuestions.quant} answered`;
+            document.getElementById('finalReasoning').textContent = 
+                `${getAnsweredCount('reasoning')}/${examConfig.sectionQuestions.reasoning} answered`;
+            document.getElementById('finalEnglish').textContent = 
+                `${getAnsweredCount('english')}/${examConfig.sectionQuestions.english} answered`;
+            document.getElementById('finalGK').textContent = 
+                `${getAnsweredCount('gk')}/${examConfig.sectionQuestions.gk} answered`;
             
             document.getElementById('submitExamModal').classList.add('active');
         }
@@ -2062,20 +2229,63 @@
             clearInterval(examConfig.mainTimerInterval);
             clearInterval(examConfig.sectionTimerInterval);
             
+            // Calculate score and other metrics
+            const score = calculateScore();
+            const totalMarks = 200;
+            const percentage = ((score / totalMarks) * 100).toFixed(2);
+            const totalQuestions = 100;
+            const totalAnswered = Object.keys(examConfig.answers).length;
+            const correctAnswers = Math.floor(totalAnswered * 0.7); // Assume 70% correct
+            const wrongAnswers = totalAnswered - correctAnswers;
+            const skippedQuestions = totalQuestions - totalAnswered;
+            
+            // Save results to localStorage
+            const results = {
+                score: score,
+                totalMarks: totalMarks,
+                percentage: percentage,
+                correctAnswers: correctAnswers,
+                wrongAnswers: wrongAnswers,
+                skippedQuestions: skippedQuestions,
+                totalQuestions: totalQuestions,
+                totalAnswered: totalAnswered,
+                answers: examConfig.answers,
+                markedQuestions: Array.from(examConfig.markedQuestions),
+                testDate: new Date().toISOString(),
+                testName: 'SSC CGL Tier 1 Mock Test',
+                // Add section-wise stats
+                sectionStats: {
+                    quant: {
+                        answered: getAnsweredCount('quant'),
+                        total: examConfig.sectionQuestions.quant
+                    },
+                    reasoning: {
+                        answered: getAnsweredCount('reasoning'),
+                        total: examConfig.sectionQuestions.reasoning
+                    },
+                    english: {
+                        answered: getAnsweredCount('english'),
+                        total: examConfig.sectionQuestions.english
+                    },
+                    gk: {
+                        answered: getAnsweredCount('gk'),
+                        total: examConfig.sectionQuestions.gk
+                    }
+                }
+            };
+            
+            localStorage.setItem('mockvibe_exam_results', JSON.stringify(results));
+            
+            console.log('Results saved:', results);
+            
             // Clear progress for next test
             clearProgress();
             examConfig.testStarted = false;
             examConfig.isNewTest = true;
             
-            // Calculate score and show results
-            const score = calculateScore();
-            const totalMarks = 200;
-            const percentage = ((score / totalMarks) * 100).toFixed(2);
-            
-            // Redirect to results page
-            setTimeout(() => {
-                window.location.href = `results.html?score=${score}&total=${totalMarks}&percentage=${percentage}`;
-            }, 1000);
+            // IMPORTANT FIX: Redirect to correct results page URL
+            // Your results page is "result.html" not "results.html"
+            window.location.href = 'result.html';
         }
 
         function autoSubmitExam() {
@@ -2101,13 +2311,11 @@
 
         function calculateScore() {
             let score = 0;
-            const totalQuestions = 100;
             const correctMark = 2;
             const wrongPenalty = 0.5;
             
-            // Calculate based on answers (simplified)
+            // Calculate based on answers (simplified - 70% accuracy)
             Object.keys(examConfig.answers).forEach(key => {
-                // In real app, compare with correct answers
                 // For demo, assume 70% accuracy
                 if (Math.random() > 0.3) {
                     score += correctMark;
@@ -2136,15 +2344,6 @@
             }
             
             showNotification('Calculator feature would open here', 'info');
-        }
-
-        function showSummary() {
-            if (!examConfig.testStarted) {
-                showNotification('Please start the test first!', 'warning');
-                return;
-            }
-            
-            showNotification('Test summary feature would open here', 'info');
         }
 
         function setupAutoSave() {
@@ -2291,6 +2490,7 @@
                         e.preventDefault();
                         closeSubmitModal();
                         closeSubmitExamModal();
+                        closeSummaryModal();
                         break;
                     case 's':
                         if (e.ctrlKey) {
@@ -2302,6 +2502,12 @@
                         if (e.ctrlKey) {
                             e.preventDefault();
                             submitExam();
+                        }
+                        break;
+                    case 'v':
+                        if (e.ctrlKey) {
+                            e.preventDefault();
+                            showSummary();
                         }
                         break;
                 }
@@ -2381,16 +2587,36 @@
 
         // Initialize exam
         document.addEventListener('DOMContentLoaded', () => {
-            // Always start with fresh test (show start overlay)
-            testStartOverlay.style.display = 'flex';
-            examHeader.style.display = 'none';
-            testContainer.style.display = 'none';
+            console.log('DOM loaded, checking for saved progress...');
             
-            // Clear any existing progress for fresh start
-            clearProgress();
+            // Try to load saved progress first
+            if (loadProgress()) {
+                // If progress was loaded, show exam interface
+                console.log('Progress loaded, showing exam interface');
+                testStartOverlay.style.display = 'none';
+                examHeader.style.display = 'flex';
+                testContainer.style.display = 'grid';
+                
+                // Initialize exam
+                initRealExam();
+                switchToSection(examConfig.currentSection);
+                navigateToQuestion(examConfig.currentQuestion);
+                
+                // Start timers
+                startMainTimer();
+                startSectionTimer();
+            } else {
+                // No saved progress, start with fresh test
+                console.log('No saved progress, showing start overlay');
+                testStartOverlay.style.display = 'flex';
+                examHeader.style.display = 'none';
+                testContainer.style.display = 'none';
+                
+                // Initialize exam without starting timers
+                initRealExam();
+            }
             
-            // Initialize exam without starting timers
-            initRealExam();
+            debugState();
         });
     </script>
 </body>
