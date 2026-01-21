@@ -1,1 +1,65 @@
-
+{
+  "subject": "English Language & Comprehension",
+  "total_questions": 200,
+  "last_updated": "2024-01-21",
+  "categories": [
+    {
+      "category_id": "ENG_001",
+      "category_name": "Vocabulary",
+      "subcategories": [
+        {
+          "subcategory": "Synonyms",
+          "questions": [
+            {
+              "id": "ENG_001_001",
+              "question": "Choose the word most similar in meaning to 'ABDICATE'",
+              "options": [
+                "Claim",
+                "Renounce",
+                "Usurp",
+                "Assume"
+              ],
+              "correct_answer": "Renounce",
+              "explanation": "Abdicate means to renounce or relinquish a throne or power.",
+              "difficulty": "easy",
+              "tags": ["synonyms", "vocabulary"]
+            }
+          ]
+        },
+        {
+          "subcategory": "Antonyms",
+          "questions": [
+            {
+              "id": "ENG_001_002",
+              "question": "Choose the word opposite in meaning to 'MAGNANIMOUS'",
+              "options": [
+                "Generous",
+                "Petty",
+                "Courageous",
+                "Kind"
+              ],
+              "correct_answer": "Petty",
+              "explanation": "Magnanimous means generous or forgiving, especially towards a rival or less powerful person. Opposite is petty.",
+              "difficulty": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "ENG_002",
+      "category_name": "Grammar",
+      "questions": [
+        {
+          "id": "ENG_002_001",
+          "question": "Identify the error: 'One of the students (A)/ have not (B)/ submitted their assignment (C)/ No error (D)'",
+          "options": ["A", "B", "C", "D"],
+          "correct_answer": "B",
+          "explanation": "'One of the students' is singular, so it should be 'has not' instead of 'have not'.",
+          "solution": "Subject-verb agreement: One of + plural noun + singular verb",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  ]
+}
