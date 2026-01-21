@@ -1,0 +1,63 @@
+{
+  "statistics": {
+    "total_questions": 5000,
+    "by_subject": {
+      "quant": 1500,
+      "english": 2000,
+      "reasoning": 1000,
+      "general_awareness": 500
+    },
+    "by_difficulty": {
+      "easy": 2000,
+      "medium": 2000,
+      "hard": 1000
+    },
+    "by_year": {
+      "2020": 500,
+      "2021": 600,
+      "2022": 700,
+      "2023": 800,
+      "2024": 900
+    }
+  },
+  "topics_list": {
+    "quant": [
+      "Number System",
+      "Percentage",
+      "Profit & Loss",
+      "Ratio & Proportion",
+      "Average",
+      "Time & Work",
+      "Time, Speed & Distance",
+      "Simple & Compound Interest",
+      "Algebra",
+      "Geometry",
+      "Mensuration",
+      "Trigonometry",
+      "Data Interpretation"
+    ],
+    "english": [
+      "Vocabulary",
+      "Grammar",
+      "Comprehension",
+      "Error Detection",
+      "Sentence Improvement",
+      "Cloze Test",
+      "Para Jumbles",
+      "Idioms & Phrases"
+    ],
+    "reasoning": [
+      "Analogy",
+      "Classification",
+      "Series",
+      "Coding-Decoding",
+      "Blood Relations",
+      "Direction Sense",
+      "Puzzles",
+      "Syllogism",
+      "Venn Diagrams",
+      "Matrix",
+      "Mathematical Operations"
+    ]
+  }
+}
