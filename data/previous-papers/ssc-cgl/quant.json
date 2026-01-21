@@ -1,30 +1,67 @@
 {
-  "exam": "ssc-cgl",
-  "section": "quant",
-  "total_questions": 200,
-  "questions": [
+  "subject": "Quantitative Aptitude",
+  "total_questions": 150,
+  "last_updated": "2024-01-21",
+  "topics": [
     {
-      "id": "ssc_q_001",
-      "year": 2024,
-      "topic": "percentage",
-      "difficulty": "easy",
-      "question": "What is 20% of 250?",
-      "options": ["40", "45", "50", "55"],
-      "correct": 2,
-      "solution": "20% of 250 = 50",
-      "time": 60
+      "topic_id": "QUANT_001",
+      "topic_name": "Number System",
+      "questions": [
+        {
+          "id": "QUANT_001_001",
+          "question": "Find the greatest number that divides 43, 91 and 183 leaving the same remainder in each case.",
+          "options": [
+            "4",
+            "7",
+            "13",
+            "24"
+          ],
+          "correct_answer": "4",
+          "explanation": "Required number = H.C.F. of (91-43), (183-91) and (183-43) = H.C.F. of 48, 92 and 140 = 4.",
+          "solution_steps": [
+            "Find differences: 91-43=48, 183-91=92, 183-43=140",
+            "Find H.C.F. of 48, 92, 140",
+            "48 = 2×2×2×2×3, 92=2×2×23, 140=2×2×5×7",
+            "Common factors = 2×2 = 4"
+          ],
+          "difficulty": "medium",
+          "time_to_solve": 45,
+          "marks": 1,
+          "tags": ["hcf", "number-system", "remainder"],
+          "year": "SSC-CGL 2022"
+        },
+        {
+          "id": "QUANT_001_002",
+          "question": "What is the unit digit in (6374)^1793 × (625)^317 × (341)^491?",
+          "options": ["0", "2", "5", "6"],
+          "correct_answer": "0",
+          "explanation": "Unit digit of 6374^1793 depends on 4^1793. 4^odd = 4, 4^even = 6. So unit digit = 4. Unit digit of 625^317 = 5. Unit digit of 341^491 = 1. Multiplying: 4×5×1 = 20, so unit digit = 0.",
+          "difficulty": "easy",
+          "time_to_solve": 30,
+          "marks": 1,
+          "tags": ["unit-digit", "number-system"]
+        }
+      ]
     },
     {
-      "id": "ssc_q_002",
-      "year": 2024,
-      "topic": "profit-loss",
-      "difficulty": "medium",
-      "question": "A shopkeeper sells an item at 10% loss. If CP = ₹500, find SP.",
-      "options": ["450", "480", "470", "490"],
-      "correct": 0,
-      "solution": "10% loss ⇒ SP = 90% of 500 = 450",
-      "time": 75
+      "topic_id": "QUANT_002",
+      "topic_name": "Percentage",
+      "questions": [
+        {
+          "id": "QUANT_002_001",
+          "question": "If the price of sugar increases by 20%, by how much percent should a household reduce its consumption so that the expenditure remains the same?",
+          "options": [
+            "16.67%",
+            "20%",
+            "25%",
+            "33.33%"
+          ],
+          "correct_answer": "16.67%",
+          "explanation": "Let original price = 100, consumption = 100 units. New price = 120. To keep expenditure same: 100×100 = 120×new consumption. New consumption = 10000/120 = 83.33. Reduction = 16.67%.",
+          "difficulty": "easy",
+          "time_to_solve": 40
+        }
+      ]
     }
   ]
 }
-
