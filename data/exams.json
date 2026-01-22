@@ -1,12 +1,228 @@
 {
-  "ssc-cgl": {
-    "name": "SSC CGL",
-    "pyq": [
-      { "year": 2022, "type": "pyq", "label": "Previous Year Paper" },
-      { "year": 2023, "type": "pyq", "label": "Previous Year Paper" },
-      { "year": 2024, "type": "pyq", "label": "Previous Year Paper" },
-      { "year": 2025, "type": "model", "label": "Expected / Model Paper" }
-    ]
+  "exams": [
+    {
+      "exam_id": "SSC_CGL_T1",
+      "exam_name": "SSC CGL Tier 1",
+      "full_name": "Staff Selection Commission Combined Graduate Level Tier 1",
+      "description": "Preliminary computer-based examination for various Group B and Group C posts in government ministries, departments, and organizations.",
+      "category": "Government",
+      "level": "Graduate",
+      "conducting_body": "Staff Selection Commission (SSC)",
+      "website": "https://ssc.nic.in",
+      "total_marks": 200,
+      "total_questions": 100,
+      "duration_minutes": 60,
+      "sections_count": 4,
+      "negative_marking": true,
+      "negative_mark_value": 0.5,
+      "marking_scheme": "+2 for correct answer, -0.5 for wrong answer",
+      "passing_criteria": "Cut-off varies each year based on category and vacancy",
+      "medium": "English & Hindi",
+      "mode": "Online (Computer Based Test)",
+      "frequency": "Annual",
+      "application_fee": "₹100 (General), No fee for SC/ST/PH/Female",
+      "age_limit": "18-32 years (varies by post)",
+      "educational_qualification": "Bachelor's Degree from recognized university",
+      "sections_file": "sections.json",
+      "top_posts": [
+        "Assistant Audit Officer",
+        "Assistant Section Officer",
+        "Inspector of Income Tax",
+        "Inspector (Central Excise)",
+        "Inspector (Preventive Officer)",
+        "Inspector (Examiner)",
+        "Assistant Enforcement Officer",
+        "Sub Inspector (CBI)",
+        "Inspector of Posts"
+      ],
+      "important_dates": {
+        "notification": "April",
+        "application_start": "April",
+        "application_end": "May",
+        "tier_1_exam": "July-August",
+        "tier_1_result": "September",
+        "tier_2_exam": "November-December",
+        "final_result": "March-April (next year)"
+      },
+      "syllabus_summary": "General Intelligence & Reasoning, General Awareness, Quantitative Aptitude, English Comprehension",
+      "official_notification_url": "https://ssc.nic.in/Portal/Notices",
+      "previous_year_papers_url": "https://ssc.nic.in/Portal/PreviousPapers",
+      "last_updated": "2024-01-21",
+      "status": "Active",
+      "popularity": "High",
+      "difficulty": "Moderate to High"
+    },
+    {
+      "exam_id": "SSC_CGL_T2",
+      "exam_name": "SSC CGL Tier 2",
+      "full_name": "Staff Selection Commission Combined Graduate Level Tier 2",
+      "description": "Main examination for SSC CGL consisting of multiple papers including compulsory and optional papers based on post applied for.",
+      "category": "Government",
+      "level": "Graduate",
+      "total_marks": 800,
+      "total_questions": 450,
+      "duration_minutes": 120,
+      "sections_count": 3,
+      "negative_marking": true,
+      "negative_mark_value": 0.25,
+      "marking_scheme": "Varies by paper",
+      "mode": "Online (Computer Based Test)",
+      "papers": [
+        {
+          "paper": "Paper-I",
+          "name": "Quantitative Abilities",
+          "marks": 200,
+          "questions": 100,
+          "duration": 120,
+          "type": "Compulsory"
+        },
+        {
+          "paper": "Paper-II",
+          "name": "English Language & Comprehension",
+          "marks": 200,
+          "questions": 200,
+          "duration": 120,
+          "type": "Compulsory"
+        },
+        {
+          "paper": "Paper-III",
+          "name": "Statistics",
+          "marks": 200,
+          "questions": 100,
+          "duration": 120,
+          "type": "For Statistical Investigator"
+        },
+        {
+          "paper": "Paper-IV",
+          "name": "General Studies (Finance & Economics)",
+          "marks": 200,
+          "questions": 100,
+          "duration": 120,
+          "type": "For Assistant Audit Officer"
+        }
+      ],
+      "eligibility": "Qualified in Tier 1",
+      "last_updated": "2024-01-21",
+      "status": "Active"
+    },
+    {
+      "exam_id": "SSC_CHSL",
+      "exam_name": "SSC CHSL",
+      "full_name": "Staff Selection Commission Combined Higher Secondary Level",
+      "description": "Examination for recruitment to various posts like Lower Division Clerk (LDC), Junior Secretariat Assistant (JSA), Postal Assistant, etc.",
+      "category": "Government",
+      "level": "10+2",
+      "total_marks": 200,
+      "total_questions": 100,
+      "duration_minutes": 60,
+      "sections_count": 4,
+      "negative_marking": true,
+      "age_limit": "18-27 years",
+      "educational_qualification": "12th Standard or equivalent",
+      "posts": [
+        "Lower Division Clerk (LDC)",
+        "Junior Secretariat Assistant (JSA)",
+        "Postal Assistant",
+        "Sorting Assistant",
+        "Data Entry Operator"
+      ],
+      "last_updated": "2024-01-21",
+      "status": "Active"
+    },
+    {
+      "exam_id": "SSC_GD",
+      "exam_name": "SSC GD Constable",
+      "full_name": "Staff Selection Commission General Duty Constable",
+      "description": "Examination for recruitment of Constables (GD) in Central Armed Police Forces (CAPFs), NIA, SSF, and Rifleman (GD) in Assam Rifles.",
+      "category": "Government",
+      "level": "10th",
+      "total_marks": 100,
+      "total_questions": 100,
+      "duration_minutes": 90,
+      "sections_count": 4,
+      "negative_marking": true,
+      "age_limit": "18-23 years",
+      "physical_standards": "Yes",
+      "forces": [
+        "BSF",
+        "CISF",
+        "CRPF",
+        "SSB",
+        "ITBP",
+        "Assam Rifles",
+        "NIA",
+        "SSF"
+      ],
+      "last_updated": "2024-01-21",
+      "status": "Active"
+    },
+    {
+      "exam_id": "SSC_JE",
+      "exam_name": "SSC JE",
+      "full_name": "Staff Selection Commission Junior Engineer",
+      "description": "Examination for recruitment of Junior Engineers in Civil, Mechanical, Electrical, and Quantity Surveying & Contract branches.",
+      "category": "Government",
+      "level": "Diploma",
+      "total_marks": 400,
+      "duration_minutes": 120,
+      "sections_count": 3,
+      "branches": [
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Electrical Engineering",
+        "Quantity Surveying & Contract"
+      ],
+      "last_updated": "2024-01-21",
+      "status": "Active"
+    },
+    {
+      "exam_id": "SSC_CPO",
+      "exam_name": "SSC CPO",
+      "full_name": "Staff Selection Commission Central Police Organization",
+      "description": "Examination for recruitment of Sub-Inspectors in Delhi Police, CAPFs, and Assistant Sub-Inspectors in CISF.",
+      "category": "Government",
+      "level": "Graduate",
+      "total_marks": 400,
+      "physical_standards": "Yes",
+      "physical_efficiency_test": "Yes",
+      "last_updated": "2024-01-21",
+      "status": "Active"
+    }
+  ],
+  "categories": {
+    "ssc": {
+      "name": "Staff Selection Commission",
+      "exams": ["SSC_CGL_T1", "SSC_CGL_T2", "SSC_CHSL", "SSC_GD", "SSC_JE", "SSC_CPO"],
+      "description": "National-level recruitment agency for various posts in government ministries and departments."
+    },
+    "banking": {
+      "name": "Banking Exams",
+      "exams": ["IBPS_PO", "IBPS_CLERK", "SBI_PO", "RBI_GRADE_B"],
+      "description": "Examinations for recruitment in public sector banks."
+    },
+    "railway": {
+      "name": "Railway Exams",
+      "exams": ["RRB_NTPC", "RRB_ALP", "RRB_GROUP_D"],
+      "description": "Examinations for recruitment in Indian Railways."
+    },
+    "teaching": {
+      "name": "Teaching Exams",
+      "exams": ["CTET", "UGC_NET", "KVS", "DSSSB"],
+      "description": "Examinations for teaching positions."
+    }
+  },
+  "stats": {
+    "total_exams": 6,
+    "active_exams": 6,
+    "government_exams": 6,
+    "last_updated": "2024-01-21"
+  },
+  "metadata": {
+    "version": "1.0",
+    "created_by": "MockVibe",
+    "purpose": "Exam configuration for MockVibe platform",
+    "data_source": "Official SSC website and notifications",
+    "update_frequency": "Monthly",
+    "next_update": "2024-02-21"
   }
 }
-
