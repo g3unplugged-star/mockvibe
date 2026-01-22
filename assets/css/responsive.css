@@ -1,1 +1,284 @@
+/* assets/css/responsive.css */
+/* Responsive Design Utilities */
 
+/* Mobile First Approach */
+
+/* Extra small devices (phones, 360px and up) */
+@media (min-width: 360px) {
+    .container {
+        padding: 0 var(--space-md);
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+}
+
+/* Small devices (tablets, 640px and up) */
+@media (min-width: 640px) {
+    .container {
+        padding: 0 var(--space-lg);
+    }
+    
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.75rem; }
+    
+    /* Grid adjustments for tablets */
+    .grid-sm-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-lg);
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--space-xl);
+    }
+    
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 1.875rem; }
+    
+    /* Grid adjustments */
+    .grid-md-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+    }
+    
+    /* Navigation for desktop */
+    .mobile-only {
+        display: none !important;
+    }
+    
+    .desktop-only {
+        display: block !important;
+    }
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1024px;
+    }
+    
+    /* Grid adjustments */
+    .grid-lg-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-lg);
+    }
+}
+
+/* Extra large devices (large desktops, 1280px and up) */
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+    }
+    
+    .grid-xl-5 {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: var(--space-lg);
+    }
+}
+
+/* 2XL devices (very large desktops, 1536px and up) */
+@media (min-width: 1536px) {
+    .container {
+        max-width: 1536px;
+    }
+    
+    .grid-2xl-6 {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: var(--space-lg);
+    }
+}
+
+/* Utility Classes for Responsive */
+.hidden { display: none; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.grid { display: grid; }
+
+/* Mobile visibility */
+@media (max-width: 767px) {
+    .hidden-mobile { display: none !important; }
+    .visible-mobile { display: block !important; }
+    .flex-mobile { display: flex !important; }
+}
+
+/* Tablet visibility */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .hidden-tablet { display: none !important; }
+    .visible-tablet { display: block !important; }
+    .flex-tablet { display: flex !important; }
+}
+
+/* Desktop visibility */
+@media (min-width: 1024px) {
+    .hidden-desktop { display: none !important; }
+    .visible-desktop { display: block !important; }
+    .flex-desktop { display: flex !important; }
+}
+
+/* Responsive Typography */
+@media (max-width: 767px) {
+    .text-sm-center { text-align: center; }
+    .text-sm-left { text-align: left; }
+    .text-sm-right { text-align: right; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .text-md-center { text-align: center; }
+    .text-md-left { text-align: left; }
+    .text-md-right { text-align: right; }
+}
+
+@media (min-width: 1024px) {
+    .text-lg-center { text-align: center; }
+    .text-lg-left { text-align: left; }
+    .text-lg-right { text-align: right; }
+}
+
+/* Responsive Spacing */
+@media (max-width: 767px) {
+    .p-sm-1 { padding: var(--space-sm); }
+    .p-sm-2 { padding: var(--space-md); }
+    .p-sm-3 { padding: var(--space-lg); }
+    .p-sm-4 { padding: var(--space-xl); }
+    
+    .m-sm-1 { margin: var(--space-sm); }
+    .m-sm-2 { margin: var(--space-md); }
+    .m-sm-3 { margin: var(--space-lg); }
+    .m-sm-4 { margin: var(--space-xl); }
+}
+
+/* Responsive Grid System */
+.grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+}
+
+.grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+}
+
+/* Responsive Images */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.img-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img-contain {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Responsive Tables */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets */
+    .btn, .form-control, .option-item {
+        min-height: 44px;
+    }
+    
+    /* Remove hover effects */
+    .btn:hover, .card:hover {
+        transform: none;
+    }
+    
+    /* Increase spacing for touch */
+    .touch-gap-lg > * + * {
+        margin-top: var(--space-lg);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    p, ul, ol {
+        page-break-inside: avoid;
+    }
+    
+    .page-break {
+        page-break-before: always;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --border: #000000;
+        --text: #000000;
+        --bg: #ffffff;
+    }
+    
+    .card {
+        border: 2px solid var(--border);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Dark Mode (Future Support) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --text: #f1f5f9;
+        --text-light: #cbd5e1;
+        --text-muted: #94a3b8;
+        --border: #334155;
+    }
+    
+    body::before {
+        opacity: 0.1;
+    }
+}
