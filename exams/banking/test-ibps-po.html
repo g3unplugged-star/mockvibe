@@ -1,1 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockVibe | IBPS PO Prelims Test</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Same CSS as SSC exam, but with banking colors */
+        :root {
+            --primary: #0d9488;  /* Banking green instead of blue */
+            --primary-dark: #0f766e;
+            --secondary: #2563eb;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --radius: 10px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
 
+        body {
+            background: linear-gradient(135deg, #0d9488 0%, #2563eb 100%);
+        }
+
+        .test-start-header {
+            background: linear-gradient(135deg, #0d9488, #2563eb);
+        }
+
+        .exam-header {
+            background: linear-gradient(135deg, #0f766e, #1d4ed8);
+        }
+
+        /* Rest of CSS same as SSC exam */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        /* ... (Copy all CSS from SSC exam, just change colors) ... */
+    </style>
+</head>
+<body>
+    <!-- Test Start Modal -->
+    <div class="test-start-overlay" id="testStartOverlay">
+        <div class="test-start-modal">
+            <div class="test-start-header">
+                <h2><i class="fas fa-piggy-bank"></i> IBPS PO Prelims Mock Test</h2>
+                <p>Practice with real IBPS PO exam pattern</p>
+            </div>
+            
+            <div class="test-start-body">
+                <div class="exam-config">
+                    <div class="config-card">
+                        <div class="config-value">60:00</div>
+                        <div class="config-label">Total Duration</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">100</div>
+                        <div class="config-label">Total Questions</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">+1</div>
+                        <div class="config-label">Correct Answer</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">-0.25</div>
+                        <div class="config-label">Wrong Answer</div>
+                    </div>
+                </div>
+
+                <div class="section-info">
+                    <h3><i class="fas fa-layer-group"></i> Section Details</h3>
+                    <div class="sections-grid">
+                        <div class="section-card">
+                            <h4>Quantitative Aptitude</h4>
+                            <div class="section-meta">35 Questions • 20 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>Reasoning Ability</h4>
+                            <div class="section-meta">35 Questions • 20 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>English Language</h4>
+                            <div class="section-meta">30 Questions • 20 Minutes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> Important Instructions</h3>
+                    <ul class="instructions-list">
+                        <li><strong>Duration:</strong> 60 minutes total with section-wise timers</li>
+                        <li><strong>Marking:</strong> +1 for correct, -0.25 for wrong answers</li>
+                        <li><strong>Sections:</strong> 3 sections with separate time limits</li>
+                        <li><strong>Sectional Cut-off:</strong> Must clear each section separately</li>
+                        <li><strong>Navigation:</strong> Use question palette or Previous/Next buttons</li>
+                        <li><strong>Review:</strong> Mark questions for later review</li>
+                        <li><strong>Randomization:</strong> Questions appear in random order each attempt</li>
+                        <li><strong>Submission:</strong> Auto-submit when time ends or manual submit</li>
+                    </ul>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i> Back to Portal
+                    </button>
+                    <button class="btn btn-primary" onclick="startTest()">
+                        <i class="fas fa-play"></i> Start Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exam Container -->
+    <div class="exam-container" id="examContainer">
+        <!-- Content will be loaded dynamically -->
+    </div>
+
+    <script>
+        // Exam Configuration for IBPS PO Prelims
+        const examConfig = {
+            id: 'ibps-po-prelims',
+            name: 'IBPS PO Prelims',
+            category: 'banking',
+            totalTime: 60 * 60,
+            totalQuestions: 100,
+            markingScheme: { correct: 1, wrong: 0.25 },
+            sections: [
+                {
+                    id: 'quant',
+                    name: 'Quantitative Aptitude',
+                    time: 20 * 60,
+                    questions: 35,
+                    description: 'Data Interpretation, Arithmetic, Algebra, Geometry'
+                },
+                {
+                    id: 'reasoning',
+                    name: 'Reasoning Ability',
+                    time: 20 * 60,
+                    questions: 35,
+                    description: 'Puzzles, Seating Arrangement, Syllogism, Coding-Decoding'
+                },
+                {
+                    id: 'english',
+                    name: 'English Language',
+                    time: 20 * 60,
+                    questions: 30,
+                    description: 'Reading Comprehension, Grammar, Vocabulary, Error Detection'
+                }
+            ],
+            currentSection: 0,
+            currentQuestion: 0,
+            answers: {},
+            marked: new Set(),
+            visited: new Set(),
+            shuffledQuestions: [],
+            testStarted: false,
+            timers: {
+                main: null,
+                section: null,
+                startTime: null,
+                sectionStartTime: null
+            }
+        };
+
+        // ... (Rest of JavaScript same as SSC exam, just different config) ...
+        
+        // Update question loading for banking
+        async function loadQuestions() {
+            const currentSection = examConfig.sections[examConfig.currentSection];
+            
+            try {
+                // Load from banking-specific JSON
+                const response = await fetch(`../../data/previous-papers/ibps-po/${currentSection.id}.json`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const questions = extractQuestions(data);
+                    
+                    // Shuffle questions
+                    examConfig.shuffledQuestions = shuffleArray(questions).slice(0, currentSection.questions);
+                    
+                    console.log(`Loaded ${examConfig.shuffledQuestions.length} questions for ${currentSection.name}`);
+                    
+                    // Initialize question grid
+                    initializeQuestionGrid();
+                    
+                    // Show first question
+                    showQuestion(0);
+                    
+                } else {
+                    // Fallback to sample questions
+                    createSampleQuestions();
+                }
+                
+            } catch (error) {
+                console.error('Error loading questions:', error);
+                createSampleQuestions();
+            }
+        }
+        
+        // ... (Rest of functions same as SSC exam) ...
+    </script>
+</body>
+</html>
