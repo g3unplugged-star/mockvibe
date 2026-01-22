@@ -1,0 +1,18 @@
+[
+  {
+    "id": "GI_1",
+    "question": "If 'CAT' is coded as '3120', how is 'DOG' coded?",
+    "options": ["4157", "4156", "4158", "4159"],
+    "answer": "4157",
+    "explanation": "C=3, A=1, T=20 → 3120; D=4, O=15, G=7 → 4157",
+    "difficulty": "medium"
+  },
+  {
+    "id": "GI_2",
+    "question": "Complete the series: 2, 6, 12, 20, 30, ?",
+    "options": ["42", "40", "44", "46"],
+    "answer": "42",
+    "explanation": "Pattern: +4, +6, +8, +10, +12 → 30+12=42",
+    "difficulty": "easy"
+  }
+]
