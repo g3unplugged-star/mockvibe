@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockVibe | SSC GD Constable Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #0d9488;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #3b82f6 0%, #0d9488 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .test-start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .test-start-modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+        }
+
+        .test-start-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .test-start-header h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .test-start-header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .test-start-body {
+            padding: 24px;
+        }
+
+        .exam-config {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .config-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: transform 0.3s;
+        }
+
+        .config-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .config-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .config-label {
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .section-info {
+            margin-bottom: 32px;
+        }
+
+        .section-info h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 20px;
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .section-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .section-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .section-meta {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .instructions {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .instructions h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        .instructions-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instructions-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            color: #4b5563;
+        }
+
+        .instructions-list li:last-child {
+            border-bottom: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+            flex: 1;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Exam Container Styles */
+        .exam-container {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            min-height: 90vh;
+        }
+
+        .exam-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exam-title h2 {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .exam-title p {
+            opacity: 0.9;
+        }
+
+        .timer-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 24px;
+            border-radius: 10px;
+            min-width: 140px;
+        }
+
+        .timer {
+            font-size: 28px;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        .exam-body {
+            display: flex;
+            min-height: 70vh;
+        }
+
+        .questions-panel {
+            width: 300px;
+            border-right: 1px solid var(--border);
+            padding: 24px;
+            background: var(--light);
+        }
+
+        .question-palette h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-numbers {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .q-number {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .q-number:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .q-number.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .q-number.answered {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .q-number.marked {
+            background: var(--warning);
+            color: white;
+            border-color: var(--warning);
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .question-area {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .question-header {
+            margin-bottom: 24px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            color: var(--dark);
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .option {
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option:hover {
+            background: var(--light);
+            border-color: var(--primary);
+        }
+
+        .option.selected {
+            background: #dbeafe;
+            border-color: var(--primary);
+        }
+
+        .option-label {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .option.selected .option-label {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .exam-footer {
+            padding: 20px 32px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .section-info-bar {
+            background: #e0f2fe;
+            padding: 12px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-time {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .mobile-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .exam-body {
+                flex-direction: column;
+            }
+            
+            .questions-panel {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .mobile-nav {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+            
+            .desktop-nav {
+                display: none;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .exam-config {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-start-overlay" id="testStartOverlay">
+        <div class="test-start-modal">
+            <div class="test-start-header">
+                <h2><i class="fas fa-shield-alt"></i> SSC GD Constable Mock Test</h2>
+                <p>Practice with real SSC GD Constable exam pattern</p>
+            </div>
+            
+            <div class="test-start-body">
+                <div class="exam-config">
+                    <div class="config-card">
+                        <div class="config-value">60:00</div>
+                        <div class="config-label">Total Duration</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">80</div>
+                        <div class="config-label">Total Questions</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">+2</div>
+                        <div class="config-label">Correct Answer</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">-0.5</div>
+                        <div class="config-label">Wrong Answer</div>
+                    </div>
+                </div>
+
+                <div class="section-info">
+                    <h3><i class="fas fa-layer-group"></i> Section Details</h3>
+                    <div class="sections-grid">
+                        <div class="section-card">
+                            <h4>General Intelligence</h4>
+                            <div class="section-meta">20 Questions • 20 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>General Knowledge</h4>
+                            <div class="section-meta">20 Questions • 20 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>Elementary Mathematics</h4>
+                            <div class="section-meta">20 Questions • 20 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>English/Hindi</h4>
+                            <div class="section-meta">20 Questions • 20 Minutes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> Important Instructions</h3>
+                    <ul class="instructions-list">
+                        <li><strong>Duration:</strong> 80 minutes for 80 questions</li>
+                        <li><strong>Marking:</strong> +2 for correct, -0.5 for wrong answers</li>
+                        <li><strong>Sections:</strong> 4 sections with separate time limits</li>
+                        <li><strong>Language Option:</strong> Choose English or Hindi for language section</li>
+                        <li><strong>Navigation:</strong> Use question palette or Previous/Next buttons</li>
+                        <li><strong>Review:</strong> Mark questions for later review</li>
+                        <li><strong>Randomization:</strong> Questions appear in random order each attempt</li>
+                        <li><strong>Physical Test:</strong> Separate Physical Efficiency Test in selection</li>
+                    </ul>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i> Back to Portal
+                    </button>
+                    <button class="btn btn-primary" onclick="startTest()">
+                        <i class="fas fa-play"></i> Start Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="exam-container" id="examContainer"></div>
+
+    <script>
+        const examConfig = {
+            id: 'ssc-gd-constable',
+            name: 'SSC GD Constable',
+            category: 'ssc',
+            totalTime: 80 * 60,
+            totalQuestions: 80,
+            markingScheme: { correct: 2, wrong: 0.5 },
+            sections: [
+                {
+                    id: 'reasoning',
+                    name: 'General Intelligence',
+                    time: 20 * 60,
+                    questions: 20,
+                    description: 'Logical Reasoning, Pattern Recognition, Analogy',
+                    startIndex: 0,
+                    endIndex: 19
+                },
+                {
+                    id: 'gk',
+                    name: 'General Knowledge',
+                    time: 20 * 60,
+                    questions: 20,
+                    description: 'Current Affairs, History, Geography, Polity, Science',
+                    startIndex: 20,
+                    endIndex: 39
+                },
+                {
+                    id: 'maths',
+                    name: 'Elementary Mathematics',
+                    time: 20 * 60,
+                    questions: 20,
+                    description: 'Basic Arithmetic, Algebra, Geometry, Statistics',
+                    startIndex: 40,
+                    endIndex: 59
+                },
+                {
+                    id: 'language',
+                    name: 'English/Hindi',
+                    time: 20 * 60,
+                    questions: 20,
+                    description: 'Grammar, Vocabulary, Comprehension',
+                    startIndex: 60,
+                    endIndex: 79
+                }
+            ]
+        };
+
+        // Sample questions for demonstration
+        const questions = Array.from({ length: 80 }, (_, i) => {
+            const section = examConfig.sections.find(s => i >= s.startIndex && i <= s.endIndex);
+            return {
+                id: i + 1,
+                section: section.id,
+                text: `Question ${i + 1}: This is a sample question for ${section.name}. What would be the correct answer?`,
+                options: ['Option A', 'Option B', 'Option C', 'Option D'],
+                correctAnswer: Math.floor(Math.random() * 4),
+                marks: 2,
+                negativeMarks: 0.5
+            };
+        });
+
+        let currentQuestion = 0;
+        let userAnswers = Array(80).fill(null);
+        let markedQuestions = Array(80).fill(false);
+        let timeRemaining = examConfig.totalTime;
+        let sectionTimeRemaining = examConfig.sections[0].time;
+        let currentSection = 0;
+        let timerInterval = null;
+        let sectionTimerInterval = null;
+
+        function goBack() {
+            if (confirm('Are you sure you want to go back? Your progress will be lost.')) {
+                window.location.href = 'portal.html';
+            }
+        }
+
+        function startTest() {
+            document.getElementById('testStartOverlay').style.display = 'none';
+            document.getElementById('examContainer').style.display = 'block';
+            renderExamInterface();
+            startTimers();
+        }
+
+        function startTimers() {
+            // Main timer
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                if (timeRemaining <= 0) {
+                    submitTest();
+                }
+                updateTimerDisplay();
+            }, 1000);
+
+            // Section timer
+            sectionTimerInterval = setInterval(() => {
+                sectionTimeRemaining--;
+                if (sectionTimeRemaining <= 0) {
+                    moveToNextSection();
+                }
+                updateSectionTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const timerElement = document.querySelector('.timer');
+            if (timerElement) {
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeRemaining < 300) {
+                    timerElement.style.color = '#ef4444';
+                }
+            }
+        }
+
+        function updateSectionTimerDisplay() {
+            const sectionTimerElement = document.querySelector('.section-time');
+            if (sectionTimerElement) {
+                const minutes = Math.floor(sectionTimeRemaining / 60);
+                const seconds = sectionTimeRemaining % 60;
+                sectionTimerElement.textContent = `Section Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (sectionTimeRemaining < 300) {
+                    sectionTimerElement.style.color = '#ef4444';
+                }
+            }
+        }
+
+        function moveToNextSection() {
+            if (currentSection < examConfig.sections.length - 1) {
+                currentSection++;
+                sectionTimeRemaining = examConfig.sections[currentSection].time;
+                currentQuestion = examConfig.sections[currentSection].startIndex;
+                renderQuestion();
+                updateSectionTimerDisplay();
+            }
+        }
+
+        function moveToPreviousSection() {
+            if (currentSection > 0) {
+                currentSection--;
+                sectionTimeRemaining = examConfig.sections[currentSection].time;
+                currentQuestion = examConfig.sections[currentSection].startIndex;
+                renderQuestion();
+                updateSectionTimerDisplay();
+            }
+        }
+
+        function renderExamInterface() {
+            const examContainer = document.getElementById('examContainer');
+            
+            examContainer.innerHTML = `
+                <div class="exam-header">
+                    <div class="exam-title">
+                        <h2>SSC GD Constable Mock Test</h2>
+                        <p>Total Questions: ${examConfig.totalQuestions} | Total Marks: ${examConfig.totalQuestions * 2}</p>
+                    </div>
+                    <div class="timer-container">
+                        <div class="timer-label">Time Remaining</div>
+                        <div class="timer">${Math.floor(timeRemaining/60).toString().padStart(2,'0')}:${(timeRemaining%60).toString().padStart(2,'0')}</div>
+                    </div>
+                </div>
+                
+                <div class="section-info-bar">
+                    <div class="section-name">
+                        <strong>Current Section:</strong> ${examConfig.sections[currentSection].name}
+                    </div>
+                    <div class="section-time">
+                        Section Time: ${Math.floor(sectionTimeRemaining/60).toString().padStart(2,'0')}:${(sectionTimeRemaining%60).toString().padStart(2,'0')}
+                    </div>
+                </div>
+                
+                <div class="exam-body">
+                    <div class="questions-panel">
+                        <div class="question-palette">
+                            <h3><i class="fas fa-th"></i> Question Palette</h3>
+                            <div class="question-numbers" id="questionNumbers">
+                                ${Array.from({ length: examConfig.totalQuestions }, (_, i) => `
+                                    <div class="q-number ${i === currentQuestion ? 'active' : ''} ${userAnswers[i] !== null ? 'answered' : ''} ${markedQuestions[i] ? 'marked' : ''}" onclick="goToQuestion(${i})">
+                                        ${i + 1}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <div class="legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #3b82f6;"></div>
+                                    <span>Current Question</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #10b981;"></div>
+                                    <span>Answered</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #f59e0b;"></div>
+                                    <span>Marked for Review</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #ffffff; border: 2px solid #e5e7eb;"></div>
+                                    <span>Not Answered</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mobile-nav">
+                            <button class="btn btn-secondary" onclick="prevQuestion()">
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button class="btn btn-secondary" onclick="nextQuestion()">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="question-area">
+                        <div class="question-header">
+                            <h3>Question ${currentQuestion + 1} <span style="color: #6b7280; font-size: 14px;">(${examConfig.sections[currentSection].name})</span></h3>
+                        </div>
+                        
+                        <div class="question-text" id="questionText">
+                            ${questions[currentQuestion].text}
+                        </div>
+                        
+                        <div class="options-container" id="optionsContainer">
+                            ${questions[currentQuestion].options.map((option, index) => `
+                                <div class="option ${userAnswers[currentQuestion] === index ? 'selected' : ''}" onclick="selectOption(${index})">
+                                    <div class="option-label">${String.fromCharCode(65 + index)}</div>
+                                    <div class="option-text">${option}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" onclick="markForReview()">
+                                <i class="fas fa-flag"></i> ${markedQuestions[currentQuestion] ? 'Unmark' : 'Mark for Review'}
+                            </button>
+                            <button class="btn btn-danger" onclick="clearResponse()">
+                                <i class="fas fa-times"></i> Clear Response
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exam-footer">
+                    <div class="nav-buttons desktop-nav">
+                        <button class="btn btn-secondary" onclick="prevQuestion()">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <button class="btn btn-secondary" onclick="nextQuestion()">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="btn btn-secondary" onclick="moveToPreviousSection()" ${currentSection === 0 ? 'disabled' : ''}>
+                            <i class="fas fa-arrow-left"></i> Previous Section
+                        </button>
+                        <button class="btn btn-secondary" onclick="moveToNextSection()" ${currentSection === examConfig.sections.length - 1 ? 'disabled' : ''}>
+                            Next Section <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="submitTest()">
+                        <i class="fas fa-check-circle"></i> Submit Test
+                    </button>
+                </div>
+            `;
+            
+            updateTimerDisplay();
+            updateSectionTimerDisplay();
+        }
+
+        function goToQuestion(index) {
+            currentQuestion = index;
+            currentSection = examConfig.sections.findIndex(s => index >= s.startIndex && index <= s.endIndex);
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const questionNumbers = document.querySelectorAll('.q-number');
+            questionNumbers.forEach((qNum, index) => {
+                qNum.classList.remove('active');
+                if (index === currentQuestion) {
+                    qNum.classList.add('active');
+                }
+                
+                qNum.classList.toggle('answered', userAnswers[index] !== null);
+                qNum.classList.toggle('marked', markedQuestions[index]);
+            });
+            
+            document.getElementById('questionText').textContent = questions[currentQuestion].text;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = questions[currentQuestion].options.map((option, index) => `
+                <div class="option ${userAnswers[currentQuestion] === index ? 'selected' : ''}" onclick="selectOption(${index})">
+                    <div class="option-label">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                </div>
+            `).join('');
+            
+            document.querySelector('.question-area h3').innerHTML = 
+                `Question ${currentQuestion + 1} <span style="color: #6b7280; font-size: 14px;">(${examConfig.sections[currentSection].name})</span>`;
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            renderQuestion();
+        }
+
+        function markForReview() {
+            markedQuestions[currentQuestion] = !markedQuestions[currentQuestion];
+            renderQuestion();
+        }
+
+        function clearResponse() {
+            userAnswers[currentQuestion] = null;
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < examConfig.totalQuestions - 1) {
+                currentQuestion++;
+                renderQuestion();
+            }
+        }
+
+        function submitTest() {
+            clearInterval(timerInterval);
+            clearInterval(sectionTimerInterval);
+            
+            let score = 0;
+            let correctAnswers = 0;
+            let wrongAnswers = 0;
+            let unattempted = 0;
+            
+            userAnswers.forEach((answer, index) => {
+                if (answer !== null) {
+                    if (answer === questions[index].correctAnswer) {
+                        score += examConfig.markingScheme.correct;
+                        correctAnswers++;
+                    } else {
+                        score -= examConfig.markingScheme.wrong;
+                        wrongAnswers++;
+                    }
+                } else {
+                    unattempted++;
+                }
+            });
+            
+            const resultHTML = `
+                <div style="padding: 40px; text-align: center;">
+                    <h2 style="color: var(--primary); margin-bottom: 24px;">Test Submitted Successfully!</h2>
+                    
+                    <div style="max-width: 600px; margin: 0 auto; background: var(--light); padding: 30px; border-radius: 12px;">
+                        <h3 style="margin-bottom: 24px;">Your Test Results</h3>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px;">
+                            <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                                <div style="font-size: 32px; font-weight: bold; color: var(--primary);">${score.toFixed(2)}</div>
+                                <div>Total Score</div>
+                            </div>
+                            <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                                <div style="font-size: 32px; font-weight: bold; color: var(--success);">${correctAnswers}</div>
+                                <div>Correct Answers</div>
+                            </div>
+                            <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                                <div style="font-size: 32px; font-weight: bold; color: var(--danger);">${wrongAnswers}</div>
+                                <div>Wrong Answers</div>
+                            </div>
+                            <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                                <div style="font-size: 32px; font-weight: bold; color: var(--dark);">${unattempted}</div>
+                                <div>Unattempted</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <h4 style="margin-bottom: 16px;">Section-wise Performance</h4>
+                            ${examConfig.sections.map(section => {
+                                const start = section.startIndex;
+                                const end = section.endIndex;
+                                const sectionAnswers = userAnswers.slice(start, end + 1);
+                                const correct = sectionAnswers.filter((answer, idx) => answer === questions[start + idx].correctAnswer).length;
+                                const wrong = sectionAnswers.filter((answer, idx) => answer !== null && answer !== questions[start + idx].correctAnswer).length;
+                                
+                                return `
+                                    <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span><strong>${section.name}</strong></span>
+                                            <span>Correct: ${correct} | Wrong: ${wrong}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        
+                        <div class="button-group">
+                            <button class="btn btn-outline" onclick="window.location.reload()">
+                                <i class="fas fa-redo"></i> Retake Test
+                            </button>
+                            <button class="btn btn-primary" onclick="goBack()">
+                                <i class="fas fa-home"></i> Back to Portal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('examContainer').innerHTML = resultHTML;
+        }
+
+        // Initialize the interface
+        renderExamInterface();
+        updateTimerDisplay();
+        updateSectionTimerDisplay();
+    </script>
+</body>
+</html>
