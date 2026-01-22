@@ -5,45 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MockVibe | UPSC Prelims GS Test</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- Same CSS structure with UPSC colors -->
     <style>
         :root {
-            --primary: #8b5cf6;  /* UPSC purple */
+            --primary: #8b5cf6;
             --primary-dark: #7c3aed;
             --secondary: #ec4899;
-            --danger: #ef4444;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --radius: 10px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
         }
-
         body {
             background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
         }
-
         .test-start-header {
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
         }
-
         .exam-header {
             background: linear-gradient(135deg, #7c3aed, #db2777);
         }
-
-        /* Rest of CSS same as previous exams */
-        /* ... */
     </style>
 </head>
 <body>
-    <!-- Test Start Modal -->
     <div class="test-start-overlay" id="testStartOverlay">
         <div class="test-start-modal">
             <div class="test-start-header">
@@ -123,13 +103,9 @@
         </div>
     </div>
 
-    <!-- Exam Container -->
-    <div class="exam-container" id="examContainer">
-        <!-- Content will be loaded dynamically -->
-    </div>
+    <div class="exam-container" id="examContainer"></div>
 
     <script>
-        // Exam Configuration for UPSC Prelims GS
         const examConfig = {
             id: 'upsc-prelims-gs',
             name: 'UPSC Prelims GS Paper 1',
@@ -137,31 +113,15 @@
             totalTime: 120 * 60,
             totalQuestions: 100,
             markingScheme: { correct: 2, wrong: 0.66 },
-            sections: [
-                {
-                    id: 'mixed',
-                    name: 'General Studies',
-                    time: 120 * 60,
-                    questions: 100,
-                    description: 'History, Geography, Polity, Economy, Science & Technology, Current Affairs'
-                }
-            ],
-            currentSection: 0,
-            currentQuestion: 0,
-            answers: {},
-            marked: new Set(),
-            visited: new Set(),
-            shuffledQuestions: [],
-            testStarted: false,
-            timers: {
-                main: null,
-                section: null,
-                startTime: null,
-                sectionStartTime: null
-            }
+            sections: [{
+                id: 'mixed',
+                name: 'General Studies',
+                time: 120 * 60,
+                questions: 100,
+                description: 'History, Geography, Polity, Economy, Science & Technology, Current Affairs'
+            }]
         };
-
-        // ... (Rest of JavaScript) ...
+        // Rest of JavaScript same as previous exams
     </script>
 </body>
 </html>
