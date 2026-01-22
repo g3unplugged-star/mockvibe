@@ -34,12 +34,19 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.5;
-            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            overflow-y: auto; /* Ensure body is scrollable */
         }
 
         /* Test Start Overlay - FIXED SIZE */
@@ -56,6 +63,7 @@
             z-index: 2000;
             padding: 20px;
             backdrop-filter: blur(5px);
+            overflow-y: auto; /* Make overlay scrollable */
         }
 
         .test-start-modal {
@@ -63,11 +71,13 @@
             border-radius: var(--radius);
             max-width: 800px;
             width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
+            max-height: 85vh; /* Fixed maximum height */
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             border: 2px solid var(--primary);
             animation: modalSlideIn 0.4s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         @keyframes modalSlideIn {
@@ -86,9 +96,7 @@
             color: white;
             padding: 25px 30px;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            flex-shrink: 0; /* Prevent header from shrinking */
         }
 
         .test-start-header h2 {
@@ -108,6 +116,27 @@
 
         .test-start-body {
             padding: 30px;
+            overflow-y: auto; /* Make only body content scrollable */
+            flex: 1; /* Take remaining space */
+        }
+
+        /* Fix for scrollable content inside modal */
+        .test-start-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .test-start-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .test-start-body::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+        
+        .test-start-body::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
         }
 
         .test-instructions {
@@ -202,6 +231,7 @@
             gap: 20px;
             margin-top: 30px;
             flex-wrap: wrap;
+            flex-shrink: 0; /* Prevent buttons from shrinking */
         }
 
         .btn {
@@ -352,7 +382,8 @@
         .test-container {
             display: none;
             grid-template-columns: 280px 1fr;
-            min-height: 100vh;
+            min-height: calc(100vh - 73px); /* Adjust for header height */
+            height: 100%;
             gap: 0;
         }
 
@@ -362,9 +393,9 @@
             border-right: 1px solid var(--border);
             padding: 25px;
             overflow-y: auto;
-            height: 100vh;
+            height: 100%;
             position: sticky;
-            top: 0;
+            top: 73px; /* Header height */
             box-shadow: var(--shadow);
         }
 
@@ -475,6 +506,7 @@
             padding: 30px;
             overflow-y: auto;
             background: var(--bg);
+            height: 100%;
         }
 
         /* Section Info */
@@ -522,6 +554,7 @@
             padding: 30px;
             box-shadow: var(--shadow);
             margin-bottom: 30px;
+            overflow: visible;
         }
 
         .question-header {
@@ -558,6 +591,7 @@
 
         .question-body {
             margin-bottom: 30px;
+            overflow: visible;
         }
 
         .question-text {
@@ -623,6 +657,8 @@
             flex: 1;
             font-size: 1.1rem;
             line-height: 1.6;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         /* Question Actions */
@@ -635,6 +671,7 @@
             border-top: 1px solid var(--border);
             flex-wrap: wrap;
             gap: 20px;
+            clear: both;
         }
 
         .action-group {
@@ -680,16 +717,18 @@
         @media (max-width: 1024px) {
             .test-container {
                 grid-template-columns: 1fr;
+                min-height: calc(100vh - 73px);
             }
             
             .exam-sidebar {
                 position: fixed;
-                top: 0;
+                top: 73px;
                 left: -100%;
                 width: 320px;
-                height: 100vh;
+                height: calc(100vh - 73px);
                 z-index: 100;
                 transition: left 0.3s ease;
+                padding: 20px;
             }
             
             .exam-sidebar.active {
@@ -779,6 +818,10 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .test-start-modal {
+                max-height: 95vh;
+            }
         }
 
         @media (max-width: 480px) {
@@ -788,6 +831,8 @@
             
             .test-start-header h2 {
                 font-size: 1.5rem;
+                flex-direction: column;
+                gap: 8px;
             }
             
             .timer-info-grid {
@@ -811,6 +856,23 @@
             .question-text {
                 font-size: 1.2rem;
             }
+            
+            .exam-header {
+                padding: 12px 15px;
+            }
+            
+            .test-container {
+                min-height: calc(100vh - 60px);
+            }
+        }
+
+        /* Fix for scrolling issues */
+        .no-scroll {
+            overflow: hidden;
+        }
+
+        .scrollable {
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -1116,6 +1178,9 @@
             
             // Setup mobile sidebar
             setupMobileSidebar();
+            
+            // Ensure body is scrollable
+            document.body.classList.add('scrollable');
             
             console.log('Initialized for section:', section);
         }
