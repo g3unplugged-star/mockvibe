@@ -1,1 +1,138 @@
-
+{
+  "exam_name": "SSC CGL Tier 1",
+  "exam_code": "SSC_CGL_T1",
+  "total_marks": 200,
+  "total_time_minutes": 60,
+  "negative_marking": 0.5,
+  "total_questions": 100,
+  "passing_marks": 120,
+  "sections": [
+    {
+      "section_id": "QUANT",
+      "section_name": "Quantitative Aptitude",
+      "description": "Mathematics, Arithmetic, Algebra, Geometry, Trigonometry, Data Interpretation",
+      "total_questions": 25,
+      "marks_per_question": 2,
+      "time_minutes": 25,
+      "topics": [
+        "Number System",
+        "Percentage",
+        "Profit & Loss",
+        "Ratio & Proportion",
+        "Average",
+        "Time & Work",
+        "Time, Speed & Distance",
+        "Simple & Compound Interest",
+        "Algebra",
+        "Geometry",
+        "Mensuration",
+        "Trigonometry",
+        "Data Interpretation"
+      ],
+      "json_file": "previous-papers/ssc-cgl/quant.json",
+      "difficulty_distribution": {
+        "easy": 10,
+        "medium": 10,
+        "hard": 5
+      }
+    },
+    {
+      "section_id": "ENGLISH",
+      "section_name": "English Language",
+      "description": "Vocabulary, Grammar, Comprehension, Error Detection",
+      "total_questions": 25,
+      "marks_per_question": 2,
+      "time_minutes": 20,
+      "topics": [
+        "Vocabulary",
+        "Grammar",
+        "Reading Comprehension",
+        "Error Detection",
+        "Sentence Improvement",
+        "Cloze Test",
+        "Para Jumbles",
+        "Idioms & Phrases"
+      ],
+      "json_file": "previous-papers/ssc-cgl/english.json",
+      "difficulty_distribution": {
+        "easy": 12,
+        "medium": 10,
+        "hard": 3
+      }
+    },
+    {
+      "section_id": "REASONING",
+      "section_name": "General Intelligence & Reasoning",
+      "description": "Logical Reasoning, Analytical Ability, Pattern Recognition",
+      "total_questions": 25,
+      "marks_per_question": 2,
+      "time_minutes": 20,
+      "topics": [
+        "Analogy",
+        "Classification",
+        "Series",
+        "Coding-Decoding",
+        "Blood Relations",
+        "Direction Sense",
+        "Puzzles",
+        "Syllogism",
+        "Venn Diagrams",
+        "Matrix",
+        "Mathematical Operations"
+      ],
+      "json_file": "previous-papers/ssc-cgl/reasoning.json",
+      "difficulty_distribution": {
+        "easy": 10,
+        "medium": 10,
+        "hard": 5
+      }
+    },
+    {
+      "section_id": "GK",
+      "section_name": "General Awareness",
+      "description": "Current Affairs, History, Geography, Polity, Economics, Science",
+      "total_questions": 25,
+      "marks_per_question": 2,
+      "time_minutes": 15,
+      "topics": [
+        "Current Affairs",
+        "History",
+        "Geography",
+        "Indian Polity",
+        "Economics",
+        "General Science",
+        "Sports",
+        "Awards & Honors",
+        "Books & Authors",
+        "Important Dates"
+      ],
+      "json_file": "previous-papers/ssc-cgl/general-awareness.json",
+      "difficulty_distribution": {
+        "easy": 15,
+        "medium": 8,
+        "hard": 2
+      }
+    }
+  ],
+  "exam_pattern": {
+    "mode": "Online",
+    "type": "Multiple Choice Questions",
+    "language": "English & Hindi",
+    "cutoff": {
+      "general": 120,
+      "obc": 115,
+      "sc": 110,
+      "st": 105
+    }
+  },
+  "instructions": [
+    "Total duration: 60 minutes",
+    "Each question carries 2 marks",
+    "Negative marking: 0.5 marks for wrong answers",
+    "No negative marking for unattempted questions",
+    "Use mouse or keyboard to navigate",
+    "Timer will be displayed on screen",
+    "You cannot go back to previous section once submitted"
+  ],
+  "last_updated": "2024-01-21"
+}
