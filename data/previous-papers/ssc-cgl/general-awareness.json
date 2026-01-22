@@ -1,0 +1,30 @@
+{
+  "subject": "General Awareness",
+  "description": "Current Affairs, History, Geography, Polity, Economics, Science, Sports",
+  "questions": [
+    {
+      "id": "GA001",
+      "question": "Who is known as the 'Father of Indian Constitution'?",
+      "options": ["Mahatma Gandhi", "Jawaharlal Nehru", "B.R. Ambedkar", "Sardar Patel"],
+      "correct_answer": "B.R. Ambedkar",
+      "category": "Polity",
+      "year": "2023"
+    },
+    {
+      "id": "GA002",
+      "question": "Which river is known as the 'Ganga of the South'?",
+      "options": ["Godavari", "Krishna", "Kaveri", "Mahanadi"],
+      "correct_answer": "Godavari",
+      "category": "Geography",
+      "year": "2022"
+    },
+    {
+      "id": "GA003",
+      "question": "Who won the 2023 Nobel Peace Prize?",
+      "options": ["Malala Yousafzai", "Narges Mohammadi", "Maria Ressa", "Denis Mukwege"],
+      "correct_answer": "Narges Mohammadi",
+      "category": "Current Affairs",
+      "year": "2023"
+    }
+  ]
+}
