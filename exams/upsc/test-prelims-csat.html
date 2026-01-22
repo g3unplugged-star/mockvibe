@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockVibe | UPSC Prelims CSAT Test</title>
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+        }
+        body {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-start-overlay" id="testStartOverlay">
+        <div class="test-start-modal">
+            <div class="test-start-header">
+                <h2><i class="fas fa-brain"></i> UPSC Prelims CSAT Paper 2</h2>
+                <p>Practice with real CSAT exam pattern</p>
+            </div>
+            
+            <div class="test-start-body">
+                <div class="exam-config">
+                    <div class="config-card">
+                        <div class="config-value">120:00</div>
+                        <div class="config-label">Total Duration</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">80</div>
+                        <div class="config-label">Total Questions</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">+2.5</div>
+                        <div class="config-label">Correct Answer</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">-0.83</div>
+                        <div class="config-label">Wrong Answer</div>
+                    </div>
+                </div>
 
+                <div class="section-info">
+                    <h3><i class="fas fa-layer-group"></i> Section Details</h3>
+                    <div class="sections-grid">
+                        <div class="section-card">
+                            <h4>Reading Comprehension</h4>
+                            <div class="section-meta">30 Questions • 40 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>Logical Reasoning</h4>
+                            <div class="section-meta">30 Questions • 40 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>Basic Numeracy</h4>
+                            <div class="section-meta">20 Questions • 40 Minutes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> Important Instructions</h3>
+                    <ul class="instructions-list">
+                        <li><strong>Duration:</strong> 120 minutes for 80 questions</li>
+                        <li><strong>Marking:</strong> +2.5 for correct, -0.83 for wrong answers</li>
+                        <li><strong>Sections:</strong> 3 sections with suggested time limits</li>
+                        <li><strong>Qualifying Paper:</strong> Minimum 33% marks required (66 marks)</li>
+                        <li><strong>Navigation:</strong> Use question palette or Previous/Next buttons</li>
+                        <li><strong>Review:</strong> Mark questions for later review</li>
+                        <li><strong>Randomization:</strong> Questions appear in random order each attempt</li>
+                        <li><strong>CSAT Focus:</strong> Tests comprehension, reasoning and decision making</li>
+                    </ul>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i> Back to Portal
+                    </button>
+                    <button class="btn btn-primary" onclick="startTest()">
+                        <i class="fas fa-play"></i> Start Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="exam-container" id="examContainer"></div>
+
+    <script>
+        const examConfig = {
+            id: 'upsc-prelims-csat',
+            name: 'UPSC Prelims CSAT Paper 2',
+            category: 'upsc',
+            totalTime: 120 * 60,
+            totalQuestions: 80,
+            markingScheme: { correct: 2.5, wrong: 0.83 },
+            sections: [
+                {
+                    id: 'comprehension',
+                    name: 'Reading Comprehension',
+                    time: 40 * 60,
+                    questions: 30,
+                    description: 'Passages, Comprehension, Inference, Decision Making'
+                },
+                {
+                    id: 'reasoning',
+                    name: 'Logical Reasoning',
+                    time: 40 * 60,
+                    questions: 30,
+                    description: 'Logical Reasoning, Analytical Ability, Data Interpretation'
+                },
+                {
+                    id: 'numeracy',
+                    name: 'Basic Numeracy',
+                    time: 40 * 60,
+                    questions: 20,
+                    description: 'Numbers, Algebra, Geometry, Statistics'
+                }
+            ]
+        };
+    </script>
+</body>
+</html>
