@@ -1,0 +1,18 @@
+// URL parameter handling
+const params = new URLSearchParams(window.location.search);
+const config = {
+    testId: params.get('test'),
+    section: params.get('section'),
+    difficulty: params.get('difficulty'),
+    topic: params.get('topic'),
+    exam: params.get('exam')
+};
+
+// Load appropriate test
+if (config.testId) {
+    loadTestById(config.testId);
+} else if (config.exam && config.section) {
+    loadExamSectionTest(config.exam, config.section);
+} else if (config.topic && config.difficulty) {
+    loadTopicTest(config.topic, config.difficulty);
+}
