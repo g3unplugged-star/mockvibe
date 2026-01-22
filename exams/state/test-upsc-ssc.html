@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockVibe | UPSC SSC Combined Test</title>
+    
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --secondary: #f97316;
+        }
+        body {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-start-overlay" id="testStartOverlay">
+        <div class="test-start-modal">
+            <div class="test-start-header">
+                <h2><i class="fas fa-map-pin"></i> UPSC SSC Combined Exam</h2>
+                <p>Practice with real UPSC SSC exam pattern</p>
+            </div>
+            
+            <div class="test-start-body">
+                <div class="exam-config">
+                    <div class="config-card">
+                        <div class="config-value">120:00</div>
+                        <div class="config-label">Total Duration</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">150</div>
+                        <div class="config-label">Total Questions</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">+2</div>
+                        <div class="config-label">Correct Answer</div>
+                    </div>
+                    <div class="config-card">
+                        <div class="config-value">-0.5</div>
+                        <div class="config-label">Wrong Answer</div>
+                    </div>
+                </div>
 
+                <div class="section-info">
+                    <h3><i class="fas fa-layer-group"></i> Section Details</h3>
+                    <div class="sections-grid">
+                        <div class="section-card">
+                            <h4>General Knowledge</h4>
+                            <div class="section-meta">50 Questions • 40 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>English Language</h4>
+                            <div class="section-meta">50 Questions • 40 Minutes</div>
+                        </div>
+                        <div class="section-card">
+                            <h4>Elementary Mathematics</h4>
+                            <div class="section-meta">50 Questions • 40 Minutes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> Important Instructions</h3>
+                    <ul class="instructions-list">
+                        <li><strong>Duration:</strong> 120 minutes for 150 questions</li>
+                        <li><strong>Marking:</strong> +2 for correct, -0.5 for wrong answers</li>
+                        <li><strong>Sections:</strong> 3 sections with separate time limits</li>
+                        <li><strong>Level:</strong> 10th/12th standard level questions</li>
+                        <li><strong>Navigation:</strong> Use question palette or Previous/Next buttons</li>
+                        <li><strong>Review:</strong> Mark questions for later review</li>
+                        <li><strong>Randomization:</strong> Questions appear in random order each attempt</li>
+                        <li><strong>State Specific:</strong> Questions specific to state requirements</li>
+                    </ul>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i> Back to Portal
+                    </button>
+                    <button class="btn btn-primary" onclick="startTest()">
+                        <i class="fas fa-play"></i> Start Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="exam-container" id="examContainer"></div>
+
+    <script>
+        const examConfig = {
+            id: 'upsc-ssc',
+            name: 'UPSC SSC Combined Exam',
+            category: 'state',
+            totalTime: 120 * 60,
+            totalQuestions: 150,
+            markingScheme: { correct: 2, wrong: 0.5 },
+            sections: [
+                {
+                    id: 'gk',
+                    name: 'General Knowledge',
+                    time: 40 * 60,
+                    questions: 50,
+                    description: 'Current Affairs, History, Geography, Polity, Science'
+                },
+                {
+                    id: 'english',
+                    name: 'English Language',
+                    time: 40 * 60,
+                    questions: 50,
+                    description: 'Grammar, Vocabulary, Comprehension, Error Detection'
+                },
+                {
+                    id: 'maths',
+                    name: 'Elementary Mathematics',
+                    time: 40 * 60,
+                    questions: 50,
+                    description: 'Arithmetic, Algebra, Geometry, Statistics'
+                }
+            ]
+        };
+    </script>
+</body>
+</html>
