@@ -1594,7 +1594,8 @@ body::before {
 </button>
 
 <style>
-/* Dropdown menu styles for exam cards */
+<!-- Add this to your <style> section, replacing the existing .dropdown styles: -->
+/* Accessible Dropdown Menu */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -1630,10 +1631,13 @@ body::before {
   border-bottom: none;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover,
+.dropdown-content a:focus {
   background: var(--bg);
   color: var(--primary);
   padding-left: 20px;
+  outline: 2px solid var(--primary-light);
+  outline-offset: -2px;
 }
 
 .dropdown-content a i {
@@ -1642,9 +1646,21 @@ body::before {
   color: var(--primary-light);
 }
 
-.exam-card:hover .dropdown-content {
+/* Show dropdown on hover AND focus for keyboard users */
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
   display: block;
   animation: slideDown 0.3s ease;
+}
+
+/* Make the main button focusable */
+.dropdown .start-btn {
+  position: relative;
+}
+
+.dropdown .start-btn:focus {
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 2px;
 }
 
 @keyframes slideDown {
